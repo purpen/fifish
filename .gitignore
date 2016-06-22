@@ -1,0 +1,14 @@
+/public/storage
+Homestead.yaml
+Homestead.json
+/vendor
+/node_modules
+/public/assets
+/public/build
+.env
+*.swp
+.DS_Store
+.idea/
+bootstrap/cache
+storage
+composer.lock
