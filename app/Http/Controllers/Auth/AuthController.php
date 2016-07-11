@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Http\Models\UserModel;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -38,6 +38,26 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    }
+
+    /**
+     * 登录页
+     *
+     * @return view
+     */
+    public function login()
+    {
+        return view('home/auth.login');
+    }
+
+    /**
+     * 注册页
+     *
+     * @return view
+     */
+    public function register()
+    {
+        return view('home/auth.register');
     }
 
     /**

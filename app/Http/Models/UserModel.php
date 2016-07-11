@@ -1,18 +1,28 @@
 <?php
 
-namespace App;
+namespace App\Http\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class UserModel extends Model
 {
+    use Authenticatable;
+
+    /**
+     * 关联到模型的数据表
+     *
+     * @var string
+     */
+    protected $table = 'users';
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'account', 'phone', 'email', 'realname', 'position', 'nickname', 'summary', 'sex',
     ];
 
     /**

@@ -4,6 +4,9 @@ Homestead.json
 /vendor
 /node_modules
 /public/assets
+/public/css
+/public/js
+/public/fonts
 /public/build
 .env
 *.swp
