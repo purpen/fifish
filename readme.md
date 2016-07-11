@@ -1,27 +1,67 @@
-# Laravel PHP Framework
+# 深海鱼 Fifish
+----简介-----
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+###运行环境要求
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+* PHP >= 5.5.9
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Mbstring PHP Extension
+* Tokenizer PHP Extension
 
-## Official Documentation
+建议环境：Nginx 1.10 / PHP 5.6 / MariaDB 10.1(Mysql 5.6) / Laravel 5.1
+使用说明：[英文文档](https://laravel.com/docs/5.1)；[中文文档](http://laravel-china.org/docs/5.1)。
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+###安装使用
 
-## Contributing
+#####第一步：安装composer包管理器
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+访问[composer](http://pkg.phpcomposer.com/)，根据文档说明安装composer。
+    
+#####第二步：开发环境生成ssh公钥。
 
-## Security Vulnerabilities
+```
+ssh-keygen -t rsa -C "your email!"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+#####第三步：克隆fifish代码
 
-## License
+```
+git clone git@github.com:purpen/fifish.git
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+#####第四步：composer安装框架文件
+
+```
+composer install
+```
+
+######Remark
+* 安装 Laravel 之后，需要你配置 **storage** 和 **bootstrap/cache** 目录的读写(777)权限。
+
+```
+sudo chmod -R 777 storage 
+```
+```
+sudo chmod -R 777 bootstrap/cache
+```
+
+* 安装 Laravel 之后，一般应用程序根目录会有一个 **.env** 的文件。如果没有的话，复制 **.env.example** 并重命名为 **.env** 。
+
+```
+php -r "copy('.env.example', '.env');"
+```
+
+* 更新系统秘钥
+```
+php artisan key:generate
+```
+* 重新加载插件
+```
+composer dump-autoload
+```
+* 自定义函数库和类库目录
+```
+app/helper.php和app/Libraries/
+```
