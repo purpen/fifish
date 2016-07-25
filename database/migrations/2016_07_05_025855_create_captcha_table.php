@@ -31,6 +31,6 @@ class CreateCaptchaTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('captcha');
     }
 }

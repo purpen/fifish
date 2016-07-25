@@ -24,7 +24,10 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.less('base.less')
+        .version('public/css/base.css');
+    mix.less('app.less')
+        .version('public/css/app.css');
 });
 
 elixir(function(mix) {

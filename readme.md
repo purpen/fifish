@@ -65,3 +65,15 @@ composer dump-autoload
 ```
 app/helper.php和app/Libraries/
 ```
+
+######数据库
+* 创建数据库 fifish
+
+######基本配置
+nginx加上优雅链接:
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+

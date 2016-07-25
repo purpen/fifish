@@ -4,7 +4,8 @@
 
 @section('content')
     @parent
-
-    <h3>这是登录页</h3>
+    <h3>现在登录</h3>
+    
+    
 @endsection
 
