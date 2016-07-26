@@ -13,14 +13,13 @@
 
 
 Route::get('/', 'HomeController@index');
-
+Route::get('/home', 'HomeController@index');
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
 
 
 
@@ -32,6 +31,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
     Route::get('/', 'BoardController@index');
     
+    Route::resource('stuff', 'StuffController');
     Route::resource('asset', 'AssetController');
     
 });
