@@ -116,7 +116,7 @@ class FeedbackController extends BaseController
      */
     public function finfished ($id)
     {
-        $state = 4;
+        $state = Feedback::STATE_FINFISHED;
         return $this->updateState($id, $state);
     }
     
@@ -128,8 +128,13 @@ class FeedbackController extends BaseController
     {
         $feedback = Feedback::find($id);
         $feedback->state = (int)$state;
-        $feedback->save();
+        $ok = $feedback->save();
         
-        return $this->response->array(ApiHelper::response([], '操作成功'));
+        if ($ok) {
+            return $this->response->array(ApiHelper::response([], '操作成功'));
+        } else {
+            return $this->response->error('操作失败', 501);
+        }
+        
     }
 }

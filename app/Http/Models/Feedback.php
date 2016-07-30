@@ -27,4 +27,7 @@ class Feedback extends Model
      */
     protected $guarded = ['state'];
     
+    
+    const STATE_FINFISHED = 4;
+    
 }

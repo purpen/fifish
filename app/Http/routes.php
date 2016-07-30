@@ -48,7 +48,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/login', [
         'as' => 'auth.login', 'uses' => 'AuthenticateController@login'
     ]);
-        
+    // 更新用户Token
+    $api->post('auth/upToken', [
+        'as' => 'auth.upToken', 'uses' => 'AuthenticateController@upToken'
+    ]);
+    
     $api->get('auth/getAuthUser', [
         'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
     ]);
@@ -66,17 +70,16 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'feedback.finfished', 'uses' => 'FeedbackController@finfished'
     ]);
     
+    $api->get('user/{id}', [
+        'as' => 'user', 'uses' => 'UserController@profile'
+    ])->where(['id' => '[0-9]+']);
+    
     // middleware: ['jwt.auth','jwt.refresh']
     $api->group(['middleware' => ''], function($api) {
-        $api->get('user/{id}', [
-            'as' => 'user', 'uses' => 'UserController@showProfile'
-        ])->where(['id' => '[0-9]+']);
         
         $api->get('user/profile', [
-            'as' => 'user.profile', 'uses' => 'UserController@showProfile'
+            'as' => 'user.profile', 'uses' => 'UserController@profile'
         ]);
-        
-        
         
     });
     
