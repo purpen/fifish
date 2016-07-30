@@ -53,7 +53,21 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
     ]);
     
-    $api->group(['middleware' => ['jwt.auth', 'jwt.refresh']], function($api) {
+    // 反馈意见列表
+    $api->get('feedback/{state?}', [
+        'as' => 'feedback.getlist', 'uses' => 'FeedbackController@getList'
+    ])->where(['state' => '[0-9]+']);
+    // 提交反馈意见
+    $api->post('feedback/submit', [
+        'as' => 'feedback.submit', 'uses' => 'FeedbackController@submited'
+    ]);
+    // 完成反馈意见状态
+    $api->put('feedback/finfished/{id}', [
+        'as' => 'feedback.finfished', 'uses' => 'FeedbackController@finfished'
+    ]);
+    
+    // middleware: ['jwt.auth','jwt.refresh']
+    $api->group(['middleware' => ''], function($api) {
         $api->get('user/{id}', [
             'as' => 'user', 'uses' => 'UserController@showProfile'
         ])->where(['id' => '[0-9]+']);
@@ -61,7 +75,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->get('user/profile', [
             'as' => 'user.profile', 'uses' => 'UserController@showProfile'
         ]);
-            
+        
+        
         
     });
     
