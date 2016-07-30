@@ -14,11 +14,9 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+Route::auth();
 
-
+Route::get('/home', 'HomeController@index');
 
 
 
@@ -34,6 +32,48 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
 });
 
-Route::auth();
+/**
+ * Api 路由
+ */
+$api = app('Dingo\Api\Routing\Router');
 
-Route::get('/home', 'HomeController@index');
+// V1版本，公有接口
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
+    
+    // 用户注册
+    $api->post('auth/register', [
+        'as' => 'auth.register', 'uses' => 'AuthenticateController@register'
+    ]);
+    // 用户登录验证并返回Token
+    $api->post('auth/login', [
+        'as' => 'auth.login', 'uses' => 'AuthenticateController@login'
+    ]);
+        
+    $api->get('auth/getAuthUser', [
+        'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
+    ]);
+    
+    $api->group(['middleware' => ['jwt.auth', 'jwt.refresh']], function($api) {
+        $api->get('user/{id}', [
+            'as' => 'user', 'uses' => 'UserController@showProfile'
+        ])->where(['id' => '[0-9]+']);
+        
+        $api->get('user/profile', [
+            'as' => 'user.profile', 'uses' => 'UserController@showProfile'
+        ]);
+            
+        
+    });
+    
+    // $api->get('user/fans', [
+    //     'as' => 'user.fans', 'uses' => 'UserController@fans'
+    // ]);
+    
+});
+
+// // 私有接口
+// $api->version('v1', ['protected' => true], function ($api) {
+//
+// });
+
+
