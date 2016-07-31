@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Http\Models\User;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -11,10 +13,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-           'account' => str_random(100).'@taihuoniao.com',
-           'password' => sha1(str_random(40).'-tag'),
-           'nickname' => str_random(100).'_ok', 
+        User::create([
+           'username' => 'purpen',
+           'account'  => 'purpen.w@gmail.com',
+           'password' => bcrypt('456321')
         ]);
     }
 }

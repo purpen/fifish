@@ -5,36 +5,42 @@ namespace App\Http;
 class ApiHelper
 {
     /**
-     * 响应助手
-     * @param $data 响应数据
+     * 响应正确信息
      * @param string $message 响应提示信息
-     * @param string $status 响应状态
      * @param int $code 响应状态码
-     * @return \Illuminate\Http\JsonResponse josn数据
+     * @param $data 响应数据
+     *
+     * @return Array
      */
-    static public function response($data, $message='', $status='success', $code=200)
+    static public function success($message='Success.', $status_code=200, $data=array())
     {
-        return [
-            'status' => $status,
-            'code' => $code,
+        $result['meta'] = array(
             'message' => $message,
-            'data' => $data,
-        ];
+            'status_code' => $status_code
+        );
+        
+        if (!empty($data)) {
+            $result['data'] = $data;
+        }
+        
+        return $result;
     }
-
+    
     /**
-     * 元数据数组
-     * @param string $message
-     * @param string $status
-     * @param int $code
-     * @return array
+     * 响应错误信息
+     * @param string $message 响应提示信息
+     * @param int $code 响应状态码
+     *
+     * @return Array
      */
-    static public function metaArray($message='', $status='success', $code=200)
+    static public function error($message='Error!', $status_code=200)
     {
-        return [
-            'status' => $status,
-            'code' => $code,
+        $result['meta'] = array(
             'message' => $message,
-        ];
+            'status_code' => $status_code
+        );
+        
+        return $result;
     }
+    
 }

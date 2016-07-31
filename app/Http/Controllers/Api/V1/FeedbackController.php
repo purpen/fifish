@@ -54,10 +54,10 @@ class FeedbackController extends BaseController
         $state = (int)$state;
         if ($state != 0) {
             $feedbacks = Feedback::where('state', $state)->orderBy('created_at', 'desc')->paginate(20);
-            return $this->response->paginator($feedbacks, new FeedbackTransformer())->setMeta(ApiHelper::metaArray('获取反馈信息列表成功'));
+            return $this->response->paginator($feedbacks, new FeedbackTransformer());
         } else {
             $feedbacks = Feedback::orderBy('created_at', 'desc')->paginate(20);
-            return $this->response->paginator($feedbacks, new FeedbackTransformer())->setMeta(ApiHelper::metaArray('获取反馈信息列表成功'));
+            return $this->response->paginator($feedbacks, new FeedbackTransformer());
         }
     }
     
@@ -92,7 +92,7 @@ class FeedbackController extends BaseController
     {
         $feedback = Feedback::create($request->only(['contact', 'content'])); 
         if ($feedback) {
-            return $this->response->item($feedback, new FeedbackTransformer())->setMeta(ApiHelper::metaArray('提交反馈信息成功'));
+            return $this->response->item($feedback, new FeedbackTransformer());
         } else {
             return $this->response->error('提交反馈信息失败', 501);
         }
@@ -131,7 +131,7 @@ class FeedbackController extends BaseController
         $ok = $feedback->save();
         
         if ($ok) {
-            return $this->response->array(ApiHelper::response([], '操作成功'));
+            return $this->response->array(ApiHelper::success());
         } else {
             return $this->response->error('操作失败', 501);
         }

@@ -40,7 +40,17 @@ return [
     */
 
     'url' => env('APP_URL', 'http://fifish.me'),
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Static Asset URL
+    |--------------------------------------------------------------------------
+    |
+    */
 
+    'static_url' => env('APP_STATIC_URL', 'http://static.fifish.me'),
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -163,6 +173,16 @@ return [
          */
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        
+        /**
+         * Html & Form 
+         */
+        Collective\Html\HtmlServiceProvider::class,
+        
+        /**
+         * Image upload
+         */
+        Matriphe\Imageupload\ImageuploadServiceProvider::class,
     ],
 
     /*
@@ -213,6 +233,13 @@ return [
          */
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        
+        'Form'  => Collective\Html\FormFacade::class,
+        'HTML'  => Collective\Html\HtmlFacade::class,
+        /**
+         * Image upload
+         */
+        'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
     ],
 
 ];

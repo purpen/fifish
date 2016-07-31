@@ -18,7 +18,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-
+Route::get('/avatar', [
+    'as' => 'avatar', 'uses' => 'HomeController@avatar'
+]);
 
 /**
  * 后台管理的路由组
@@ -74,12 +76,21 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'user', 'uses' => 'UserController@profile'
     ])->where(['id' => '[0-9]+']);
     
+    // 更新用户资料
+    $api->post('user/{id}/settings', [
+        'as' => 'user.settings', 'uses' => 'UserController@settings'
+    ])->where(['id' => '[0-9]+']);
+    // 获取个人信息
+    $api->get('user/{id}/profile', [
+        'as' => 'user.profile', 'uses' => 'UserController@profile'
+    ]);
+    // 上传头像
+    $api->post('user/{id}/avatar', [
+        'as' => 'user.avatar', 'uses' => 'UserController@avatar'
+    ])->where(['id' => '[0-9]+']);
+    
     // middleware: ['jwt.auth','jwt.refresh']
     $api->group(['middleware' => ''], function($api) {
-        
-        $api->get('user/profile', [
-            'as' => 'user.profile', 'uses' => 'UserController@profile'
-        ]);
         
     });
     

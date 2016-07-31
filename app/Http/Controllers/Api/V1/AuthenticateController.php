@@ -51,7 +51,7 @@ class AuthenticateController extends BaseController
         ]);
         
         if ($res) {
-            return $this->response->array(ApiHelper::metaArray('注册成功！'));
+            return $this->response->array(ApiHelper::success());
         } else {
             return $this->response->error('注册失败，请重试！', 412);
         }
@@ -75,7 +75,6 @@ class AuthenticateController extends BaseController
      * 
      * @apiSuccessExample 成功响应:
      * {
-     *     "status": "success",
      *     "code": 200,
      *     "message": "登录成功！",
      *     "data": {
@@ -97,7 +96,7 @@ class AuthenticateController extends BaseController
         }
         
         // return the token
-        return $this->response->array(ApiHelper::response(compact('token'), '登录成功！'));
+        return $this->response->array(ApiHelper::success('登录成功！', 200, compact('token')));
     }
     
     /**
@@ -109,7 +108,6 @@ class AuthenticateController extends BaseController
      * 
      * @apiSuccessExample 成功响应:
      * {
-     *     "status": "success",
      *     "code": 200,
      *     "message": "更新Token成功！",
      *     "data": {
@@ -120,7 +118,7 @@ class AuthenticateController extends BaseController
     public function upToken()
     {
         $token = JWTAuth::refresh();
-        return $this->response->array(ApiHelper::response(compact('token'), '更新Token成功！'));
+        return $this->response->array(ApiHelper::success('更新Token成功！', 200, compact('token')));
     }
     
     
