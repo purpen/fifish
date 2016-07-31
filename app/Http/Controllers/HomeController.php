@@ -26,4 +26,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    
+    
+    public function avatar()
+    {
+        echo config('app.url');
+            
+        return view('avatar');
+    }
 }

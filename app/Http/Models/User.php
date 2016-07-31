@@ -33,5 +33,26 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
+    /**
+     * 获取用户分享列表
+     *
+     * Defines a one-to-many relationship.
+     * @see http://laravel.com/docs/eloquent#one-to-many
+     */
+    public function stuffs()
+    {
+        return $this->hasMany('Stuff');
+    }
+    
+    /**
+     * 获取发表的评论列表
+     *
+     * Defines a one-to-many relationship.
+     * @see http://laravel.com/docs/eloquent#one-to-many
+     */
+    public function comments()
+    {
+        return $this->hasMany('Comment');
+    }
     
 }

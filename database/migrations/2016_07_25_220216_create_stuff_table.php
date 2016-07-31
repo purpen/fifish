@@ -20,7 +20,7 @@ class CreateStuffTable extends Migration
                 
                 // 关联附件Id
                 $table->integer('asset_id');
-                $table->text('description');
+                $table->text('content');
                 $table->string('tags');
                 
                 // 推荐状态
