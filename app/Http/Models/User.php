@@ -23,14 +23,21 @@ class User extends Authenticatable
     protected $fillable = [
         'account', 'username', 'password', 'email', 'phone', 'summary',
     ];
-
+    
+    /**
+     * 在数组中显示的属性
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'username', 'summary'];
+        
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'role_id', 'from_site', 'status', 'created_at'
     ];
     
     /**

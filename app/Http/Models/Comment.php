@@ -29,6 +29,13 @@ class Comment extends Model
     protected $touches = ['stuff'];
     
     /**
+     * 可以被批量赋值的属性.
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id', 'target_id', 'content', 'type'];
+    
+    /**
      * 获取所属的分享
      *
      * Defines an inverse one-to-many relationship.

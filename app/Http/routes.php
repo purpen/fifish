@@ -78,7 +78,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.show', 'uses' => 'StuffController@show'
     ])->where(['id' => '[0-9]+']);
       
-    $api->get('stuffs/store', [
+    $api->post('stuffs/store', [
         'as' => 'stuffs.store', 'uses' => 'StuffController@store'
     ]);
     

@@ -27,6 +27,21 @@ class ApiHelper
     }
     
     /**
+     * 保持返回json格式一致
+     * @param string $message 响应提示信息
+     * @param int $code 响应状态码
+     *
+     * @return Array
+     */
+    static public function meta($message='Success.', $status_code=200)
+    {
+        return [
+            'message' => $message,
+            'status_code' => $status_code
+        ];
+    }
+    
+    /**
      * 响应错误信息
      * @param string $message 响应提示信息
      * @param int $code 响应状态码

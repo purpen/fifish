@@ -15,4 +15,10 @@ class BaseController extends Controller
     // 接口帮助调用
     use Helpers;
     
+    // 默认页数
+    public $page = 1;
+    
+    // 默认每页数量
+    public $per_page = 10;
+    
 }

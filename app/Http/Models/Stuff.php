@@ -24,6 +24,20 @@ class Stuff extends Model
     protected $table = 'stuffs';
     
     /**
+     * 可以被批量赋值的属性.
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id', 'asset_id', 'content', 'tags'];
+    
+    /**
+     * 不能被批量赋值的属性
+     *
+     * @var array
+     */
+    protected $guarded = ['sticked', 'featured'];
+    
+    /**
      * 获取分享用户
      *
      * Defines an inverse one-to-many relationship.
@@ -31,7 +45,7 @@ class Stuff extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Http\Models\User');
     }
     
     /**
