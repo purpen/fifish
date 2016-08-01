@@ -34,6 +34,14 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
 });
 
+
+/**
+ * Api doc 文档
+ */
+Route::get('apidoc', function () {
+    return view('admin.apidoc');
+});
+
 /**
  * Api 路由
  */
@@ -58,6 +66,39 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('auth/getAuthUser', [
         'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
     ]);
+    
+    /**
+     * 分享相关路由
+     */    
+    $api->get('stuffs', [
+        'as' => 'stuffs', 'uses' => 'StuffController@getList'
+    ]);
+        
+    $api->get('stuffs/{id}', [
+        'as' => 'stuffs.show', 'uses' => 'StuffController@show'
+    ])->where(['id' => '[0-9]+']);
+      
+    $api->get('stuffs/store', [
+        'as' => 'stuffs.store', 'uses' => 'StuffController@store'
+    ]);
+    
+    $api->put('stuffs/{id}/update', [
+        'as' => 'stuffs.update', 'uses' => 'StuffController@update'
+    ]);
+        
+    $api->put('stuffs/{id}/destroy', [
+        'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
+    ]);
+    
+    // 发表回复
+    $api->post('stuffs/postComment', [
+        'as' => 'stuffs.postComment', 'uses' => 'StuffController@postComment'
+    ]);
+    // 删除回复
+    $api->post('stuffs/destoryComment', [
+        'as' => 'stuffs.destoryComment', 'uses' => 'StuffController@destoryComment'
+    ]);
+    
     
     // 反馈意见列表
     $api->get('feedback/{state?}', [

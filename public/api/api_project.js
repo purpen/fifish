@@ -1,0 +1,1 @@
+define({  "name": "Fifish API文档",  "version": "1.0.0",  "description": "",  "title": "Fifish API文档",  "url": "http://www.fifish.com/api",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-08-01T07:58:18.447Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }});
