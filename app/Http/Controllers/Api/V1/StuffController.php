@@ -11,8 +11,11 @@ use App\Http\ApiHelper;
 
 use Log;
 use Illuminate\Http\Request;
+
 use Dingo\Api\Exception as DingoException;
-    
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Exceptions as ApiExceptions;
+
 class StuffController extends BaseController
 {   
     /**
@@ -129,7 +132,7 @@ class StuffController extends BaseController
         $stuff = Stuff::find($id);
         
         if (!$stuff) {
-            return $this->response->array(ApiHelper::error('Not Found!', 404));
+            throw new ApiExceptions\NotFoundException(404, '该记录不存在或被删除！');
         }
         
         // 查看次数+1
@@ -162,7 +165,6 @@ class StuffController extends BaseController
      */
     public function store(Request $request)
     {
-        $user_id = 1;
         // 验证规则
         $rules = [
             'content'  => ['required', 'min:5'],
@@ -176,26 +178,22 @@ class StuffController extends BaseController
         $validator = app('validator')->make($request->only(['content', 'asset_id']), $rules, $messages);
         // 验证格式
         if ($validator->fails()) {
-            throw new DingoException\ValidationHttpException('验证失败.', $validator->errors());
+            throw new ApiExceptions\ValidationException('验证格式出错！', $validator->errors());
         }
         
-        try {
-            // 完善数据
-            $somedata = $request->all();
-            $somedata['user_id'] = $user_id;
-            
-            // 保存数据
-            $stuff = new Stuff();
-            $stuff->fill($somedata);
-            $res = $stuff->save();
-            
-            Log::debug('Stuff save ok!');
-            
-            if (!$res) {
-                throw new DingoException\StoreResourceFailedException('提交失败.', 501);
-            }
-        } catch (DingoException\StoreResourceFailedException $e) {
-            return $this->response->array(ApiHelper::error('提交出错', 501));
+        // 完善数据
+        $somedata = $request->all();
+        $somedata['user_id'] = $this->auth_user_id;
+        
+        // 保存数据
+        $stuff = new Stuff();
+        $stuff->fill($somedata);
+        $res = $stuff->save();
+        
+        Log::debug('Stuff save ok!');
+        
+        if (!$res) {
+            throw new ApiExceptions\StoreFailedException(501, '提交失败.');
         }
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
@@ -210,19 +208,30 @@ class StuffController extends BaseController
      *
      * @apiSuccessExample 成功响应:
      * {
-     *  "data": [
-     *      
-     *  ],
      *  "meta": {
-     *    "status": "success",
      *    "code": 200,
-     *    "message": "获取成功",
+     *    "message": "Success.",
      *  }
      * }
      */
     public function update(Request $request, $id)
-    {
+    {        
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, '该记录不存在或被删除！');
+        }
         
+        $somedata = $request->all();
+        $somedata['user_id'] = $this->auth_user_id;
+        
+        $stuff->fill($somedata);
+        $res = $stuff->save();
+        
+        if (!$res) {
+            return $this->response->array(ApiHelper::error('更新失败!', 501));
+        }
+        
+        return $this->response->array(ApiHelper::success());
     }
     
     /**
@@ -234,19 +243,28 @@ class StuffController extends BaseController
      *
      * @apiSuccessExample 成功响应:
      * {
-     *  "data": [
-     *
-     *  ],
      *  "meta": {
-     *    "status": "success",
      *    "code": 200,
-     *    "message": "获取成功",
+     *    "message": "Success.",
      *  }
      * }
      */
     public function destroy($id)
     {
-        //
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, '该记录不存在或被删除！');
+        }
+        
+        // 判断是否有删除权限
+        if ($stuff->user_id != $this->auth_user_id) {
+            throw new ApiExceptions\ValidationException('没有权限删除此记录！');
+        }
+        
+        // 执行删除操作
+        $res = $stuff->delete();
+        
+        return $this->response->array(ApiHelper::success());
     }
     
     

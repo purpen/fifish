@@ -3,12 +3,17 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use Dingo\Api\Exception\ResourceException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+
+use App\Exceptions\NotFoundException;
+use App\Exceptions\AuthorizationException;
+use App\Exceptions\ValidationException;
+    
 class Handler extends ExceptionHandler
 {
     /**
@@ -45,6 +50,60 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof AuthorizationException) {
+            $message  = $e->getMessage() ?: '您没有权限操作';
+            $code     = $e->getCode() ?: 401;
+            
+            return \Response::make(array(
+               'meta' => array(
+                   'message' => $message,
+                   'status_code' => $code
+               ) 
+            ), 200);
+        }
+        
+        if ($e instanceof NotFoundException) {
+            $message  = $e->getMessage() ?: '访问记录不存在或被删除';
+            $code     = $e->getCode() ?: 404;
+            
+            return \Response::make(array(
+               'meta' => array(
+                   'message' => $message,
+                   'status_code' => $code
+               ) 
+            ), 200);
+        }
+        
+        if ($e instanceof ValidationException) {
+            $message  = $e->getMessage() ?: '访问记录不存在或被删除';
+            $code     = $e->getCode() ?: 422;
+            $errors   = $e->getErrors();
+            
+            return \Response::make(array(
+               'meta' => array(
+                   'message' => $message,
+                   'status_code' => $code,
+                   'errors' => $errors
+               ) 
+            ), 200);
+        }
+        
+        if ($e instanceof JWTException) {
+            $message  = $e->getMessage() ?: 'token_invalid';
+            $code     = $e->getCode() ?: 500;
+            return \Response::make(array(
+               'meta' => array(
+                   'message' => $message,
+                   'status_code' => $code
+               ) 
+            ), 200);
+        }
+        
+        // if($e instanceof \Symfony\Component\Debug\Exception\FatalErrorException
+        //         && !config('app.debug')) {
+        //     return response()->view('errors.default', [], 500);
+        // }
+        
         return parent::render($request, $e);
     }
 }

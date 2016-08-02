@@ -18,10 +18,6 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/avatar', [
-    'as' => 'avatar', 'uses' => 'HomeController@avatar'
-]);
-
 /**
  * 后台管理的路由组
  */
@@ -43,6 +39,14 @@ Route::get('apidoc', function () {
 });
 
 /**
+ * 注册自定义
+ */
+app('Dingo\Api\Exception\Handler')->register(function (Exception $exception) {
+    $request = Illuminate\Http\Request::capture();
+    return app('App\Exceptions\Handler')->render($request, $exception);
+});
+
+/**
  * Api 路由
  */
 $api = app('Dingo\Api\Routing\Router');
@@ -58,6 +62,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/login', [
         'as' => 'auth.login', 'uses' => 'AuthenticateController@login'
     ]);
+    $api->post('auth/authenticate', [
+        'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
+    ]);
+    
     // 更新用户Token
     $api->post('auth/upToken', [
         'as' => 'auth.upToken', 'uses' => 'AuthenticateController@upToken'
@@ -82,13 +90,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.store', 'uses' => 'StuffController@store'
     ]);
     
-    $api->put('stuffs/{id}/update', [
-        'as' => 'stuffs.update', 'uses' => 'StuffController@update'
-    ]);
+    
         
     $api->put('stuffs/{id}/destroy', [
         'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
-    ]);
+    ])->where(['id' => '[0-9]+']);
     
     // 发表回复
     $api->post('stuffs/postComment', [
@@ -129,10 +135,12 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('user/{id}/avatar', [
         'as' => 'user.avatar', 'uses' => 'UserController@avatar'
     ])->where(['id' => '[0-9]+']);
-    
+            
     // middleware: ['jwt.auth','jwt.refresh']
-    $api->group(['middleware' => ''], function($api) {
-        
+    $api->group(['middleware' => ['jwt.auth']], function($api) {
+        $api->put('stuffs/{id}/update', [
+            'as' => 'stuffs.update', 'uses' => 'StuffController@update'
+        ])->where(['id' => '[0-9]+']);
     });
     
     // $api->get('user/fans', [

@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Request;
-use Dingo\Api\Exception as DingoException;
 
 use App\Http\ApiHelper;
 use App\Http\Models\User;
+use App\Exceptions as ApiExceptions;
 
 class AuthenticateController extends BaseController
 {
@@ -41,7 +41,7 @@ class AuthenticateController extends BaseController
         
         // 验证格式
         if ($validator->fails()) {
-            throw new DingoException\StoreResourceFailedException('新用户注册失败.', $validator->errors());
+            throw new ApiExceptions\ValidationException('新用户注册失败！', $validator->errors());
         }
         
         // 创建用户
@@ -53,7 +53,7 @@ class AuthenticateController extends BaseController
         if ($res) {
             return $this->response->array(ApiHelper::success());
         } else {
-            return $this->response->error('注册失败，请重试！', 412);
+            return $this->response->array(ApiHelper::error('注册失败，请重试!', 412));
         }
     } 
     
@@ -89,10 +89,10 @@ class AuthenticateController extends BaseController
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return $this->response->array(['error' => 'invalid_credentials'], 401);
+                return $this->response->array(ApiHelper::error('invalid_credentials', 401));
             }
         } catch (JWTException $e) {
-            return $this->response->array(['error' => 'could_not_create_token'], 500);
+            return $this->response->array(ApiHelper::error('could_not_create_token', 500));
         }
         
         // return the token
@@ -119,27 +119,6 @@ class AuthenticateController extends BaseController
     {
         $token = JWTAuth::refresh();
         return $this->response->array(ApiHelper::success('更新Token成功！', 200, compact('token')));
-    }
-    
-    
-    /**
-     * 通过Token获取登录用户
-     */
-    public function getAuthUser () 
-    {
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
-        
-        return response()->json(compact('user'));
     }
     
     
