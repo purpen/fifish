@@ -27,5 +27,11 @@ class Asset extends Model
      */
     protected $guarded = ['state'];
     
+    // 头像
+    const AVATAR_TYPE = 1;
+    
+    // 图片
+    const PHOTO_TYPE = 9;
+    
     
 }

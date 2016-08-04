@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\Http\Utils\ImageUtil;
+
 class HomeController extends Controller
 {
     /**
@@ -30,8 +32,8 @@ class HomeController extends Controller
     
     public function avatar()
     {
-        echo config('app.url');
-            
-        return view('avatar');
+        $token = ImageUtil::qiniuToken();
+        
+        return view('avatar', ['token' => $token]);
     }
 }

@@ -132,7 +132,7 @@ class StuffController extends BaseController
         $stuff = Stuff::find($id);
         
         if (!$stuff) {
-            throw new ApiExceptions\NotFoundException(404, '该记录不存在或被删除！');
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
         }
         
         // 查看次数+1

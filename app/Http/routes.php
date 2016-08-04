@@ -18,6 +18,8 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/avatar', 'HomeController@avatar');
+
 /**
  * 后台管理的路由组
  */
@@ -75,6 +77,24 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
     ]);
     
+    // 获取七牛上传Token
+    $api->get('upload/qiniuToken', [
+        'as' => 'upload.token', 'uses' => 'UploadController@qiniuToken'
+    ]); 
+    // 七牛上传回调
+    $api->post('upload/qiniuback', [
+        'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
+    ]);
+    
+    // 本地上传
+    $api->post('upload/photo', [
+        'as' => 'upload.photo', 'uses' => 'UploadController@photo'
+    ]);
+    // 上传头像
+    $api->post('upload/avatar', [
+        'as' => 'upload.avatar', 'uses' => 'UploadController@avatar'
+    ]);
+    
     /**
      * 分享相关路由
      */    
@@ -91,7 +111,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     ]);
     
     
-        
     $api->put('stuffs/{id}/destroy', [
         'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
     ])->where(['id' => '[0-9]+']);

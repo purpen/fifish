@@ -75,7 +75,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,7 @@ return [
          * Image upload
          */
         Matriphe\Imageupload\ImageuploadServiceProvider::class,
+        
     ],
 
     /*
