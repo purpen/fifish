@@ -13,7 +13,6 @@ use App\Http\Utils\ImageUtil;
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
-use Imageupload;
 
 class UploadController extends BaseController
 {
@@ -104,7 +103,9 @@ class UploadController extends BaseController
             throw new ApiExceptions\ValidationException('Not Found!', []);
         }
         
-        $result = $this->upload_handle($file, $request->input('target_id', 0), Asset::PHOTO_TYPE);
+        $result = Asset::localUpload($file, array(
+           'target_id' => $request->input('target_id', 0),
+        ));
         
         return $this->response->array(ApiHelper::success(trans('common.success'), 200, $result));
     }
@@ -143,46 +144,11 @@ class UploadController extends BaseController
             return $this->response->array(ApiHelper::error('File is invalid!', 401));
         }
         
-        $result = $this->upload_handle($file, $request->input('user_id', 0), Asset::AVATAR_TYPE);
+        $result = Asset::localUpload($file, array(
+           'user_id' => $request->input('user_id', 0),
+        ));
         
         return $this->response->array(ApiHelper::success('upload ok!', 200, $result));
     }
-    
-    /**
-     * 附件上传
-     */
-    protected function upload_handle($file, $target_id, $type)
-    {
-        // 图片上传
-        $image = Imageupload::upload($file);
-        
-        // 构建数据
-        $somedata = [];
-        
-        $somedata['user_id'] = $this->auth_user_id;
-        $somedata['target_id'] = $target_id;
-        $somedata['type'] = $type;
-        
-        $somedata['filepath'] = $image['original_filedir'];
-        $somedata['filename'] = $image['original_filename'];
-        $somedata['width'] = $image['original_width'];
-        $somedata['height'] = $image['original_height'];
-        $somedata['size'] = $image['original_filesize'];
-        $somedata['mime'] = $image['original_mime'];
-        
-        // 保存数据
-        $asset = new Asset();
-        $asset->fill($somedata);
-        $res = $asset->save();
-        
-        if ($res) {
-            $imageUrl = config('app.static_url').'/'.$somedata['filepath'];
-        }
-        
-        return [
-          'imageUrl' => $imageUrl
-        ];
-    }
-    
     
 }

@@ -19,7 +19,7 @@ class CreateStuffTable extends Migration
                 $table->integer('user_id');
                 
                 // 关联附件Id
-                $table->integer('asset_id');
+                $table->integer('asset');
                 $table->text('content');
                 $table->string('tags');
                 

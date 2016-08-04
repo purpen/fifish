@@ -12,7 +12,7 @@ class Stuff extends Model
      *  Schema: stuffs
      *      id,
      *      user_id,
-     *      asset_id,
+     *      asset,
      *      content,
      *      tags,
      *      sticked,sticked_at
@@ -57,6 +57,14 @@ class Stuff extends Model
     public function comments()
     {
         return $this->hasMany('Comment', 'target_id');
+    }
+    
+    /**
+     * 获取照片/视频截图
+     */
+    public function getAssetAttribute($value)
+    {
+        return Asset::find($value);
     }
     
 }

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Log;
+use Illuminate\Http\Request;
+use Dingo\Api\Exception as DingoException;
+use Illuminate\Auth\Access\AuthorizationException;
+
 use App\Http\Models\User;
 use App\Http\Models\Asset;
 use App\Http\Models\Stuff;
 use App\Http\Transformers\StuffTransformer;
 
 use App\Http\ApiHelper;
-
-use Log;
-use Illuminate\Http\Request;
-
-use Dingo\Api\Exception as DingoException;
-use Illuminate\Auth\Access\AuthorizationException;
 use App\Exceptions as ApiExceptions;
 
 class StuffController extends BaseController
@@ -97,7 +96,6 @@ class StuffController extends BaseController
      * @apiName stuff show 
      * @apiGroup Stuff
      *
-     *
      * @apiSuccessExample 成功响应:
      * {
      *  "data": [
@@ -147,6 +145,8 @@ class StuffController extends BaseController
      * @apiName stuff store 
      * @apiGroup Stuff
      *
+     * @apiParam {Integer} content 当前分页.
+     * @apiParam {File} file 上传文件
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -168,14 +168,13 @@ class StuffController extends BaseController
         // 验证规则
         $rules = [
             'content'  => ['required', 'min:5'],
-            'asset_id' => ['required']
         ];
         $messages = [
             'content.required' => '内容不能为空',
             'content.min' => '内容长度不能小于5个字符',
-            'asset_id.required' => '请选择一张图片'
-        ];        
-        $validator = app('validator')->make($request->only(['content', 'asset_id']), $rules, $messages);
+        ];
+        
+        $validator = app('validator')->make($request->only(['content']), $rules, $messages);
         // 验证格式
         if ($validator->fails()) {
             throw new ApiExceptions\ValidationException('验证格式出错！', $validator->errors());
@@ -194,6 +193,21 @@ class StuffController extends BaseController
         
         if (!$res) {
             throw new ApiExceptions\StoreFailedException(501, '提交失败.');
+        }
+        
+        // 保存图片或视频
+        $file = $request->file('file');
+        if ($file) {
+            $somedata = array(
+                'user_id' => $this->auth_user_id,
+                'target_id' => $stuff->id
+            );
+            $asset = new Asset();
+            $assetInfo = $asset->localUpload($file, $somedata);
+            
+            // 更新附件Id
+            $stuff->asset = $assetInfo['id'];
+            $stuff->save();
         }
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
