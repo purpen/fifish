@@ -12,6 +12,8 @@ return [
     'failed' => '操作失败!',
     'success' => '操作成功.',
     'notfound' => '记录未发现',
+    'validate' => '验证格式不正确',
+    'delate_ok' => '删除成功',
     
     
 ];

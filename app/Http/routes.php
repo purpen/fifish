@@ -107,8 +107,15 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
     ])->where(['id' => '[0-9]+']);
     
+    
+    /**
+     * 分享相关路由
+     */    
+    $api->get('stuffs/{id}/comments', [
+        'as' => 'stuffs.comments', 'uses' => 'StuffController@comments'
+    ]);
     // 发表回复
-    $api->post('stuffs/postComment', [
+    $api->post('stuffs/{id}/postComment', [
         'as' => 'stuffs.postComment', 'uses' => 'StuffController@postComment'
     ]);
     // 删除回复

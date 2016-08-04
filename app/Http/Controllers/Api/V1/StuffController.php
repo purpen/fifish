@@ -10,7 +10,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Models\User;
 use App\Http\Models\Asset;
 use App\Http\Models\Stuff;
+use App\Http\Models\Comment;
 use App\Http\Transformers\StuffTransformer;
+use App\Http\Transformers\CommentTransformer;
 
 use App\Http\ApiHelper;
 use App\Exceptions as ApiExceptions;
@@ -96,6 +98,8 @@ class StuffController extends BaseController
      * @apiName stuff show 
      * @apiGroup Stuff
      *
+     * @apiParam {Integer} id 回复Id.
+     *
      * @apiSuccessExample 成功响应:
      * {
      *  "data": [
@@ -145,7 +149,7 @@ class StuffController extends BaseController
      * @apiName stuff store 
      * @apiGroup Stuff
      *
-     * @apiParam {Integer} content 当前分页.
+     * @apiParam {String} content 分享内容
      * @apiParam {File} file 上传文件
      *
      * @apiSuccessExample 成功响应:
@@ -219,6 +223,7 @@ class StuffController extends BaseController
      * @apiName stuff update 
      * @apiGroup Stuff
      *
+     * @apiParam {Integer} id 回复Id.
      *
      * @apiSuccessExample 成功响应:
      * {
@@ -254,6 +259,7 @@ class StuffController extends BaseController
      * @apiName stuff destory 
      * @apiGroup Stuff
      *
+     * @apiParam {Integer} id 回复Id.
      *
      * @apiSuccessExample 成功响应:
      * {
@@ -281,6 +287,56 @@ class StuffController extends BaseController
         return $this->response->array(ApiHelper::success());
     }
     
+    /**
+     * @api {post} /stuffs/:id/comments 某个分享的评论列表
+     * @apiVersion 1.0.0
+     * @apiName stuff comments
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} id 分享ID.
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *  "data": [
+     *     {
+     *          "id": 3,
+     *         "content": "这是一条评论内容精选",
+     *         "user": {
+     *           "id": 1,
+     *           "username": "xiaobeng",
+     *           "summary": null
+     *         },
+     *         "like_count": 0
+     *       }
+     *  ],
+     *  "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *       "pagination": {
+     *         "total": 4,
+     *         "count": 2,
+     *         "per_page": 2,
+     *         "current_page": 1,
+     *         "total_pages": 2,
+     *         "links": {
+     *           "next": "http://xxxx/api/stuffs/1/comments?page=2"
+     *         }
+     *  }
+     * }
+     */
+    public function comments(Request $request, $id)
+    {
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $comments = $stuff->comments()->orderBy('created_at', 'desc')->paginate($per_page);
+        
+        return $this->response->paginator($comments, new CommentTransformer())->setMeta(ApiHelper::meta());
+    }
     
     /**
      * @api {post} /stuffs/:id/postComment 发表回复
@@ -288,11 +344,19 @@ class StuffController extends BaseController
      * @apiName stuff post comment 
      * @apiGroup Stuff
      *
+     * @apiParam {String} content 回复内容.
      *
      * @apiSuccessExample 成功响应:
      * {
      *  "data": [
-     *
+     *       "id": 5,
+     *       "content": "这是一条评论内容精选大家电",
+     *       "user": {
+     *           "id": 1,
+     *           "username": "xiaobeng",
+     *           "summary": null
+     *         },,
+     *       "like_count": null
      *  ],
      *  "meta": {
      *    "status": "success",
@@ -301,9 +365,41 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function postComment()
+    public function postComment(Request $request, $id)
     {
+        // 验证规则
+        $rules = [
+            'content'  => ['required', 'min:2'],
+        ];
+        $messages = [
+            'content.required' => '内容不能为空',
+            'content.min' => '内容长度不能小于2个字符',
+        ];
+    
+        $validator = app('validator')->make($request->only(['content']), $rules, $messages);
+        // 验证格式
+        if ($validator->fails()) {
+            throw new ApiExceptions\ValidationException(trans('common.validate'), $validator->errors());
+        }
         
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        
+        $comment = $stuff->comments()->create([
+           'content' => $request->input('content'),
+           'user_id' => $this->auth_user_id,
+        ]);
+        
+        if (!$comment) {
+            throw new ApiExceptions\StoreFailedException(501, trans('common.failed'));
+        }
+        
+        // 评论数+1
+        $stuff->increment('comment_count');
+        
+        return $this->response->item($comment, new CommentTransformer())->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -312,6 +408,7 @@ class StuffController extends BaseController
      * @apiName stuff destory comment 
      * @apiGroup Stuff
      *
+     * @apiParam {Integer} id 回复Id.
      *
      * @apiSuccessExample 成功响应:
      * {
@@ -325,9 +422,19 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function destoryComment()
+    public function destoryComment(Request $request)
     {
+        $id = $request->input('id');
+        $comment = Comment::find($id);
+        if (!$comment) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        $stuff_id = $comment->target_id;
+        if ($comment->delete()) {
+            Stuff::findOrFail($stuff_id)->decrement('comment_count');
+        }
         
+        return $this->response->array(ApiHelper::success());
     }
     
 }

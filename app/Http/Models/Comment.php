@@ -43,7 +43,7 @@ class Comment extends Model
      */
     public function stuff()
     {
-        return $this->belongsTo('Stuff', 'target_id');
+        return $this->belongsTo('App\Http\Models\Stuff', 'target_id');
     }
     
     /**
@@ -54,7 +54,7 @@ class Comment extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Http\Models\User');
     }
     
 }

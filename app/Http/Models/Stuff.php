@@ -56,7 +56,7 @@ class Stuff extends Model
      */
     public function comments()
     {
-        return $this->hasMany('Comment', 'target_id');
+        return $this->hasMany('App\Http\Models\Comment', 'target_id');
     }
     
     /**

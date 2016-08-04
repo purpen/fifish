@@ -12,6 +12,7 @@ return [
     'failed' => 'Failed!',
     'success' => 'Success.',
     'notfound' => 'Not Found',
-    
+    'validate' => 'Field Format Error',
+    'delate_ok' => 'Delete Ok.',
     
 ];
