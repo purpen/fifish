@@ -32,14 +32,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
 });
 
-
-/**
- * Api doc 文档
- */
-Route::get('apidoc', function () {
-    return view('admin.apidoc');
-});
-
 /**
  * 注册自定义
  */

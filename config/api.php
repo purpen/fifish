@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'domain' => env('API_DOMAIN', 'fifish.me'),
+    'domain' => env('API_DOMAIN', 'fish.taihuoniao.com'),
 
     /*
     |--------------------------------------------------------------------------

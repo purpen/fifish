@@ -17,11 +17,21 @@ use Qiniu\Storage\UploadManager;
 class UploadController extends BaseController
 {
     /**
-     * @api {get} /upload/qiniuback 七牛云上传回调地址
+     * @api {get} /upload/qiniuback 云上传回调地址(七牛)
      * @apiVersion 1.0.0
      * @apiName upload asset
      * @apiGroup Upload
      *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       },
+     *       "data": {
+     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
+     *       }
+     *   }
      */
     public function qiniuback(Resquest $request)
     {
@@ -39,7 +49,7 @@ class UploadController extends BaseController
     }
     
     /**
-     * @api {get} /upload/qiniuToken 获取七牛云上传token
+     * @api {get} /upload/qiniuToken 获取云上传token(七牛)
      * @apiVersion 1.0.0
      * @apiName upload token
      * @apiGroup Upload
@@ -55,13 +65,6 @@ class UploadController extends BaseController
      *         }
      *   }
      *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
      */
     public function qiniuToken()
     {
@@ -113,8 +116,8 @@ class UploadController extends BaseController
     /**
      * @api {post} /upload/avatar 更新用户头像
      * @apiVersion 1.0.0
-     * @apiName user avatar
-     * @apiGroup User
+     * @apiName upload avatar
+     * @apiGroup Upload
      *
      * @apiParam {string} file 上传文件
      * 

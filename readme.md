@@ -77,5 +77,5 @@ location / {
 }
 
 ######生成API文档
-apidoc -i app/Http/Controllers/Api/ -o public/api
+apidoc -i app/Http/Controllers/Api/ -o public/apidoc
 
