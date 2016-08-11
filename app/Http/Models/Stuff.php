@@ -38,6 +38,13 @@ class Stuff extends Model
     protected $guarded = ['sticked', 'featured'];
     
     /**
+     * 在数组中显示的属性
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'user', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count', 'asset'];
+    
+    /**
      * 获取分享用户
      *
      * Defines an inverse one-to-many relationship.
@@ -57,6 +64,30 @@ class Stuff extends Model
     public function comments()
     {
         return $this->hasMany('App\Http\Models\Comment', 'target_id');
+    }
+    
+    /**
+     * 获取分享的所有的点赞
+     */
+    public function likes()
+    {
+        return $this->morphMany('App\Http\Models\Like', 'likeable');
+    }
+    
+    /**
+     * 获取所有分享的照片
+     */
+    public function assets()
+    {
+        return $this->morphMany('App\Http\Models\Asset', 'assetable');
+    }
+    
+    /**
+     * 获取分享的所有标签
+     */
+    public function tags()
+    {
+        return $this->morphToMany('App\Http\Models\Tag', 'taggable');
     }
     
     /**

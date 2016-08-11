@@ -14,5 +14,6 @@ return [
     'notfound' => 'Not Found',
     'validate' => 'Field Format Error',
     'delate_ok' => 'Delete Ok.',
+    'upload_ok' => 'Upload Ok.',
     
 ];

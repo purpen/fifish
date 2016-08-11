@@ -14,6 +14,7 @@ return [
     'notfound' => '记录未发现',
     'validate' => '验证格式不正确',
     'delate_ok' => '删除成功',
+    'upload_ok' => '上传成功',
     
     
 ];

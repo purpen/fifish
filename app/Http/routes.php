@@ -18,7 +18,7 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/avatar', 'HomeController@avatar');
+Route::get('/job', 'HomeController@job');
 
 /**
  * 后台管理的路由组
@@ -59,6 +59,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
+    $api->post('auth/logout', [
+        'as' => 'auth.logout', 'uses' => 'AuthenticateController@logout'
+    ]);
     
     // 更新用户Token
     $api->post('auth/upToken', [
@@ -93,7 +96,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('stuffs', [
         'as' => 'stuffs', 'uses' => 'StuffController@getList'
     ]);
-        
     $api->get('stuffs/{id}', [
         'as' => 'stuffs.show', 'uses' => 'StuffController@show'
     ])->where(['id' => '[0-9]+']);
@@ -101,8 +103,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('stuffs/store', [
         'as' => 'stuffs.store', 'uses' => 'StuffController@store'
     ]);
-    
-    
     $api->put('stuffs/{id}/destroy', [
         'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
     ])->where(['id' => '[0-9]+']);
@@ -123,6 +123,18 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.destoryComment', 'uses' => 'StuffController@destoryComment'
     ]);
     
+    /**
+     * 点赞相关
+     */
+    $api->get('stuffs/{id}/likes', [
+        'as' => 'stuffs.likes', 'uses' => 'StuffController@likes'
+    ]);
+    $api->post('stuffs/{id}/dolike', [
+        'as' => 'stuffs.dolike', 'uses' => 'StuffController@dolike'
+    ]);
+    $api->post('stuffs/cancelike/{id}', [
+        'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
+    ]);
     
     // 反馈意见列表
     $api->get('feedback/{state?}', [
@@ -142,20 +154,16 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     ])->where(['id' => '[0-9]+']);
     
     // 更新用户资料
-    $api->post('user/{id}/settings', [
+    $api->post('user/settings', [
         'as' => 'user.settings', 'uses' => 'UserController@settings'
     ])->where(['id' => '[0-9]+']);
     // 获取个人信息
-    $api->get('user/{id}/profile', [
+    $api->get('user/profile', [
         'as' => 'user.profile', 'uses' => 'UserController@profile'
     ]);
-    // 上传头像
-    $api->post('user/{id}/avatar', [
-        'as' => 'user.avatar', 'uses' => 'UserController@avatar'
-    ])->where(['id' => '[0-9]+']);
             
     // middleware: ['jwt.auth','jwt.refresh']
-    $api->group(['middleware' => ['jwt.auth']], function($api) {
+    $api->group(['middleware' => ['jwt.auth','jwt.refresh']], function($api) {
         $api->put('stuffs/{id}/update', [
             'as' => 'stuffs.update', 'uses' => 'StuffController@update'
         ])->where(['id' => '[0-9]+']);

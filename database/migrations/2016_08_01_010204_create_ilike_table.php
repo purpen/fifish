@@ -12,14 +12,19 @@ class CreateIlikeTable extends Migration
      */
     public function up()
     {
-		Schema::create('ilike', function(Blueprint $table)
+		Schema::create('likes', function(Blueprint $table)
 		{
 			// columns
-			$table->integer('stuff_id');
+            $table->increments('id');
 			$table->integer('user_id');
             
-			// indexes
-			$table->index(array('stuff_id', 'user_id'));
+            $table->integer('likeable_id');
+            $table->string('likeable_type');
+            
+            $table->timestamps();
+            
+			// 添加主键索引
+			$table->unique(['likeable_id', 'likeable_type', 'user_id']);
 		});
     }
 
@@ -30,6 +35,6 @@ class CreateIlikeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ilike');
+        Schema::dropIfExists('likes');
     }
 }

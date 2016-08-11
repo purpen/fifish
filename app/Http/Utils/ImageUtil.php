@@ -5,9 +5,29 @@ namespace App\Http\Utils;
 use Config;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
+use Imageupload;
 
 class ImageUtil
 {
+    /**
+     * 照片本地上传属性参数
+     */
+    static public function assetParams ($file, $somedata=array())
+    {
+        // 图片上传
+        $image = Imageupload::upload($file);
+        
+        // 构建数据        
+        $somedata['filepath'] = $image['original_filedir'];
+        $somedata['filename'] = $image['original_filename'];
+        $somedata['width'] = $image['original_width'];
+        $somedata['height'] = $image['original_height'];
+        $somedata['size'] = $image['original_filesize'];
+        $somedata['mime'] = $image['original_mime'];
+        
+        return $somedata;
+    }
+    
     /**
      * 生成文件存储路径
      */

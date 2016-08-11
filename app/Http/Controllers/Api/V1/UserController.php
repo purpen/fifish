@@ -48,9 +48,9 @@ class UserController extends BaseController
      *     }
      *   }
      */
-    public function profile($id)
+    public function profile()
     {
-        $user = User::find($id);
+        $user = User::find($this->auth_user_id);
         
         if (!$user) {
             return $this->response->array(ApiHelper::error('Not Found!', 404));
@@ -85,11 +85,11 @@ class UserController extends BaseController
      *     }
      *   }
      */
-    public function settings(Request $request, $id)
+    public function settings(Request $request)
     {
         $payload = app('request')->only('username', 'job', 'zone');
         
-        $user = User::find($id);
+        $user = User::find($this->auth_user_id);
         
         if (!$user) {
             return $this->response->array(ApiHelper::error('Not Found!', 404));
@@ -113,64 +113,6 @@ class UserController extends BaseController
         }
         
         return $this->response->array(ApiHelper::success());
-    }
-    
-    /**
-     * @api {post} /user/avatar 更新用户头像
-     * @apiVersion 1.0.0
-     * @apiName user avatar
-     * @apiGroup User
-     *
-     * @apiParam {string} file 上传文件
-     * 
-     * @apiSuccessExample 成功响应:
-     *   {
-     *     "meta": {
-     *       "message": "Success！",
-     *       "status_code": 200
-     *     }
-     *   }
-     *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
-     */
-    public function avatar(Request $request, $id)
-    {
-        $file = $request->file('avatar');
-        if (!$file->isValid()) {
-            return $this->response->array(ApiHelper::error('File is invalid!', 401));
-        }
-        // 图片上传
-        $image = Imageupload::upload($file);
-        
-        // 构建数据
-        $somedata = [];
-        
-        $somedata['user_id'] = $id;
-        
-        $somedata['filepath'] = $image['original_filedir'];
-        $somedata['filename'] = $image['original_filename'];
-        $somedata['width'] = $image['original_width'];
-        $somedata['height'] = $image['original_height'];
-        $somedata['size'] = $image['original_filesize'];
-        $somedata['mime'] = $image['original_mime'];
-        
-        // 保存数据
-        $asset = new Asset();
-        $asset->fill($somedata);
-        $res = $asset->save();
-        
-        if ($res) {
-            $static_url = config('app.static_url');
-            $image_url = $static_url.'/'.$somedata['filepath'];
-        }
-        
-        return $this->response->array(ApiHelper::success('upload ok!', 200, ['image_url' => $image_url]));
     }
     
     

@@ -16,6 +16,8 @@ class CreateTagTable extends Migration
             {
                 $table->increments('id');
                 $table->string('name');
+                $table->string('display_name');
+                $table->string('description');
                 $table->string('index');
                 $table->integer('total_count')->default(0);
                 

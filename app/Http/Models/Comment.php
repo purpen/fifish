@@ -57,4 +57,13 @@ class Comment extends Model
         return $this->belongsTo('App\Http\Models\User');
     }
     
+    
+    /**
+     * 获取该评论的所有点赞
+     */
+    public function likes()
+    {
+        return $this->morphMany('App\Http\Models\Like', 'likeable');
+    }
+    
 }

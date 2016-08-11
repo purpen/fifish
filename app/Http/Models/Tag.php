@@ -50,7 +50,7 @@ class Tag extends Model
      */
     public function stuffs()
     {
-        return $this->belongsToMany('Stuff');
+        return $this->morphedByMany('App\Http\Models\Stuff', 'taggable');
     }
     
 }

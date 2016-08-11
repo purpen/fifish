@@ -41,6 +41,14 @@ class User extends Authenticatable
     ];
     
     /**
+     * 获取用户头像。
+     */
+    public function assets()
+    {
+        return $this->morphMany('App\Http\Models\Asset', 'assetable');
+    }
+    
+    /**
      * 获取用户分享列表
      *
      * Defines a one-to-many relationship.

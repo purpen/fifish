@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 定义多态对照表
+        Relation::morphMap([
+            'Stuff' => \App\Http\Models\Stuff::class,
+            'Comment' => \App\Http\Models\Comment::class,
+            'Like' => \App\Http\Models\Like::class,
+            'User' => \App\Http\Models\User::class,
+            'Tag' => \App\Http\Models\Tag::class,
+        ]);
     }
 
     /**

@@ -64,6 +64,6 @@ class BaseController extends Controller
         }
         
         $this->auth_user = [];
-        $this->auth_user_id = 0;
+        $this->auth_user_id = 1;
     }
 }

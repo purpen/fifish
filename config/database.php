@@ -110,7 +110,7 @@ return [
 
         'default' => [
             'host' => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
+            'password' => env('REDIS_PASSWORD', 'Fr%bird@201403$01'),
             'port' => env('REDIS_PORT', 6379),
             'database' => 0,
         ],

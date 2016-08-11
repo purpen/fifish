@@ -18,7 +18,7 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
-            'asset' => $stuff->asset->viewUrl(),
+            'asset' => $stuff->assets,
         ];
     }
 }

@@ -12,14 +12,17 @@ class CreateStuffTagTable extends Migration
      */
     public function up()
     {
-		Schema::create('stuff_tag', function(Blueprint $table)
+		Schema::create('taggables', function(Blueprint $table)
 		{
 			// columns
-			$table->integer('stuff_id');
-			$table->integer('tag_id');
+            $table->integer('tag_id');
+			$table->integer('taggable_id');
+			$table->string('taggable_type');
+            
+            $table->timestamps();
             
 			// indexes
-			$table->index(array('stuff_id', 'tag_id'));
+			$table->primary(['taggable_id', 'taggable_type']);
 		});
     }
 
@@ -30,6 +33,6 @@ class CreateStuffTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stuff_tag');
+        Schema::dropIfExists('taggables');
     }
 }

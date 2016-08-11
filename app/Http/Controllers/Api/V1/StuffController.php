@@ -6,15 +6,19 @@ use Log;
 use Illuminate\Http\Request;
 use Dingo\Api\Exception as DingoException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\QueryException;
 
 use App\Http\Models\User;
 use App\Http\Models\Asset;
 use App\Http\Models\Stuff;
 use App\Http\Models\Comment;
+use App\Http\Models\Like;
 use App\Http\Transformers\StuffTransformer;
 use App\Http\Transformers\CommentTransformer;
+use App\Http\Transformers\LikeTransformer;
 
 use App\Http\ApiHelper;
+use App\Http\Utils\ImageUtil;
 use App\Exceptions as ApiExceptions;
 
 class StuffController extends BaseController
@@ -202,12 +206,10 @@ class StuffController extends BaseController
         // 保存图片或视频
         $file = $request->file('file');
         if ($file) {
-            $somedata = array(
-                'user_id' => $this->auth_user_id,
-                'target_id' => $stuff->id
-            );
-            $asset = new Asset();
-            $assetInfo = $asset->localUpload($file, $somedata);
+            $somedata = ImageUtil::assetParams($file, array(
+                'user_id' => $this->auth_user_id
+            ));
+            $assetInfo = $stuff->assets()->create($somedata);
             
             // 更新附件Id
             $stuff->asset = $assetInfo['id'];
@@ -412,9 +414,6 @@ class StuffController extends BaseController
      *
      * @apiSuccessExample 成功响应:
      * {
-     *  "data": [
-     *
-     *  ],
      *  "meta": {
      *    "status": "success",
      *    "code": 200,
@@ -432,6 +431,180 @@ class StuffController extends BaseController
         $stuff_id = $comment->target_id;
         if ($comment->delete()) {
             Stuff::findOrFail($stuff_id)->decrement('comment_count');
+        }
+        
+        return $this->response->array(ApiHelper::success());
+    }
+    
+    
+    /**
+     * @api {post} /stuffs/:id/likes 某个分享的喜欢列表
+     * @apiVersion 1.0.0
+     * @apiName stuff likes
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} id 分享ID.
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *  "data": [
+     *     {
+     *       "id": 28,
+     *       "likeable": {
+     *         "id": 1,
+     *         "user_id": 1,
+     *         "asset": {
+     *           "id": 7,
+     *           "type": 1,
+     *           "filepath": "uploads/images/d80b538b2c3c98cac393a81bb81cf0e9.jpg",
+     *           "size": 77465,
+     *         },
+     *         "content": "开始上传文件",
+     *         "tags": "",
+     *         "sticked": 1,
+     *         "featured": 1,
+     *         "view_count": 0,
+     *         "like_count": 13,
+     *         "comment_count": -2,
+     *       },
+     *       "user": {
+     *         "id": 1,
+     *         "username": "xiaobeng",
+     *         "summary": null
+     *       }
+     *    }
+     *  ],
+     *  "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *       "pagination": {
+     *         "total": 4,
+     *         "count": 2,
+     *         "per_page": 2,
+     *         "current_page": 1,
+     *         "total_pages": 2,
+     *         "links": {
+     *           "next": "http://xxxx/api/stuffs/1/likes?page=2"
+     *         }
+     *  }
+     * }
+     */
+    public function likes(Request $request, $id)
+    {
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $likes = $stuff->likes()->orderBy('created_at', 'asc')->paginate($per_page);
+        
+        return $this->response->paginator($likes, new LikeTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    /**
+     * @api {post} /stuffs/:id/dolike 点赞
+     * @apiVersion 1.0.0
+     * @apiName stuff dolike 
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} id 分享ID.
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *  "data": [
+     *      "id": 28,
+     *       "likeable": {
+     *         "id": 1,
+     *         "user_id": 1,
+     *         "asset": {
+     *           "id": 7,
+     *           "type": 1,
+     *           "filepath": "uploads/images/d80b538b2c3c98cac393a81bb81cf0e9.jpg",
+     *           "size": 77465,
+     *         },
+     *         "content": "开始上传文件",
+     *         "tags": "",
+     *         "sticked": 1,
+     *         "featured": 1,
+     *         "view_count": 0,
+     *         "like_count": 13,
+     *         "comment_count": -2,
+     *       },
+     *       "user": {
+     *         "id": 1,
+     *         "username": "xiaobeng",
+     *         "summary": null
+     *       }
+     *  ],
+     *  "meta": {
+     *    "status": "success",
+     *    "code": 200,
+     *    "message": "删除成功",
+     *  }
+     * }
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "操作失败！",
+     *       "status_code": 200
+     *     }
+     *   }
+     */
+    public function dolike(Request $request, $id)
+    {
+        $stuff = Stuff::find($id);
+        if (!$stuff) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        
+        try {
+            $likeable = Like::create([
+                'user_id' => $this->auth_user_id,
+            ]);
+            // 保存关联关系
+            $res = $stuff->likes()->save($likeable);
+        
+            if ($res) {
+                // 喜欢数+1
+                $stuff->increment('like_count');
+            }
+            
+        } catch (QueryException $e) {
+            return $this->response->array(ApiHelper::error(trans('common.failed')));
+        }
+        
+        // 返回关联信息
+        return $this->response->item($res, new LikeTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    /**
+     * @api {post} /stuffs/:id/cancelLike 取消喜欢
+     * @apiVersion 1.0.0
+     * @apiName stuff destory like 
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} id 喜欢Id.
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *  "meta": {
+     *    "status": "success",
+     *    "code": 200,
+     *    "message": "取消成功",
+     *  }
+     * }
+     */
+    public function cancelike(Request $request, $id)
+    {
+        $like = Like::find($id);
+        if (!$like) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        $stuff_id = $like->likeable_id;
+        if ($like->delete()) {
+            Stuff::findOrFail($stuff_id)->decrement('like_count');
         }
         
         return $this->response->array(ApiHelper::success());

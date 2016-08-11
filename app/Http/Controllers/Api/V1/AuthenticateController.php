@@ -100,6 +100,32 @@ class AuthenticateController extends BaseController
     }
     
     /**
+     * @api {post} /auth/logout 退出登录
+     * 要求：收到响应后，同时客户端清除token
+     *
+     * @apiVersion 1.0.0
+     * @apiName user logout
+     * @apiGroup User
+     *
+     * 
+     * @apiSuccessExample 成功响应:
+     * {
+     *     "code": 200,
+     *     "message": "退出成功！",
+     *     "data": {
+     *       "res": true | false
+     *    }
+     *   }
+     */
+    public function logout()
+    {
+        // 强制Token失效
+        $res = JWTAuth::invalidate(JWTAuth::getToken());
+        
+        return $this->response->array(ApiHelper::success());
+    }
+    
+    /**
      * @api {post} /auth/upToken 更新Token
      * @apiVersion 1.0.0
      * @apiName user token

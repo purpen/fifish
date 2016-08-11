@@ -7,9 +7,10 @@ use Storage;
 use Illuminate\Http\Request;
 
 use App\Http\ApiHelper;
+use App\Http\Models\User;
 use App\Http\Models\Asset;
-use App\Exceptions as ApiExceptions;
 use App\Http\Utils\ImageUtil;
+use App\Exceptions as ApiExceptions;
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
@@ -75,9 +76,9 @@ class UploadController extends BaseController
     }
     
     /**
-     * @api {get} /upload/photo 本地上传照片
+     * @api {get} /upload/video 本地上传视频
      * @apiVersion 1.0.0
-     * @apiName upload photo
+     * @apiName upload video
      * @apiGroup Upload
      *
      * @apiSuccessExample 成功响应:
@@ -99,18 +100,9 @@ class UploadController extends BaseController
      *     }
      *   }
      */
-    public function photo(Request $request)
+    public function video(Request $request)
     {   
-        $file = $request->file('file');
-        if (!$file->isValid()) {
-            throw new ApiExceptions\ValidationException('Not Found!', []);
-        }
         
-        $result = Asset::localUpload($file, array(
-           'target_id' => $request->input('target_id', 0),
-        ));
-        
-        return $this->response->array(ApiHelper::success(trans('common.success'), 200, $result));
     }
     
     /**
@@ -119,7 +111,7 @@ class UploadController extends BaseController
      * @apiName upload avatar
      * @apiGroup Upload
      *
-     * @apiParam {string} file 上传文件
+     * @apiParam {string} avatar 上传文件
      * 
      * @apiSuccessExample 成功响应:
      *   {
@@ -140,18 +132,30 @@ class UploadController extends BaseController
      *     }
      *   }
      */
-    public function avatar(Request $request, $id)
+    public function avatar(Request $request)
     {
         $file = $request->file('avatar');
-        if (!$file->isValid()) {
+        if (empty($file) || !$file->isValid()) {
             return $this->response->array(ApiHelper::error('File is invalid!', 401));
         }
         
-        $result = Asset::localUpload($file, array(
-           'user_id' => $request->input('user_id', 0),
+        $user = User::find($this->auth_user_id);
+        if (!$user) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        $result = [];
+        $somedata = ImageUtil::assetParams($file, array(
+            'user_id' => $this->auth_user_id
         ));
+        $res = $user->assets()->create($somedata);
+        if ($res) {
+            $result = [
+                'id' => $res->id,
+                'asset_url' => config('app.static_url').'/'.$res->filepath,
+            ];
+        }
         
-        return $this->response->array(ApiHelper::success('upload ok!', 200, $result));
+        return $this->response->array(ApiHelper::success(trans('common.upload_ok'), 200, $result));
     }
     
 }

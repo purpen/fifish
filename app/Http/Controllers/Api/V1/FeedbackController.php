@@ -12,6 +12,8 @@ use App\Http\Models\Feedback;
 use App\Http\Transformers\FeedbackTransformer;
 use App\Http\ApiHelper;
 
+use Validator;
+
 class FeedbackController extends BaseController
 {
     /**
@@ -90,6 +92,14 @@ class FeedbackController extends BaseController
      */
     public function submited (Request $request)
     {
+        $check = Validator::make($request->all(), [
+            'contact' => ['required'],
+            'content' => ['required', 'min:2', 'max:1500']
+        ]);
+        if ($check->fails()) {
+            throw new ApiExceptions\ValidationException(trans('common.validate'), $validator->errors());
+        }
+        
         $feedback = Feedback::create($request->only(['contact', 'content'])); 
         if ($feedback) {
             return $this->response->item($feedback, new FeedbackTransformer());

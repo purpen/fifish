@@ -79,3 +79,9 @@ location / {
 ######生成API文档
 apidoc -i app/Http/Controllers/Api/ -o public/apidoc
 
+
+######使用Redis作为缓存及任务队列
+```
+Redis: predis/predis ~1.0
+```
+

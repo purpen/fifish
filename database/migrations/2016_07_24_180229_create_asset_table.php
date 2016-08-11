@@ -17,8 +17,8 @@ class CreateAssetTable extends Migration
                 $table->increments('id');
                 $table->integer('user_id');
                 
-                $table->integer('target_id');
-                $table->tinyInteger('type')->default(1);
+                $table->integer('assetable_id');
+                $table->string('assetable_type');
                 
                 // 原图信息
                 $table->string('filepath');
@@ -34,7 +34,7 @@ class CreateAssetTable extends Migration
                 $table->tinyInteger('state')->default(1);
                 
                 // 创建索引
-                $table->index(['target_id','type']);
+                $table->index(['assetable_id','assetable_type']);
             });
     }
 
