@@ -91,7 +91,53 @@ class StuffController extends BaseController
     {
         $per_page = $request->input('per_page', $this->per_page);
         
-        $stuffs = Stuff::orderBy('created_at', 'desc')->paginate($per_page);
+        $stuffs = Stuff::with('user')->orderBy('created_at', 'desc')->paginate($per_page);
+        
+        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    /**
+     * @api {get} /stuffs 获取推荐的分享列表
+     * @apiVersion 1.0.0
+     * @apiName stuff sticklist 
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} page 当前分页.
+     * @apiParam {Integer} per_page 每页数量
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *     // same to getList
+     * }
+     */
+    public function stickList(Request $request)
+    {
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $stuffs = Stuff::sticked()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
+        
+        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    /**
+     * @api {get} /stuffs 获取精选的分享列表
+     * @apiVersion 1.0.0
+     * @apiName stuff featurelist 
+     * @apiGroup Stuff
+     *
+     * @apiParam {Integer} page 当前分页.
+     * @apiParam {Integer} per_page 每页数量
+     *
+     * @apiSuccessExample 成功响应:
+     * {
+     *     // same to getList
+     * }
+     */
+    public function featureList(Request $request)
+    {
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $stuffs = Stuff::featured()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
     }
@@ -438,7 +484,7 @@ class StuffController extends BaseController
     
     
     /**
-     * @api {post} /stuffs/:id/likes 某个分享的喜欢列表
+     * @api {post} /stuffs/:id/likes 分享点赞列表
      * @apiVersion 1.0.0
      * @apiName stuff likes
      * @apiGroup Stuff
@@ -504,7 +550,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {post} /stuffs/:id/dolike 点赞
+     * @api {post} /stuffs/:id/dolike 点赞操作
      * @apiVersion 1.0.0
      * @apiName stuff dolike 
      * @apiGroup Stuff
@@ -580,7 +626,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {post} /stuffs/:id/cancelLike 取消喜欢
+     * @api {post} /stuffs/:id/cancelLike 取消点赞
      * @apiVersion 1.0.0
      * @apiName stuff destory like 
      * @apiGroup Stuff

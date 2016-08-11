@@ -96,6 +96,12 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('stuffs', [
         'as' => 'stuffs', 'uses' => 'StuffController@getList'
     ]);
+    $api->get('stuffs/stickList', [
+        'as' => 'stuffs.sticklist', 'uses' => 'StuffController@stickList'
+    ]);
+    $api->get('stuffs/featureList', [
+        'as' => 'stuffs.featurelist', 'uses' => 'StuffController@featureList'
+    ]);
     $api->get('stuffs/{id}', [
         'as' => 'stuffs.show', 'uses' => 'StuffController@show'
     ])->where(['id' => '[0-9]+']);

@@ -30,4 +30,13 @@ class Feedback extends Model
     
     const STATE_FINFISHED = 4;
     
+    
+    /**
+     * 范围约束：获取不同状态下列表结果集
+     */
+    public function scopeOfState($query, $state)
+    {
+        return $query->where('state', $state);
+    }
+    
 }

@@ -98,4 +98,20 @@ class Stuff extends Model
         return Asset::find($value);
     }
     
+    /**
+     * 范围：获取精选列表
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured', 1);
+    }
+    
+    /**
+     * 范围：获取推荐列表
+     */
+    public function scopeSticked($query)
+    {
+        return $query->where('sticked', 1);
+    }
+    
 }
