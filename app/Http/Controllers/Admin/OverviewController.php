@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class BoardController extends Controller
+class OverviewController extends Controller
 {
     /**
      * 后台管理入口
      */
     public function index()
     {
-        return view('admin/index');
+        return view('admin.index');
     }
 }

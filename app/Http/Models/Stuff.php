@@ -23,6 +23,11 @@ class Stuff extends Model
     protected $table = 'stuffs';
     
     /**
+     * 添加不存在的属性
+     */
+    protected $appends = ['cover'];
+    
+    /**
      * 可以被批量赋值的属性.
      *
      * @var array
@@ -71,6 +76,17 @@ class Stuff extends Model
     public function likes()
     {
         return $this->morphMany('App\Http\Models\Like', 'likeable');
+    }
+    
+    /**
+     * 获取封面图
+     */
+    public function getCoverAttribute ()
+    {
+        if ($this->assets()->count()) {
+            return $this->assets()->first();
+        }
+        return [];
     }
     
     /**

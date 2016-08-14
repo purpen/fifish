@@ -25,10 +25,10 @@ Route::get('/job', 'HomeController@job');
  */
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     
-    Route::get('/', 'BoardController@index');
+    Route::get('/', 'OverviewController@index');
     
-    Route::resource('stuff', 'StuffController');
-    Route::resource('asset', 'AssetController');
+    Route::resource('stuffs', 'StuffController');
+    Route::resource('assets', 'AssetController');
     
 });
 

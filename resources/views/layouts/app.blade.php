@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Fifish - @yield('title')</title>
 
     <!-- Fonts -->
 
@@ -21,6 +21,12 @@
         }
         .fa-btn {
             margin-right: 6px;
+        }
+        .page-header {
+            margin-top: 10px;
+        }
+        .page-tools {
+            margin: 10px auto;
         }
         
         @yield('customize_css')

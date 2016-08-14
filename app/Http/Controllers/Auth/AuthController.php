@@ -22,6 +22,11 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    
+    /**
+     * 替换默认登录
+     */
+    protected $username = 'account';
 
     /**
      * Where to redirect users after login / registration.
