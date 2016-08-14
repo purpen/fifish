@@ -18,7 +18,19 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
-            'asset' => $stuff->assets,
+            'photo' => $this->photo($stuff),
         ];
     }
+    
+    /**
+     * 获取照片的信息
+     */
+    protected function photo($stuff)
+    {
+        if ($stuff->assets()->count()) {
+            $assetTransformer = new AssetTransformer();
+            return $assetTransformer->transform($stuff->assets()->first());
+        }
+    }
+    
 }

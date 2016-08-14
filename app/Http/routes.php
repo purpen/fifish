@@ -142,6 +142,25 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
     ]);
     
+    /**
+     * 标签相关
+     */
+    $api->get('tags', [
+        'as' => 'tags', 'uses' => 'TagController@getList'
+    ]);
+    $api->post('tags/store', [
+        'as' => 'tags.store', 'uses' => 'TagController@store'
+    ]);
+    $api->post('tags/{id}/destory', [
+        'as' => 'tags.destory', 'uses' => 'TagController@destory'
+    ]);
+    $api->put('tags/{id}/update', [
+        'as' => 'tags.update', 'uses' => 'TagController@update'
+    ]);
+    $api->put('tags/{id}/upStick', [
+        'as' => 'tags.stick', 'uses' => 'TagController@upStick'
+    ]);
+    
     // 反馈意见列表
     $api->get('feedback/{state?}', [
         'as' => 'feedback.getlist', 'uses' => 'FeedbackController@getList'

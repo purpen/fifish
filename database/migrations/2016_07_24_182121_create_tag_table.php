@@ -17,15 +17,15 @@ class CreateTagTable extends Migration
                 $table->increments('id');
                 $table->string('name');
                 $table->string('display_name');
-                $table->string('description');
-                $table->string('index');
+                $table->string('description')->nullable();
+                $table->string('index')->nullable();
                 $table->integer('total_count')->default(0);
                 
-                // 关联附件Id
-                $table->integer('asset_id');
                 // 推荐状态
                 $table->tinyInteger('sticked')->default(1);
                 $table->timestamp('sticked_at');
+                
+                $table->timestamps();
                 
                 // 创建索引
                 $table->unique('name');

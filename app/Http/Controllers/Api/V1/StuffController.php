@@ -36,40 +36,36 @@ class StuffController extends BaseController
      *   {
      *       "data": [
      *           {
-     *               "id": 10,
-     *               "content": "这是重大的设计走势",
-     *               "user_id": 10,
-     *               "user": {
-     *                     "id": 1,
-     *                     "account": "purpen.w@gmail.com",
-     *                     "username": "purpen",
-     *                     "email": null,
-     *                     "phone": "",
-     *                     "avatar_url": "",
-     *                     "job": "",
-     *                     "zone": "",
-     *                     "sex": 0,
-     *                     "summary": null,
-     *                     "follow_count": 0,
-     *                     "fans_count": 0,
-     *                     "stuff_count": 0,
-     *                     "like_count": 0,
-     *                     "tags": null,
-     *                     "updated_at": "2016-08-01 18:42:06"
+     *                 "id": 6,
+     *                 "content": "开始上传一个图片",
+     *                 "user_id": 1,
+     *                 "user": {
+     *                   "id": 1,
+     *                   "username": "xiaobeng",
+     *                   "summary": null
+     *                 },
+     *                 "tags": [
+     *                   {
+     *                     "id": 2,
+     *                     "name": "时尚",
+     *                     "display_name": "时尚的风格",
+     *                     "total_count": 0
      *                   },
-     *               "tags": "",
-     *               "asset_id": 23
-     *           },
-     *           {
-     *               "id": 9,
-     *               "content": "这是重大的设计",
-     *               "user_id": 0,
-     *               "user": {
-     *                  ...
-     *                }
-     *               "tags": "",
-     *               "asset_id": 22
-     *           }
+     *                   {
+     *                     "id": 4,
+     *                     "name": "科技",
+     *                     "display_name": "科技风格",
+     *                     "total_count": 0
+     *                   }
+     *                 ],
+     *                 "photo": {
+     *                   "id": 7,
+     *                   "size": "105k",
+     *                   "width": 1000,
+     *                   "height": 1000,
+     *                   "fileurl": "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
+     *                 }
+     *               },
      *       ],
      *       "meta": {
      *           "message": "Success.",
@@ -201,6 +197,7 @@ class StuffController extends BaseController
      *
      * @apiParam {String} content 分享内容
      * @apiParam {File} file 上传文件
+     * @apiParam {Array} tags 标签ID
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -256,10 +253,12 @@ class StuffController extends BaseController
                 'user_id' => $this->auth_user_id
             ));
             $assetInfo = $stuff->assets()->create($somedata);
-            
-            // 更新附件Id
-            $stuff->asset = $assetInfo['id'];
-            $stuff->save();
+        }
+        
+        // 同步保存标签
+        $tags = $request->input('tags', []);
+        if (!empty($tags)) {
+            $stuff->tags()->sync($tags, ['updated_at' => date('Y-m-d H:i:s')]);
         }
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
@@ -317,7 +316,7 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function destroy($id)
+    public function destory($id)
     {
         $stuff = Stuff::find($id);
         if (!$stuff) {

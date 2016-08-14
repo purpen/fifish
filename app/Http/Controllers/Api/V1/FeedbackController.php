@@ -97,7 +97,7 @@ class FeedbackController extends BaseController
             'content' => ['required', 'min:2', 'max:1500']
         ]);
         if ($check->fails()) {
-            throw new ApiExceptions\ValidationException(trans('common.validate'), $validator->errors());
+            throw new ApiExceptions\ValidationException(trans('common.validate'), $check->errors());
         }
         
         $feedback = Feedback::create($request->only(['contact', 'content'])); 

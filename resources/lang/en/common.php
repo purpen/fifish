@@ -15,5 +15,5 @@ return [
     'validate' => 'Field Format Error',
     'delate_ok' => 'Delete Ok.',
     'upload_ok' => 'Upload Ok.',
-    
+    'not_allow' => 'Not allow.',
 ];

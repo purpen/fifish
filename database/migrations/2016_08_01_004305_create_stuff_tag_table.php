@@ -19,10 +19,10 @@ class CreateStuffTagTable extends Migration
 			$table->integer('taggable_id');
 			$table->string('taggable_type');
             
-            $table->timestamps();
+            $table->timestamp('updated_at');
             
 			// indexes
-			$table->primary(['taggable_id', 'taggable_type']);
+			$table->primary(['tag_id', 'taggable_id', 'taggable_type']);
 		});
     }
 

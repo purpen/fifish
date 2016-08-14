@@ -14,7 +14,6 @@ class Stuff extends Model
      *      user_id,
      *      asset,
      *      content,
-     *      tags,
      *      sticked,sticked_at
      *      featured,featured_at
      *      view_count,like_count,comment_count,share_count
@@ -28,7 +27,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'asset_id', 'content', 'tags'];
+    protected $fillable = ['user_id', 'asset_id', 'content'];
     
     /**
      * 不能被批量赋值的属性
@@ -42,7 +41,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'user', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count', 'asset'];
+    protected $visible = ['id', 'user', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count'];
     
     /**
      * 获取分享用户

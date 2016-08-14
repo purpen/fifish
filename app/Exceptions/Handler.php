@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\QueryException;
 
 use Dingo\Api\Exception\ResourceException;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -62,7 +63,7 @@ class Handler extends ExceptionHandler
             ), 200);
         }
         
-        if ($e instanceof NotFoundException) {
+        if ($e instanceof NotFoundException || $e instanceof ModelNotFoundException) {
             $message  = $e->getMessage() ?: '访问记录不存在或被删除';
             $code     = $e->getCode() ?: 404;
             
@@ -98,6 +99,18 @@ class Handler extends ExceptionHandler
                ) 
             ), 200);
         }
+        
+        if ($e instanceof QueryException) {
+            $message  = $e->getMessage() ?: 'Select Database error';
+            $code     = $e->getCode() ?: 500;
+            return \Response::make(array(
+               'meta' => array(
+                   'message' => $message,
+                   'status_code' => $code
+               ) 
+            ), 200);
+        }
+        
         
         // if($e instanceof \Symfony\Component\Debug\Exception\FatalErrorException
         //         && !config('app.debug')) {

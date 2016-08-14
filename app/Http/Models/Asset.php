@@ -5,19 +5,22 @@ namespace App\Http\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
-{
+{    
     /**
      * 关联到模型的数据表
+     *
+     *  Schema: assets
+     *      id,
+     *      assetable_id,
+     *      assetable_type,
+     *      filepath,
+     *      filename,
+     *      size,width,height,mime
+     *      state,created_at,updated_at
      *
      * @var string
      */
     protected $table = 'assets';
-    
-    // 头像
-    const AVATAR_TYPE = 1;
-    
-    // 照片
-    const PHOTO_TYPE = 9;
     
     /**
      * 可以被批量赋值的属性.
@@ -33,14 +36,12 @@ class Asset extends Model
      */
     protected $guarded = ['state'];
     
-    
     /**
      * 在数组中显示的属性
      *
      * @var array
      */
-    protected $visible = ['id', 'filepath', 'size'];
-    
+    protected $visible = ['id', 'filepath', 'size', 'width', 'height'];
     
     /**
      * 获取所有拥有的 assetable 模型。
@@ -51,12 +52,11 @@ class Asset extends Model
     }
     
     /**
-     * 获取照片的访问Url
+     * 获取照片/视频截图访问fileurl
      */
-    public function viewUrl()
+    public function getFileurlAttribute()
     {
         return config('app.static_url').'/'.$this->filepath;
     }
-    
     
 }

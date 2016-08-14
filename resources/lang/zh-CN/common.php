@@ -15,6 +15,6 @@ return [
     'validate' => '验证格式不正确',
     'delate_ok' => '删除成功',
     'upload_ok' => '上传成功',
-    
+    'not_allow' => '不能删除',
     
 ];
