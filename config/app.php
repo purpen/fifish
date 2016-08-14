@@ -184,6 +184,11 @@ return [
          */
         Matriphe\Imageupload\ImageuploadServiceProvider::class,
         
+        /**
+         * Socialite
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\WechatServiceProvider::class,
     ],
 
     /*
@@ -241,6 +246,11 @@ return [
          * Image upload
          */
         'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
+        
+        /**
+         * Socialite (Facebook/Instagram/WeChat)
+         */
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

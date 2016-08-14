@@ -30,6 +30,8 @@
     26 => 'Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider',
     27 => 'Collective\\Html\\HtmlServiceProvider',
     28 => 'Matriphe\\Imageupload\\ImageuploadServiceProvider',
+    29 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    30 => 'App\\Providers\\WechatServiceProvider',
   ),
   'eager' => 
   array (
@@ -49,6 +51,7 @@
     13 => 'Dingo\\Api\\Provider\\LaravelServiceProvider',
     14 => 'Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider',
     15 => 'Matriphe\\Imageupload\\ImageuploadServiceProvider',
+    16 => 'App\\Providers\\WechatServiceProvider',
   ),
   'deferred' => 
   array (
@@ -139,6 +142,7 @@
     'form' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
   ),
   'when' => 
   array (
@@ -179,6 +183,9 @@
     array (
     ),
     'Collective\\Html\\HtmlServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
   ),

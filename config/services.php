@@ -38,5 +38,24 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    
+    'facebook' => [
+        'client_id' => 'your-github-app-id',
+        'client_secret' => 'your-github-app-secret',
+        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/facebook',
+    ],
+    
+    'wechat' => [
+        'client_id' => 'your-github-app-id',
+        'client_secret' => 'your-github-app-secret',
+        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/wechat',
+    ],
+    
+    'instagram' => [
+        'client_id' => 'your-github-app-id',
+        'client_secret' => 'your-github-app-secret',
+        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/instagram',
+    ],
+    
+    
 ];

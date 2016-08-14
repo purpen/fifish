@@ -186,6 +186,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('user/profile', [
         'as' => 'user.profile', 'uses' => 'UserController@profile'
     ]);
+        
+    // 第三方登录跳转 
+    $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
+    // 第三方登录回调
+    $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
             
     // middleware: ['jwt.auth','jwt.refresh']
     $api->group(['middleware' => ['jwt.auth','jwt.refresh']], function($api) {
