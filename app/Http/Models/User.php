@@ -10,6 +10,17 @@ class User extends Authenticatable
     /**
      * 关联到模型的数据表
      *
+     *  Schema: users
+     *      id,
+     *      account,password
+     *      username,email,phone,job,zone
+     *      avatar_url,sex,summary,tags
+     *      role_id,
+     *      follow_count,fans_count,stuff_count,like_count
+     *      from_site,status
+     *      remember_token
+     *      created_at,updated_at
+     *
      * @var string
      */
     protected $table = 'users';

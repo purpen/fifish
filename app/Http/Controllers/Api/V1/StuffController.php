@@ -443,14 +443,11 @@ class StuffController extends BaseController
             throw new ApiExceptions\StoreFailedException(501, trans('common.failed'));
         }
         
-        // 评论数+1
-        $stuff->increment('comment_count');
-        
         return $this->response->item($comment, new CommentTransformer())->setMeta(ApiHelper::meta());
     }
     
     /**
-     * @api {post} /stuffs/:id/destoryComment 删除回复
+     * @api {post} /stuffs/destoryComment/:id 删除回复
      * @apiVersion 1.0.0
      * @apiName stuff destory comment 
      * @apiGroup Stuff
@@ -466,17 +463,15 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function destoryComment(Request $request)
+    public function destoryComment(Request $request, $id)
     {
-        $id = $request->input('id');
         $comment = Comment::find($id);
         if (!$comment) {
             throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
         }
-        $stuff_id = $comment->target_id;
-        if ($comment->delete()) {
-            Stuff::findOrFail($stuff_id)->decrement('comment_count');
-        }
+        // todo: 验证是否有删除权限
+        
+        $res = $comment->delete();
         
         return $this->response->array(ApiHelper::success());
     }
@@ -605,18 +600,18 @@ class StuffController extends BaseController
         }
         
         try {
-            $likeable = Like::create([
+            // 保存关联关系
+            $res = $stuff->likes()->create([
                 'user_id' => $this->auth_user_id,
             ]);
-            // 保存关联关系
-            $res = $stuff->likes()->save($likeable);
-        
+            
             if ($res) {
                 // 喜欢数+1
                 $stuff->increment('like_count');
             }
             
         } catch (QueryException $e) {
+            Log::warning('Save Like failed: '.$e->getMessage());
             return $this->response->array(ApiHelper::error(trans('common.failed')));
         }
         

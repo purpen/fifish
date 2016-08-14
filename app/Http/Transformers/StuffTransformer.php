@@ -2,11 +2,11 @@
 
 namespace App\Http\Transformers;
 
-use App\Http\Models\Stuff;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use League\Fractal\TransformerAbstract;
+
+use App\Http\Models\Stuff;
 
 class StuffTransformer extends TransformerAbstract
 {
@@ -15,6 +15,9 @@ class StuffTransformer extends TransformerAbstract
         return [
             'id' => $stuff->id,
             'content' => $stuff->content,
+            'view_count' => $stuff->view_count,
+            'like_count' => $stuff->like_count,
+            'comment_count' => $stuff->comment_count,
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
@@ -28,8 +31,7 @@ class StuffTransformer extends TransformerAbstract
     protected function photo($stuff)
     {
         if ($stuff->assets()->count()) {
-            $assetTransformer = new AssetTransformer();
-            return $assetTransformer->transform($stuff->assets()->first());
+            return $stuff->assets()->first();
         }
     }
     

@@ -23,6 +23,11 @@ class Asset extends Model
     protected $table = 'assets';
     
     /**
+     * 添加不存在的属性
+     */
+    protected $appends = ['fileurl'];
+    
+    /**
      * 可以被批量赋值的属性.
      *
      * @var array
@@ -41,7 +46,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'filepath', 'size', 'width', 'height'];
+    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'fileurl'];
     
     /**
      * 获取所有拥有的 assetable 模型。
@@ -49,6 +54,14 @@ class Asset extends Model
     public function assetable()
     {
         return $this->morphTo();
+    }
+    
+    /**
+     * 转换为KB
+     */
+    public function getSizeAttribute($size)
+    {
+        return ceil($size/1024).'KB';
     }
     
     /**

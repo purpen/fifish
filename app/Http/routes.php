@@ -125,7 +125,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'stuffs.postComment', 'uses' => 'StuffController@postComment'
     ]);
     // 删除回复
-    $api->post('stuffs/destoryComment', [
+    $api->post('stuffs/destoryComment/{id}', [
         'as' => 'stuffs.destoryComment', 'uses' => 'StuffController@destoryComment'
     ]);
     

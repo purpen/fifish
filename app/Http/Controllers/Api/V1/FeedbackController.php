@@ -85,10 +85,12 @@ class FeedbackController extends BaseController
      *       }
      *   }
      * @apiErrorExample 失败响应:
-     *   {
-     *       "message": "提交反馈信息失败",
-     *       "status_code": 404
+     * {
+     *   "meta": {
+     *      "message": "提交反馈信息失败",
+     *      "status_code": 404
      *   }
+     * }
      */
     public function submited (Request $request)
     {
@@ -101,11 +103,11 @@ class FeedbackController extends BaseController
         }
         
         $feedback = Feedback::create($request->only(['contact', 'content'])); 
-        if ($feedback) {
-            return $this->response->item($feedback, new FeedbackTransformer());
-        } else {
-            return $this->response->error('提交反馈信息失败', 501);
+        if (!$feedback) {
+            return $this->response->array(ApiHelper::error(trans('common.failed'), 501));
         }
+        
+        return $this->response->item($feedback, new FeedbackTransformer())->setMeta(ApiHelper::meta());
     }
     
     /**
