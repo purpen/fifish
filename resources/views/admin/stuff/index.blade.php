@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', '后台管理')
-
-@section('mainbar')
+@section('content')
 <div class="page-header">
     <h4>分享管理 <small>帮助?</small></h4>
 </div>
@@ -25,34 +23,43 @@
 </div>
 
 <table class="table table-bordered table-striped table-hover">
-    <tr>
-        <td></td>
-        <td>照片</td>
-        <td>发布者</td>
-        <td>发布时间</td>
-        <td>操作</td>
-    </tr>
-    @foreach ($stuffs as $stuff)
-    <tr>
-        <td>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="ids[]" value="{{ $stuff->id }}" aria-label="...">
-                </label>
-            </div>
-        </td>
-        <td>
-            <img src="{{ $stuff->cover ? $stuff->cover->fileurl : '' }}" width="90px" >
-        </td>
-        <td>{{ $stuff->user->username }}</td>
-        <td>{{ $stuff->created_at }}</td>
-        <td>
-            <a href="#" class="btn btn-link">删除</a>
-        </td>
-    </tr>
-    @endforeach
-    
-    
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>照片</th>
+            <th>发布者</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($stuffs as $stuff)
+        <tr>
+            <td>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="ids[]" value="{{ $stuff->id }}" aria-label="...">
+                    </label>
+                </div>
+            </td>
+            <td>
+                <img src="{{ $stuff->cover ? $stuff->cover->fileurl : '' }}" width="90px" >
+            </td>
+            <td>{{ $stuff->user->username }}</td>
+            <td>{{ $stuff->created_at }}</td>
+            <td>
+                <form action="/admin/stuff/{{ $stuff->id }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+
+                    <button class="btn btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除
+                    </button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
 </table>
 <nav aria-label="Page navigation">
     {!! $stuffs->links() !!}

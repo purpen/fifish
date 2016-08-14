@@ -27,8 +27,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     
     Route::get('/', 'OverviewController@index');
     
-    Route::resource('stuffs', 'StuffController');
-    Route::resource('assets', 'AssetController');
+    Route::resource('stuff', 'StuffController');
+    Route::resource('asset', 'AssetController');
     
 });
 
