@@ -3,8 +3,7 @@
 @section('content')
 <div class="content-header">
     <h1>
-        附件管理
-        <small>照片、视频</small>
+        标签管理
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -13,7 +12,7 @@
                 控制台
             </a>
         </li>
-        <li class="active">附件管理</li>
+        <li class="active">标签管理</li>
     </ol>
 </div>
 
@@ -64,35 +63,35 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>照片</th>
-                                            <th>文件名称</th>
-                                            <th class="sorting_asc">上传时间</th>
-                                            <th>大小</th>
-                                            <th>所属对象</th>
+                                            <th>名称</th>
+                                            <th>数量</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($assets as $asset)
+                                        @foreach ($tags as $tag)
                                         <tr>
                                             <td>
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="ids[]" value="{{ $asset->id }}" aria-label="...">
+                                                        <input type="checkbox" name="ids[]" value="{{ $tag->id }}" aria-label="...">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ $asset->fileurl ? $asset->fileurl : '' }}" width="90px" >
+                                                {{ $tag->name }} @if ($tag->display_name)[{{ $tag->display_name }}]@endif
                                             </td>
-                                            <td>{{ $asset->filename }}</td>
-                                            <td>{{ $asset->created_at }}</td>
                                             <td>
-                                                {{ $asset->size }}
+                                                {{ $tag->total_count }}
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <form action="/admin/stuffs/{{ $asset->id }}" method="POST">
+                                                @if ($tag->sticked)
+                                                    <span class="label label-success">推荐</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="/admin/stuffs/{{ $tag->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 
@@ -110,12 +109,12 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div id="datatable_info" class="dataTables_info" role="status" aria-live="polite">
-                                    显示 1 至 10 条，共 57 条记录
+                                    显示 {{ $tags->firstItem() }} 至 {{ $tags->lastItem() }} 条，共 {{ $tags->total() }} 条记录
                                 </div>
                             </div>
                             <div class="col-sm-7">
                                 <div id="datatable_paginate" class="dataTables_paginate paging_simple_numbers">
-                                    {!! $assets->links() !!}
+                                    {!! $tags->links() !!}
                                 </div>
                             </div>
                         </div>

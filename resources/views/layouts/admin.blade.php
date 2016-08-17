@@ -11,166 +11,234 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ elixir('css/base.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
     
     @yield('partial_css')
     
     <style>
-        body {
-            padding-top: 50px;
-        }
-        .sub-header {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .navbar-fixed-top {
-            border: 0 none;
-        }
-        .sidebar {
-            display: none;
-        }
-        @media (min-width: 768px) {
-            .sidebar {
-                background-color: #f5f5f5;
-                border-right: 1px solid #eee;
-                bottom: 0;
-                display: block;
-                left: 0;
-                overflow-x: hidden;
-                overflow-y: auto;
-                padding: 20px;
-                position: fixed;
-                top: 51px;
-                z-index: 1000;
-            }
-        }
-        .nav-sidebar {
-            margin-bottom: 20px;
-            margin-left: -20px;
-            margin-right: -21px;
-        }
-        .nav-sidebar > li > a {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-        .nav-sidebar > .active > a, 
-        .nav-sidebar > .active > a:hover, 
-        .nav-sidebar > .active > a:focus {
-            background-color: #428bca;
-            color: #fff;
-        }
-        .main {
-            padding: 20px;
-        }
-        @media (min-width: 768px) {
-            .main {
-                padding-left: 40px;
-                padding-right: 40px;
-            }
-        }
-        .main .page-header {
-            margin-top: 0;
-        }
-        .table > tbody > tr > td {
-            vertical-align: middle;
-        }
-        .placeholders {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .placeholders h4 {
-            margin-bottom: 0;
-        }
-        .placeholder {
-            margin-bottom: 20px;
-        }
-        .placeholder img {
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .page-tools {
-            margin: 10px auto 20px;
-        }
-        
         @yield('customize_css')
     </style>
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Fifish Admin</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">设置</a></li>
-                    <li><a href="#">帮助？</a></li>
+<body class="skin-blue sidebar-mini">
+    <header class="main-header">
+        <a href="../../index2.html" class="logo">
+            <span class="logo-mini">
+                Fifish
+            </span>
+            <span class="logo-lg">
+                Fifish Admin
+            </span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a class="sidebar-toggle" role="button" data-toggle="offcanvas" href="#">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">1</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 1 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Sender Name<small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Message Excerpt</p>
+                                        </a>
+                                    </li><!-- end message -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">See All Messages</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">1</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 1 notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="ion ion-ios-people info"></i> Notification title
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">2</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 2 tasks</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Design some buttons <small class="pull-right">20%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li><!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ Auth::user()->username }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ Auth::user()->username }} <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/auth/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
             </div>
+        </nav>
+    </header>
+    
+    <aside class="main-sidebar">
+        <!-- Inner sidebar -->
+        <section class="sidebar" style="height: auto;">
+            <!-- Search Form (Optional) -->
+            <form action="#" method="get" class="sidebar-form">
+                  <div class="input-group">
+                      <input type="text" name="q" class="form-control" placeholder="Search...">
+                      <span class="input-group-btn">
+                          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                      </span>
+                  </div>
+            </form><!-- /.sidebar-form -->
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="header">Menu</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="{{ $sitebar_menu_overview or '' }}">
+                    <a href="/admin">
+                        <i class="fa fa-dashboard" aria-hidden="true"></i> <span>概况</span>
+                    </a>
+                </li>
+                <li class="{{ $sitebar_menu_stuff or '' }}">
+                    <a href="/admin/stuffs">
+                        <i class="fa fa-photo" aria-hidden="true"></i> <span>分享管理</span>
+                    </a>
+                </li>
+                <li class="{{ $sitebar_menu_comments or '' }}">
+                    <a href="/admin/comments">
+                        <i class="fa fa-comments" aria-hidden="true"></i> <span>评论管理</span>
+                    </a>
+                </li>
+                <li class="{{ $sitebar_menu_tags or '' }}">
+                    <a href="/admin/tags">
+                        <i class="fa fa-tags" aria-hidden="true"></i> <span>标签管理</span>
+                    </a>
+                </li>
+                <li class="{{ $sitebar_menu_assets or '' }}">
+                    <a href="/admin/assets">
+                        <i class="fa fa-file-image-o" aria-hidden="true"></i> <span>附件管理</span>
+                    </a>
+                </li>
+                <li class="treeview {{ $sitebar_menu_users or '' }}">
+                    <a href="/admin/users">
+                        <i class="fa fa-user" aria-hidden="true"></i> <span>用户管理</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/users/administer">管理员</a></li>
+                        <li><a href="/admin/users/people">普通用户</a></li>
+                    </ul>
+                </li>
+                <li class="treeview {{ $sitebar_menu_system or '' }}">
+                    <a href="/admin/settings">
+                        <i class="fa fa-circle-o" aria-hidden="true"></i> <span>系统管理</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#">数据统计</a></li>
+                        <li><a href="#">缓存管理</a></li>
+                    </ul>
+                </li>
+            </ul><!-- /.sidebar-menu -->
+        </section><!-- /.sidebar -->
+    </aside><!-- /.main-sidebar -->
+    
+    <div class="content-wrapper" style="min-height: 398px;">
+        @yield('content')
+    </div>
+    
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.0
         </div>
-    </nav>
-        
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="/admin">
-                            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 概述 </a>
-                    </li>
-                    <li class="active">
-                        <a href="/admin/stuffs">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 分享管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/tags">
-                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> 标签管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/assets">
-                            <span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 附件管理
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="/admin/users">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>  用户管理
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="/admin/">
-                            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 数据统计
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <!-- Display Validation Errors -->
-                @include('common.errors')
-                
-                @yield('content')
-            </div>
-        </div>
-    <div>
-        
+        <strong>Copyright &copy; 2016-2017 <a href="http://qysea.com">QYsea</a>.</strong> All rights reserved.
+    </footer>
+    
     @yield('footer')
+    
     <!-- JavaScripts -->
     <script src="{{ asset('js/jquery-3.0.0.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-    {{-- <script src="{{ elixir('js/base.js') }}"></script> --}}
+    <script src="{{ asset('js/AdminLTE.min.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".select2").select2();
+        });
+    </script>
 </body>
 </html>

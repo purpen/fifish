@@ -1,14 +1,20 @@
 /**
  * fifish base js
  */
+var fifish = {};
 
-
-var fi = {};
+/**
+ * 初始化
+ */
+fifish.init = function() {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+};
 
 /**
  * 允许多附件上传
  */
-fi.record_asset_id = function(class_id, id){
+fifish.record_asset_id = function(class_id, id) {
     var ids = $('#'+class_id).val();
     if (ids.length == 0){
         ids = id;
@@ -21,7 +27,7 @@ fi.record_asset_id = function(class_id, id){
 };
 
 //移除附件id
-fi.remove_asset_id = function(class_id, id){
+fifish.remove_asset_id = function(class_id, id) {
     var ids = $('#'+class_id).val();
     var ids_arr = ids.split(',');
     var is_index_key = phenix.in_array(ids_arr,id);
@@ -31,7 +37,7 @@ fi.remove_asset_id = function(class_id, id){
 };
 
 //查看字符串是否在数组中存在
-fi.in_array = function(arr, val) {
+fifish.in_array = function(arr, val) {
     var i;
     for (i = 0; i < arr.length; i++) {
         if (val === arr[i]) {

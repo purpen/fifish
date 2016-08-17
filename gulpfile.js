@@ -1,8 +1,3 @@
-var elixir = require('laravel-elixir');
-
-var gulp = require('gulp'),
-    del = require('del');
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -14,48 +9,74 @@ var gulp = require('gulp'),
  |
  */
 
-// 清理旧文件 
-gulp.task('clean', function(cb){
-    del(['public/css','public/js', 'public/build'], cb); 
+var elixir = require('laravel-elixir'),
+    gulp = require('gulp'),
+    del = require('del');
+    
+// 关闭默认源地图
+elixir.config.sourcemaps = false;
+
+// 调用存在的Task任务
+gulp.task('clean', function(cb) {
+    del(['public/css','public/js'], cb); 
 });
 
 elixir(function(mix) {
     mix.task('clean');
 });
 
+// 编译Less文件
 elixir(function(mix) {
-    mix.less('base.less')
-        .version('public/css/base.css');
-    mix.less('app.less')
-        .version('public/css/app.css');
+    mix.less(['app.less'], 'public/css/app.css');
+    mix.less(['admin.less'], 'public/css/admin.css');
+});
+
+// 将原生CSS样式文件合并到一个文件
+elixir(function(mix) {
+   mix.styles([
+       'bootstrap.css',
+       'bootstrap-theme.css'
+   ], 'public/css/bootstrap.min.css');
+   
+   mix.styles([
+       'AdminLTE.css',
+       'skins/skin-blue.css'
+   ], 'public/css/AdminLTE.min.css');
+   
+   mix.styles([
+       'font-awesome.css',
+   ], 'public/css/font-awesome.min.css');
+   
+   mix.styles([
+       'dataTables.bootstrap.css',
+       'select2.css',
+   ], 'public/css/bootstrap.plugins.min.css');
+});
+
+// 将编译Javascript文件
+elixir(function(mix) {
+    mix.scripts(['jquery-3.0.0.min.js'], 'public/js/jquery-3.0.0.min.js');
+    mix.scripts([
+        'bootstrap.js'
+    ], 'public/js/bootstrap.min.js');
+    mix.scripts(['AdminLTE.js'], 'public/js/AdminLTE.min.js');
+    mix.scripts([
+        'select2.full.js',
+    ], 'public/js/jquery.plugins.min.js');
+    mix.scripts(['app.js'], 'public/js/app.js');
 });
 
 elixir(function(mix) {
-    mix.styles('base.css');
+    mix.copy('resources/assets/fonts/', 'public/fonts/');
 });
 
+// 添加版本号
 elixir(function(mix) {
-    mix.scripts('base.js');
+   mix.version([
+      'css/app.css',
+      'css/admin.css',
+      'css/bootstrap.plugins.min.css',
+      'js/jquery.plugins.min.js',
+      'js/app.js' 
+   ]); 
 });
-
-
-elixir(function(mix) {
-    mix
-        .copy('resources/assets/js/jquery-3.0.0.min.js', 'public/js/jquery-3.0.0.min.js')
-        .copy('resources/assets/js/jquery-3.0.0.min.map', 'public/js/jquery-3.0.0.min.map')
-        .copy('resources/assets/js/html5shiv.min.js', 'public/js/html5shiv.min.js')
-        .copy('resources/assets/js/bootstrap.min.js', 'public/js/bootstrap.min.js')
-        .copy('resources/assets/css/bootstrap.min.css', 'public/css/bootstrap.min.css')
-        .copy('resources/assets/fonts/', 'public/fonts/');
-});
-
-// 版本号码缓存必须放在编译之后
-elixir(function(mix) {
-    mix
-        .version([
-                'css/base.css',
-                'js/base.js'
-            ]);
-});
-
-

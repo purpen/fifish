@@ -1,12 +1,21 @@
 {
-  "private": true,
-  "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "laravel-elixir": "^5.0.0",
-    "bootstrap-sass": "^3.3.0"
-  }
+    "name": "Fifish",
+    "version": "1.0.0",
+    "description": "Fifish Web Site",
+    "homepage": "",
+    "private": true,
+    "author": {
+        "name": "Taihuoniao",
+        "email": "admin@taihuoniao.com"
+    },
+    "scripts": {
+        "prod": "gulp --production",
+        "dev": "gulp watch"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "laravel-elixir": "^5.0.0",
+        "bootstrap-sass": "^3.3.0"
+    }
+    
 }

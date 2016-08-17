@@ -11,7 +11,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ elixir('css/base.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     
     @yield('partial_css')
     
@@ -87,6 +87,6 @@
     <!-- JavaScripts -->
     <script src="{{ asset('js/jquery-3.0.0.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-    {{-- <script src="{{ elixir('js/base.js') }}"></script> --}}
+    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

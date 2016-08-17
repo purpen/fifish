@@ -23,13 +23,15 @@ Route::get('/job', 'HomeController@job');
 /**
  * 后台管理的路由组
  */
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     
     Route::get('/', 'OverviewController@index');
     
-    Route::resource('stuff', 'StuffController');
-    Route::resource('asset', 'AssetController');
-    
+    Route::resource('stuffs', 'StuffController');
+    Route::resource('comments', 'TagController');
+    Route::resource('assets', 'AssetController');
+    Route::resource('users', 'UserController');
+    Route::resource('tags', 'TagController');
 });
 
 /**
