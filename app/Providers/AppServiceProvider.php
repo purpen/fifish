@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
             'Like' => \App\Http\Models\Like::class,
             'User' => \App\Http\Models\User::class,
             'Tag' => \App\Http\Models\Tag::class,
+            'Follow' => \App\Http\Models\Follow::class
         ]);
     }
 

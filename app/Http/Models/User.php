@@ -100,6 +100,28 @@ class User extends Authenticatable
     }
     
     /**
+     * 获取关注者
+     *
+     * Defines a one-to-many relationship.
+     * @see http://laravel.com/docs/eloquent#one-to-many
+     */
+    public function followers()
+    {
+        return $this->hasMany('App\Http\Models\Follow');
+    }
+    
+    /**
+     * 获取粉丝列表
+     *
+     * Defines a one-to-many relationship.
+     * @see http://laravel.com/docs/eloquent#one-to-many
+     */
+    public function fans()
+    {
+        return $this->hasMany('App\Http\Models\Follow', 'follow_id');
+    }
+    
+    /**
      * 获取用户分享列表
      *
      * Defines a one-to-many relationship.

@@ -20,7 +20,7 @@ class CreateFollowTable extends Migration
             $table->integer('follow_id');
             
 			// indexes
-			$table->index('user_id');
+            $table->unique(['user_id', 'follow_id']);
             $table->index('follow_id');
 		});
     }

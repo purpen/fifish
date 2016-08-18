@@ -179,6 +179,23 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('user/{id}', [
         'as' => 'user', 'uses' => 'UserController@profile'
     ])->where(['id' => '[0-9]+']);
+        
+    // 关注
+    $api->post('user/{id}/follow', [
+        'as' => 'user.follow', 'uses' => 'UserController@follow'
+    ]);
+    // 取消关注
+    $api->delete('user/{id}/cancelFollow', [
+        'as' => 'user.cancelFollow', 'uses' => 'UserController@cancelFollow'
+    ]);
+    // 用户粉丝
+    $api->get('user/{id}/fans', [
+        'as' => 'user.fans', 'uses' => 'UserController@fans'
+    ]);
+    // 用户关注者
+    $api->get('user/{id}/followers', [
+        'as' => 'user.followers', 'uses' => 'UserController@followers'
+    ]);
     
     // 更新用户资料
     $api->post('user/settings', [
@@ -188,6 +205,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('user/profile', [
         'as' => 'user.profile', 'uses' => 'UserController@profile'
     ]);
+        
+
         
     // 第三方登录跳转 
     $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
@@ -201,9 +220,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         ])->where(['id' => '[0-9]+']);
     });
     
-    // $api->get('user/fans', [
-    //     'as' => 'user.fans', 'uses' => 'UserController@fans'
-    // ]);
+    
     
 });
 
