@@ -21,6 +21,12 @@ Route::get('/home', 'HomeController@index');
 Route::get('/job', 'HomeController@job');
 
 /**
+ * 静态文件
+ */
+Route::get('/aboutus', 'WebController@aboutUs');
+Route::get('/contact', 'WebController@contact');
+
+/**
  * 后台管理的路由组
  */
 Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {

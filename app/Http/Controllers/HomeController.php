@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * 网站的入口文件控制器
+ * @author purpen
+ */
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
@@ -32,6 +35,13 @@ class HomeController extends Controller
         return view('home');
     }
     
+    /**
+     * 特殊活动展示
+     */
+    public function promo()
+    {
+        
+    }
     
     /**
      * 设置测试任务
