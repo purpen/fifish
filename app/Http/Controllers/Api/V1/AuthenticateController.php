@@ -47,6 +47,7 @@ class AuthenticateController extends BaseController
         // 创建用户
         $res = User::create([
             'account' => $payload['account'],
+            'username' => $payload['account'],
             'password' => bcrypt($payload['password']),
         ]);
         
