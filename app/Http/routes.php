@@ -67,36 +67,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
-    $api->post('auth/logout', [
-        'as' => 'auth.logout', 'uses' => 'AuthenticateController@logout'
-    ]);
-    
-    // 更新用户Token
-    $api->post('auth/upToken', [
-        'as' => 'auth.upToken', 'uses' => 'AuthenticateController@upToken'
-    ]);
-    
-    $api->get('auth/getAuthUser', [
-        'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
-    ]);
-    
-    // 获取七牛上传Token
-    $api->get('upload/qiniuToken', [
-        'as' => 'upload.token', 'uses' => 'UploadController@qiniuToken'
-    ]); 
-    // 七牛上传回调
-    $api->post('upload/qiniuback', [
-        'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
-    ]);
-    
-    // 本地上传
-    $api->post('upload/photo', [
-        'as' => 'upload.photo', 'uses' => 'UploadController@photo'
-    ]);
-    // 上传头像
-    $api->post('upload/avatar', [
-        'as' => 'upload.avatar', 'uses' => 'UploadController@avatar'
-    ]);
     
     /**
      * 分享相关路由
@@ -113,13 +83,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('stuffs/{id}', [
         'as' => 'stuffs.show', 'uses' => 'StuffController@show'
     ])->where(['id' => '[0-9]+']);
-      
-    $api->post('stuffs/store', [
-        'as' => 'stuffs.store', 'uses' => 'StuffController@store'
-    ]);
-    $api->put('stuffs/{id}/destroy', [
-        'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
-    ])->where(['id' => '[0-9]+']);
     
     
     /**
@@ -128,26 +91,12 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('stuffs/{id}/comments', [
         'as' => 'stuffs.comments', 'uses' => 'StuffController@comments'
     ]);
-    // 发表回复
-    $api->post('stuffs/{id}/postComment', [
-        'as' => 'stuffs.postComment', 'uses' => 'StuffController@postComment'
-    ]);
-    // 删除回复
-    $api->post('stuffs/destoryComment/{id}', [
-        'as' => 'stuffs.destoryComment', 'uses' => 'StuffController@destoryComment'
-    ]);
     
     /**
      * 点赞相关
      */
     $api->get('stuffs/{id}/likes', [
         'as' => 'stuffs.likes', 'uses' => 'StuffController@likes'
-    ]);
-    $api->post('stuffs/{id}/dolike', [
-        'as' => 'stuffs.dolike', 'uses' => 'StuffController@dolike'
-    ]);
-    $api->post('stuffs/cancelike/{id}', [
-        'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
     ]);
     
     /**
@@ -156,44 +105,17 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('tags', [
         'as' => 'tags', 'uses' => 'TagController@getList'
     ]);
-    $api->post('tags/store', [
-        'as' => 'tags.store', 'uses' => 'TagController@store'
-    ]);
-    $api->post('tags/{id}/destory', [
-        'as' => 'tags.destory', 'uses' => 'TagController@destory'
-    ]);
-    $api->put('tags/{id}/update', [
-        'as' => 'tags.update', 'uses' => 'TagController@update'
-    ]);
-    $api->put('tags/{id}/upStick', [
-        'as' => 'tags.stick', 'uses' => 'TagController@upStick'
-    ]);
     
     // 反馈意见列表
     $api->get('feedback/{state?}', [
         'as' => 'feedback.getlist', 'uses' => 'FeedbackController@getList'
     ])->where(['state' => '[0-9]+']);
-    // 提交反馈意见
-    $api->post('feedback/submit', [
-        'as' => 'feedback.submit', 'uses' => 'FeedbackController@submited'
-    ]);
-    // 完成反馈意见状态
-    $api->put('feedback/finfished/{id}', [
-        'as' => 'feedback.finfished', 'uses' => 'FeedbackController@finfished'
-    ]);
     
     $api->get('user/{id}', [
         'as' => 'user', 'uses' => 'UserController@profile'
     ])->where(['id' => '[0-9]+']);
         
-    // 关注
-    $api->post('user/{id}/follow', [
-        'as' => 'user.follow', 'uses' => 'UserController@follow'
-    ]);
-    // 取消关注
-    $api->delete('user/{id}/cancelFollow', [
-        'as' => 'user.cancelFollow', 'uses' => 'UserController@cancelFollow'
-    ]);
+    
     // 用户粉丝
     $api->get('user/{id}/fans', [
         'as' => 'user.fans', 'uses' => 'UserController@fans'
@@ -203,16 +125,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'user.followers', 'uses' => 'UserController@followers'
     ]);
     
-    // 更新用户资料
-    $api->post('user/settings', [
-        'as' => 'user.settings', 'uses' => 'UserController@settings'
-    ])->where(['id' => '[0-9]+']);
-    // 获取个人信息
-    $api->get('user/profile', [
-        'as' => 'user.profile', 'uses' => 'UserController@profile'
-    ]);
-        
-
         
     // 第三方登录跳转 
     $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
@@ -220,10 +132,109 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
             
     // middleware: ['jwt.auth','jwt.refresh']
-    $api->group(['middleware' => ['jwt.auth','jwt.refresh']], function($api) {
+    $api->group(['middleware' => ['jwt.auth', 'jwt.refresh']], function($api) {
+        
+        $api->post('auth/logout', [
+            'as' => 'auth.logout', 'uses' => 'AuthenticateController@logout'
+        ]);
+        
+        // 上传头像
+        $api->post('upload/avatar', [
+            'as' => 'upload.avatar', 'uses' => 'UploadController@avatar'
+        ]);
+        
+        // 更新用户Token
+        $api->post('auth/upToken', [
+            'as' => 'auth.upToken', 'uses' => 'AuthenticateController@upToken'
+        ]);
+
+        $api->get('auth/getAuthUser', [
+            'as' => 'auth.user', 'uses' => 'AuthenticateController@getAuthUser'
+        ]);
+
+        // 获取七牛上传Token
+        $api->get('upload/qiniuToken', [
+            'as' => 'upload.token', 'uses' => 'UploadController@qiniuToken'
+        ]); 
+        // 七牛上传回调
+        $api->post('upload/qiniuback', [
+            'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
+        ]);
+
+        // 本地上传
+        $api->post('upload/photo', [
+            'as' => 'upload.photo', 'uses' => 'UploadController@photo'
+        ]);
+        
+        $api->post('stuffs/store', [
+            'as' => 'stuffs.store', 'uses' => 'StuffController@store'
+        ]);
+        $api->put('stuffs/{id}/destroy', [
+            'as' => 'stuffs.destroy', 'uses' => 'StuffController@destroy'
+        ])->where(['id' => '[0-9]+']);
+        
         $api->put('stuffs/{id}/update', [
             'as' => 'stuffs.update', 'uses' => 'StuffController@update'
         ])->where(['id' => '[0-9]+']);
+            
+            
+        // 发表回复
+        $api->post('stuffs/{id}/postComment', [
+            'as' => 'stuffs.postComment', 'uses' => 'StuffController@postComment'
+        ]);
+        // 删除回复
+        $api->post('stuffs/destoryComment/{id}', [
+            'as' => 'stuffs.destoryComment', 'uses' => 'StuffController@destoryComment'
+        ]);
+            
+        $api->post('stuffs/{id}/dolike', [
+            'as' => 'stuffs.dolike', 'uses' => 'StuffController@dolike'
+        ]);
+        $api->post('stuffs/cancelike/{id}', [
+            'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
+        ]);
+        
+        
+        $api->post('tags/store', [
+            'as' => 'tags.store', 'uses' => 'TagController@store'
+        ]);
+        $api->post('tags/{id}/destory', [
+            'as' => 'tags.destory', 'uses' => 'TagController@destory'
+        ]);
+        $api->put('tags/{id}/update', [
+            'as' => 'tags.update', 'uses' => 'TagController@update'
+        ]);
+        $api->put('tags/{id}/upStick', [
+            'as' => 'tags.stick', 'uses' => 'TagController@upStick'
+        ]);
+            
+        // 提交反馈意见
+        $api->post('feedback/submit', [
+            'as' => 'feedback.submit', 'uses' => 'FeedbackController@submited'
+        ]);
+        // 完成反馈意见状态
+        $api->put('feedback/finfished/{id}', [
+            'as' => 'feedback.finfished', 'uses' => 'FeedbackController@finfished'
+        ]);
+            
+        // 关注
+        $api->post('user/{id}/follow', [
+            'as' => 'user.follow', 'uses' => 'UserController@follow'
+        ]);
+        // 取消关注
+        $api->delete('user/{id}/cancelFollow', [
+            'as' => 'user.cancelFollow', 'uses' => 'UserController@cancelFollow'
+        ]);
+          
+        // 更新用户资料
+        $api->post('user/settings', [
+            'as' => 'user.settings', 'uses' => 'UserController@settings'
+        ])->where(['id' => '[0-9]+']);
+        // 获取个人信息
+        $api->get('user/profile', [
+            'as' => 'user.profile', 'uses' => 'UserController@profile'
+        ]);
+        
     });
     
     

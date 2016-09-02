@@ -54,6 +54,7 @@ class BaseController extends Controller
             if ($user = JWTAuth::parseToken()->authenticate()) {
                 $this->auth_user = $user;
                 $this->auth_user_id = $user->id;
+                return;
             }
         } catch (TokenExpiredException $e) {
             // skip
@@ -62,8 +63,8 @@ class BaseController extends Controller
         } catch (JWTException $e) {
             // skip
         }
-        
+        // 设置默认值
         $this->auth_user = [];
-        $this->auth_user_id = 1;
+        $this->auth_user_id = 0;
     }
 }

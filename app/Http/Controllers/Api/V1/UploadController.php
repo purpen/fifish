@@ -76,6 +76,36 @@ class UploadController extends BaseController
     }
     
     /**
+     * @api {get} /upload/photo 本地上传照片
+     * @apiVersion 1.0.0
+     * @apiName upload photo
+     * @apiGroup Upload
+     *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       },
+     *       "data": {
+     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
+     *       }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function photo(Request $request)
+    {
+        
+    }
+    
+    /**
      * @api {get} /upload/video 本地上传视频
      * @apiVersion 1.0.0
      * @apiName upload video
@@ -111,7 +141,7 @@ class UploadController extends BaseController
      * @apiName upload avatar
      * @apiGroup Upload
      *
-     * @apiParam {string} avatar 上传文件
+     * @apiParam {File} avatar 上传文件
      * 
      * @apiSuccessExample 成功响应:
      *   {

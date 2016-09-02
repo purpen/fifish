@@ -18,6 +18,11 @@ class UserTransformer extends TransformerAbstract
             'username' => $user->username,
             'job' => $user->job,
             'zone' => $user->zone,
+            'summary' => $user->summary,
+            'follow_count' => $user->follow_count,
+            'fans_count' => $user->fans_count,
+            'stuff_count' => $user->stuff_count,
+            'like_count' => $user->like_count,
             'avatar' => array(
                 'small' => '',
                 'large' => '',

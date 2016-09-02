@@ -311,7 +311,7 @@ class StuffController extends BaseController
      * @apiSuccessExample 成功响应:
      * {
      *  "meta": {
-     *    "code": 200,
+     *    "status_code": 200,
      *    "message": "Success.",
      *  }
      * }
@@ -406,8 +406,7 @@ class StuffController extends BaseController
      *       "like_count": null
      *  ],
      *  "meta": {
-     *    "status": "success",
-     *    "code": 200,
+     *    "status_code": 200,
      *    "message": "回复成功",
      *  }
      * }
@@ -457,8 +456,7 @@ class StuffController extends BaseController
      * @apiSuccessExample 成功响应:
      * {
      *  "meta": {
-     *    "status": "success",
-     *    "code": 200,
+     *    "status_code": 200,
      *    "message": "删除成功",
      *  }
      * }
