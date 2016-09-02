@@ -73,7 +73,7 @@ class ImageUtil
         $secretKey = $config['secret_key'];
         $bucket = $config['bucket'];
                 
-        $saveKey = '$(x:domain)/'.date('y').'$(mon)$(day)/'.self::genUniKey();
+        $saveKey = '$(x:domain)/'.date('ymd').'/'.self::genUniKey();
         $persistentOps = 'avthumb/imageView/1/w/580/h/580/q/85|avthumb/imageView/1/w/160/h/120/q/90';
         
         $policy = array(

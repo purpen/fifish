@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 'qiniu',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,6 +64,7 @@ return [
         
         'qiniu' => [
             'driver'  => 'qiniu',
+            'upload_url' => 'http://up.qiniu.com',
             'domains' => [
                 'default'   => 'obbrr76ua.bkt.clouddn.com', // 你的七牛域名
                 'https'     => 'fs.fifish.com',         // 你的HTTPS域名
@@ -72,7 +73,7 @@ return [
             'access_key'=> 'lg_vCeWVeSr6uH-C1MStxcubFGDRsmnu29jkWq0J',  //AccessKey
             'secret_key'=> 'ul1T1InbNoYQ_iwTmzXpXAE1Q5h0MA_IlWRrnrb7',  //SecretKey
             'bucket'    => 'fifish',  //Bucket名字
-            'notify_url'=> 'http://fifish.me/api/upload/qiniuback',  //持久化处理回调地址
+            'notify_url'=> 'http://fish.taihuoniao.com/api/upload/qiniuback',  //持久化处理回调地址
         ],
 
     ],

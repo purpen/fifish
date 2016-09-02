@@ -20,6 +20,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/job', 'HomeController@job');
 
+Route::get('/avatar', 'HomeController@avatar');
+
 /**
  * 静态文件
  */
@@ -230,6 +232,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->post('user/settings', [
             'as' => 'user.settings', 'uses' => 'UserController@settings'
         ])->where(['id' => '[0-9]+']);
+        
         // 获取个人信息
         $api->get('user/profile', [
             'as' => 'user.profile', 'uses' => 'UserController@profile'

@@ -18,7 +18,6 @@ class FollowObserver
      */
     public function deleted ($follow)
     {
-        echo 'shi';
         $follow->user()->decrement('follow_count');
         $follow->follower()->decrement('fans_count');
     }

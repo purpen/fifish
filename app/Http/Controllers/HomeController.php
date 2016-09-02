@@ -5,6 +5,7 @@
  */
 namespace App\Http\Controllers;
 
+use Config;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,13 @@ class HomeController extends Controller
     public function avatar()
     {
         $token = ImageUtil::qiniuToken();
+        $domain = 'photo';
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
-        return view('avatar', ['token' => $token]);
+        return view('avatar', [
+            'token' => $token, 
+            'domain' => $domain,
+            'upload_url' => $upload_url
+        ]);
     }
 }

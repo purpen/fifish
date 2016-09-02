@@ -55,6 +55,8 @@ class UploadController extends BaseController
      * @apiName upload token
      * @apiGroup Upload
      *
+     * @apiParam {String} domain (optional) 上传类型（照片：photo,头像：avatar）.
+     *
      * @apiSuccessExample 成功响应:
      *   {
      *       "meta": {
@@ -62,17 +64,26 @@ class UploadController extends BaseController
      *         "status_code": 200
      *       },
      *       "data": {
-     *           "qiniu_token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0="
+     *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
+     *            "domain": "photo",
+     *            "upload_url": "http://up.qiniu.com",
      *         }
      *   }
      *
      */
-    public function qiniuToken()
+    public function qiniuToken(Resquest $request)
     {
         // 生成上传Token
         $token = ImageUtil::qiniuToken();
         
-        return $this->response->array(ApiHelper::success(trans('common.success'), 200, array('qiniu_token' => $token)));
+        $domain = $request->input('domain', 'photo');
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        
+        return $this->response->array(ApiHelper::success(trans('common.success'), 200, array(
+            'token' => $token, 
+            'domain' => $domain,
+            'upload_url' => $upload_url,
+        )));
     }
     
     /**
