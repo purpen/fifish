@@ -71,7 +71,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     ]);
         
     // 七牛上传回调
-    $api->get('upload/qiniuback', [
+    $api->post('upload/qiniuback', [
         'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
     ]);
     
