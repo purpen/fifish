@@ -34,7 +34,7 @@ class UploadController extends BaseController
      *       }
      *   }
      */
-    public function qiniuback(Resquest $request)
+    public function qiniuback(Request $request)
     {
         $result = [];
         
@@ -71,7 +71,7 @@ class UploadController extends BaseController
      *   }
      *
      */
-    public function qiniuToken(Resquest $request)
+    public function qiniuToken(Request $request)
     {
         // 生成上传Token
         $token = ImageUtil::qiniuToken();
