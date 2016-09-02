@@ -69,6 +69,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
+        
+    // 七牛上传回调
+    $api->get('upload/qiniuback', [
+        'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
+    ]);
     
     /**
      * 分享相关路由
@@ -157,10 +162,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         // 获取七牛上传Token
         $api->get('upload/qiniuToken', [
             'as' => 'upload.token', 'uses' => 'UploadController@qiniuToken'
-        ]); 
-        // 七牛上传回调
-        $api->post('upload/qiniuback', [
-            'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
         ]);
 
         // 本地上传
