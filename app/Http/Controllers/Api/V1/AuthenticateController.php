@@ -22,10 +22,11 @@ class AuthenticateController extends BaseController
      * @apiParam {string} password 设置密码
      * 
      * @apiSuccessExample 成功响应:
-     *   {
-     *     "status": "success",  
-     *     "code": 200,
-     *     "message": "注册成功",
+     *  {
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200
+     *     }
      *   }
      */
     public function register () 
@@ -75,12 +76,14 @@ class AuthenticateController extends BaseController
      * @apiParam {string} password 设置密码
      * 
      * @apiSuccessExample 成功响应:
-     * {
-     *     "code": 200,
-     *     "message": "登录成功！",
+     *   {
+     *     "meta": {
+     *       "message": "登录成功！",
+     *       "status_code": 200
+     *     },
      *     "data": {
-     *       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6XC9cL2ZpZmlzaC5tZVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTQ2OTg4NjExNCwiZXhwIjoxNDY5ODg5NzE0LCJuYmYiOjE0Njk4ODYxMTQsImp0aSI6IjAxN2JhNTRjNjJjMWU0ZWM4OTU1YzExYjg0MDk0YjIxIn0.G25OQH2047nC9_DLyfc6s88cm_5IdYuhIVxYgXGsDjk"
-     *    }
+     *       "token": "eyJ0eXAiOiiOiJIUzI1NiJ9.sIm5iZiI6MTzkifQ.piS_YZhOqsjAF4XbxELIs2y70cq8"
+     *     }
      *   }
      */
     public function authenticate (Request $request)
@@ -108,15 +111,13 @@ class AuthenticateController extends BaseController
      * @apiName user logout
      * @apiGroup User
      *
-     * 
      * @apiSuccessExample 成功响应:
-     * {
-     *     "code": 200,
-     *     "message": "退出成功！",
-     *     "data": {
-     *       "res": true | false
-     *    }
-     *   }
+     *  {
+     *     "meta": {
+     *       "message": "A token is required",
+     *       "status_code": 500
+     *     }
+     *  }
      */
     public function logout()
     {
@@ -135,8 +136,10 @@ class AuthenticateController extends BaseController
      * 
      * @apiSuccessExample 成功响应:
      * {
-     *     "code": 200,
-     *     "message": "更新Token成功！",
+     *     "meta": {
+     *       "message": "更新Token成功！",
+     *       "status_code": 200
+     *     },
      *     "data": {
      *       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6XC9cL2ZpZmlzaC5tZVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTQ2OTg4NjExNCwiZXhwIjoxNDY5ODg5NzE0LCJuYmYiOjE0Njk4ODYxMTQsImp0aSI6IjAxN2JhNTRjNjJjMWU0ZWM4OTU1YzExYjg0MDk0YjIxIn0.G25OQH2047nC9_DLyfc6s88cm_5IdYuhIVxYgXGsDjk"
      *    }
