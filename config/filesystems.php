@@ -68,7 +68,7 @@ return [
             'domains' => [
                 'default'   => 'obbrr76ua.bkt.clouddn.com', // 你的七牛域名
                 'https'     => 'fs.fifish.com',         // 你的HTTPS域名
-                'custom'    => 'fs.fifish.com',         // 你的自定义域名
+                'custom'    => 'http://obbrr76ua.bkt.clouddn.com',         // 你的自定义域名
              ],
             'access_key'=> 'lg_vCeWVeSr6uH-C1MStxcubFGDRsmnu29jkWq0J',  //AccessKey
             'secret_key'=> 'ul1T1InbNoYQ_iwTmzXpXAE1Q5h0MA_IlWRrnrb7',  //SecretKey

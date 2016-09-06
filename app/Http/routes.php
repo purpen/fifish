@@ -132,14 +132,13 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'user.followers', 'uses' => 'UserController@followers'
     ]);
     
-        
     // 第三方登录跳转 
     $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
     // 第三方登录回调
     $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
             
-    // middleware: ['jwt.auth','jwt.refresh']
-    $api->group(['middleware' => ['jwt.auth', 'jwt.refresh']], function($api) {
+    // 验证API
+    $api->group(['middleware' => ['jwt.api.auth', 'jwt.refresh']], function($api) {
         
         $api->post('auth/logout', [
             'as' => 'auth.logout', 'uses' => 'AuthenticateController@logout'
