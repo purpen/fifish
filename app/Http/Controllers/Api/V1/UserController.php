@@ -58,7 +58,7 @@ class UserController extends BaseController
             return $this->response->array(ApiHelper::error('Not Found!', 404));
         }
         
-        return $this->response->item($user, new UserTransformer())->setMeta(ApiHelper::success());
+        return $this->response->item($user, new UserTransformer())->setMeta(ApiHelper::meta());
     }
     
     /**
