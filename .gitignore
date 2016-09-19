@@ -5,6 +5,7 @@ Homestead.json
 /node_modules
 /public/assets
 /public/css
+/public/images
 /public/js
 /public/fonts
 /public/build
