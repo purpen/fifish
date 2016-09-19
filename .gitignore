@@ -8,10 +8,10 @@ Homestead.json
 /public/js
 /public/fonts
 /public/build
+/public/uploads
 .env
 *.swp
 .DS_Store
 .idea/
-bootstrap/cache
-storage
+storage/*
 composer.lock
