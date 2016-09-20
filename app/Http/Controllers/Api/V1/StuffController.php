@@ -86,8 +86,14 @@ class StuffController extends BaseController
     public function getList(Request $request)
     {
         $per_page = $request->input('per_page', $this->per_page);
+        $user_id = $request->input('user_id', 0);
+
+        $query = array();
+        if($user_id){
+            $query['user_id'] = (int)$user_id;
+        }
         
-        $stuffs = Stuff::with('user')->orderBy('created_at', 'desc')->paginate($per_page);
+        $stuffs = Stuff::with('user')->where($query)->orderBy('created_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
     }
@@ -100,6 +106,8 @@ class StuffController extends BaseController
      *
      * @apiParam {Integer} page 当前分页.
      * @apiParam {Integer} per_page 每页数量
+     * @apiParam {Integer} user_id 用户ID
+     * @apiParam {Integer} sort 排序：0.最新；1.--；
      *
      * @apiSuccessExample 成功响应:
      * {
