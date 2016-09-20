@@ -31,6 +31,8 @@ class StuffController extends BaseController
      *
      * @apiParam {Integer} page 当前分页.
      * @apiParam {Integer} per_page 每页数量
+     * @apiParam {Integer} user_id 用户ID
+     * @apiParam {Integer} sort 排序：0.最新；1.--；
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -106,8 +108,6 @@ class StuffController extends BaseController
      *
      * @apiParam {Integer} page 当前分页.
      * @apiParam {Integer} per_page 每页数量
-     * @apiParam {Integer} user_id 用户ID
-     * @apiParam {Integer} sort 排序：0.最新；1.--；
      *
      * @apiSuccessExample 成功响应:
      * {
