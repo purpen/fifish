@@ -31,6 +31,7 @@ class StuffController extends BaseController
      *
      * @apiParam {Integer} page 当前分页.
      * @apiParam {Integer} per_page 每页数量
+     * @apiParam {Integer} kind 类型：1.图片；2.视频
      * @apiParam {Integer} user_id 用户ID
      * @apiParam {Integer} sort 排序：0.最新；1.--；
      *
@@ -41,6 +42,7 @@ class StuffController extends BaseController
      *                 "id": 6,
      *                 "content": "开始上传一个图片",
      *                 "user_id": 1,
+     *                 "kind": 1,   // 类型：1.图片；2.视频；
      *                 "user": {
      *                   "id": 1,
      *                   "username": "xiaobeng",
@@ -89,10 +91,14 @@ class StuffController extends BaseController
     {
         $per_page = $request->input('per_page', $this->per_page);
         $user_id = $request->input('user_id', 0);
+        $kind = $request->input('kind', 0);
 
         $query = array();
         if($user_id){
             $query['user_id'] = (int)$user_id;
+        }
+        if($kind){
+            $query['kind'] = (int)$kind;
         }
         
         $stuffs = Stuff::with('user')->where($query)->orderBy('created_at', 'desc')->paginate($per_page);
