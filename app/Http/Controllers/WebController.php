@@ -17,16 +17,16 @@ class WebController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function aboutUs()
-    {
-        return view('web.aboutus');
+    {        
+        return view('web.aboutus', ['sub_menu_aboutus' => 'active']);
     }
     
     /**
      * 联系方式
      */
     public function contact()
-    {
-        return view('web.contact');
+    {        
+        return view('web.contact', ['sub_menu_contact' => 'active']);
     }
     
     

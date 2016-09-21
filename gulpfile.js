@@ -68,6 +68,7 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.copy('resources/assets/fonts/', 'public/fonts/');
+    mix.copy('resources/assets/img/', 'public/img/');
 });
 
 // 添加版本号

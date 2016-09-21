@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fifish - @yield('title')</title>
+    <title>Fifish @yield('title')</title>
 
     <!-- Fonts -->
 
@@ -48,7 +48,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="assets/img/logo-fifish.png" />
+                    <img src="/img/logo_fifish.png" />
                 </a>
             </div>
 
@@ -86,6 +86,8 @@
 
     @yield('content')
 
+    @include('block.footer')
+    
     @yield('footer')
     <!-- JavaScripts -->
     <script src="{{ asset('js/jquery-3.0.0.min.js') }}" type="text/javascript"></script>

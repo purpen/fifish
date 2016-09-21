@@ -1,9 +1,171 @@
 @text-color: #ff3366;
+@text-white-color: #fff;
+@link-white-color: #fff;
+@link-black-color: #333;
+@link-gray-color: #666;
 @btn-font-weight: 300;
 @font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
+
+a {
+    color: @link-black-color;
+    text-decoration: none;
+    
+    &:hover {
+        color: @link-gray-color;
+        text-decoration: none;
+    }
+    
+    &.active {
+        color: @link-gray-color;
+    }
+}
 
 .header {
     .color {
         color: @text-color;
     }
+}
+
+.navbar-black {
+    background-color: rgba(0, 0, 0, 1.0);
+    
+    .navbar-nav {
+        a {        
+            color: #999;
+            text-shadow: none;
+            
+            &:hover {
+                color: @link-white-color;
+                background: none;
+            }
+            
+            &.active {
+                color: @link-white-color;
+            }
+        }
+    }
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 150px;
+    left: auto;
+    padding: 20px;
+    right: 10%;
+    text-align: left;
+    width: 265px;
+}
+
+.focus {
+    margin: 20px auto;
+    padding: 0 10%;
+    
+    .focus-item {
+        background: rgba(0, 0, 0, 0) url("/img/f_tutorials.jpg") no-repeat scroll center center;
+        min-height: 180px;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        
+        h4 {
+            color: #fff;
+            padding-top: 50%;
+        }
+    }
+    
+    .video {
+        background-image: url("/img/f_video.jpg");
+    }
+    
+    .event {
+        background-image: url("/img/f_event.jpg");
+    }
+}
+
+.banner {
+    min-height: 320px;
+    background: rgba(0, 0, 0, 0) url("/img/story_about.jpg") repeat scroll center center;
+    
+    h4 {
+        padding-top: 260px;
+        color: @text-white-color;
+    }
+}
+
+.banner-contact {
+    background: rgba(0, 0, 0, 0) url("/img/story_contact.jpg") repeat scroll center center;
+}
+
+.aboutus {
+    p {
+        margin: 20px auto 0;
+    }
+}
+
+.contact {
+    p {
+        margin: 20px auto 0;
+    }
+}
+
+.footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: gray;
+    background-color: rgba(0,0,0,1.0);
+    
+    hr {
+        color: rgba(0,0,0,0.5);
+    }
+    
+    a.social {
+        width: 42px;
+        height: 42px;
+        text-indent: -999px;
+        overflow: hidden;
+        display: inline-block;
+    }
+    
+    .facebook {
+        background: url("/img/icon_facebook.png") no-repeat;
+        &:hover {
+            background: url("/img/icon_facebook_hover.png") no-repeat;
+        }
+    }
+    
+    .instgram {
+        background: url("/img/icon_instgram.png") no-repeat;
+        &:hover {
+            background: url("/img/icon_instgram_hover.png") no-repeat;
+        }
+    }
+    
+    .weixin {
+        background: url("/img/icon_weixin.png") no-repeat;
+        &:hover {
+            background: url("/img/icon_weixin_hover.png") no-repeat;
+        }
+    }
+    
+}
+
+.text-list {
+    a {
+        color: @link-white-color;
+        text-decoration: none;
+        
+        &:hover {
+            color: @link-gray-color;
+        }
+    }
+    .item {
+        display: block;
+    }
+}
+
+.line {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 15px auto;
 }
