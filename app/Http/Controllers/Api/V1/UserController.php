@@ -311,6 +311,67 @@ class UserController extends BaseController
         
         return $this->response->paginator($follows, new FollowTransformer())->setMeta(ApiHelper::meta());
     }
+
+
+    /**
+     * @api {get} /user/hot_users 热门用户列表
+     * @apiVersion 1.0.0
+     * @apiName user hotUsers
+     * @apiGroup User
+     *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *      "data": [
+     *       {
+     *         "id": 1,
+     *         "account": "tian_05@sina.com",
+     *         "username": "tian_05@sina.com",
+     *         "job": "程序猿",
+     *         "zone": "",
+     *         "summary": "",
+     *         "follow_count": 10,
+     *         "fans_count": 10,
+     *         "stuff_count": 12,
+     *         "like_count": 15,
+     *         "avatar": {
+     *           "small": 2,
+     *           "large": "xiao"
+     *         }
+     *       }
+     *     ],
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *       "pagination": {
+     *         "total": 1,
+     *         "count": 1,
+     *         "per_page": 10,
+     *         "current_page": 1,
+     *         "total_pages": 1,
+     *         "links": []
+     *       }
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function hotUsers(Request $request)
+    {
+        $user_ids = array(
+            1,2,8,9,10,11,12,14,15,16,17,18,19,20
+        );
+        $per_page = $request->input('per_page', $this->per_page);
+
+        $users = $stuff = User::whereIn('id', $user_ids)->paginate($per_page);
+        
+        return $this->response->paginator($users, new UserTransformer())->setMeta(ApiHelper::meta());
+    }
     
     
     
