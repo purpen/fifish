@@ -278,6 +278,7 @@ class UserController extends BaseController
      *           "username": "xiao",
      *           "summary": null
      *         }
+     *         "is_follow": 1,  // 当前用户是否已关注此用户: 0.否; 1.是;
      *       }
      *     ],
      *     "meta": {

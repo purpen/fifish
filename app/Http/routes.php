@@ -112,6 +112,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('tags', [
         'as' => 'tags', 'uses' => 'TagController@getList'
     ]);
+    $api->get('tags/sticks', [
+        'as' => 'tags', 'uses' => 'TagController@stickList'
+    ]);
     
     // 反馈意见列表
     $api->get('feedback/{state?}', [
