@@ -16,3 +16,4 @@ Homestead.json
 .idea/
 storage/*
 composer.lock
+/bootstrap/cache
