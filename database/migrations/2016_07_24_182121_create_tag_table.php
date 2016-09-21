@@ -22,7 +22,7 @@ class CreateTagTable extends Migration
                 $table->integer('total_count')->default(0);
                 
                 // 推荐状态
-                $table->tinyInteger('sticked')->default(1);
+                $table->tinyInteger('sticked')->default(0);
                 $table->timestamp('sticked_at');
                 
                 $table->timestamps();

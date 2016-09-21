@@ -19,6 +19,18 @@ class FollowTransformer extends TransformerAbstract
             'user' => $follow->user,
             'follow_id' => $follow->follow_id,
             'follower' => $follow->follower,
+            'is_follow' => $this->is_follow($follow),
         ];
     }
+
+    /**
+     * 获取照片的信息
+     */
+    protected function is_follow($follow)
+    {
+        $has_one = Follow::where(array('user_id'=>9, 'follow_id'=>$follow->user_id))->first();
+        if(!empty($has_one)) return true;
+        return false;
+    }
+
 }

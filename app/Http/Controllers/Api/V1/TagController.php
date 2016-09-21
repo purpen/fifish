@@ -55,7 +55,7 @@ class TagController extends BaseController
     }
     
     /**
-     * @api {get} /tags/stickList 获取推荐标签列表
+     * @api {get} /tags/sticks 获取推荐标签列表
      * @apiVersion 1.0.0
      * @apiName tag stick list 
      * @apiGroup Tag

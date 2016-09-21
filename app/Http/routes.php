@@ -112,6 +112,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('tags', [
         'as' => 'tags', 'uses' => 'TagController@getList'
     ]);
+    $api->get('tags/sticks', [
+        'as' => 'tags', 'uses' => 'TagController@stickList'
+    ]);
     
     // 反馈意见列表
     $api->get('feedback/{state?}', [
@@ -130,6 +133,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     // 用户关注者
     $api->get('user/{id}/followers', [
         'as' => 'user.followers', 'uses' => 'UserController@followers'
+    ]);
+
+    // 热门用户列表
+    $api->get('user/hot_users', [
+        'as' => 'user.hot_users', 'uses' => 'UserController@hotUsers'
     ]);
     
     // 第三方登录跳转 
@@ -198,7 +206,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         ]);
         
         
-        $api->post('tags/store', [
+        $api->put('tags/store', [
             'as' => 'tags.store', 'uses' => 'TagController@store'
         ]);
         $api->post('tags/{id}/destory', [
