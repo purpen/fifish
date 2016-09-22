@@ -38,10 +38,11 @@ class UploadController extends BaseController
     {
         $result = [];
         
-        print_r($request->all());
+        $param = file_get_contents('php://input');
+        $body = json_decode($param, true);
         
         $asset = new Asset();
-        $asset->fill($request->all());
+        $asset->fill($body);
         $res = $asset->save();
        
         if ($res) {
