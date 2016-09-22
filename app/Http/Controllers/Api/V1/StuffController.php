@@ -211,6 +211,9 @@ class StuffController extends BaseController
      *
      * @apiParam {String} content 分享内容
      * @apiParam {File} file 上传文件
+     * @apiParam {String} city 城市名
+     * @apiParam {String} address 地址
+     * @apiParam {Integer} kind 类型：1.图片；2.视频 
      * @apiParam {Array} tags 标签ID
      *
      * @apiSuccessExample 成功响应:

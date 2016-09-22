@@ -4,26 +4,29 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Stuff extends Model
+class Column extends Model
 {    
     /**
      * 关联到模型的数据表
      *
-     *  Schema: stuffs
+     *  Schema: columns
      *      id,
      *      user_id,
-     *      asset,
+     *      title,
+     *      sub_title,
+     *      summary,
      *      content,
-     *      address,
-     *      city,
-     *      kind,   // 类型：1.图片；2.视频；3.--
-     *      sticked,sticked_at
-     *      featured,featured_at
-     *      view_count,like_count,comment_count,share_count
+     *      url,
+     *      type,   //  位置：1.官网；2.APP；
+     *      evt,    // 转向(用于app)：1.url；2.stuff详情；3.个人主页；4.－－；
+     *      cover_id,
+     *      status,
+     *      view_count,
+     *      order,
      *
      * @var string
      */
-    protected $table = 'stuffs';
+    protected $table = 'columns';
     
     /**
      * 添加不存在的属性
@@ -35,21 +38,29 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'asset_id', 'content', 'kind', 'address', 'city'];
+    protected $fillable = ['user_id', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order'];
     
     /**
      * 不能被批量赋值的属性
      *
      * @var array
      */
-    protected $guarded = ['sticked', 'featured'];
+    protected $guarded = ['view_count'];
     
     /**
      * 在数组中显示的属性
      *
      * @var array
      */
-    protected $visible = ['id', 'user', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count', 'kind', 'created_at', 'address', 'city'];
+    protected $visible = ['id', 'user_id', 'user', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
+
+
+    /**
+     * 类型转换
+     */
+    protected $casts = [  
+        'view_count' => 'integer'
+    ];
     
     /**
      * 获取分享用户

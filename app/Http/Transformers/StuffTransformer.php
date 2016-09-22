@@ -17,6 +17,8 @@ class StuffTransformer extends TransformerAbstract
             'content' => $stuff->content,
             'view_count' => $stuff->view_count,
             'kind' => $stuff->kind,
+            'city' => $stuff->city,
+            'address' => $stuff->address,
             'like_count' => $stuff->like_count,
             'comment_count' => $stuff->comment_count,
             'user_id' => $stuff->user_id,
