@@ -71,7 +71,8 @@ class StuffController extends BaseController
      *                   "width": 1000,
      *                   "height": 1000,
      *                   "fileurl": "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
-     *                 }
+     *                 },
+     *                 "is_love": true, // 当前用户是否点赞此作品
      *               },
      *       ],
      *       "meta": {
@@ -106,7 +107,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::with('user')->where($query)->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -129,7 +130,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::sticked()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -152,7 +153,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::featured()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -203,7 +204,7 @@ class StuffController extends BaseController
         // 查看次数+1
         $stuff->increment('view_count');
         
-        return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->item($stuff, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
