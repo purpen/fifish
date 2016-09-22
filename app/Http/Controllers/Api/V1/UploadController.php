@@ -38,6 +38,9 @@ class UploadController extends BaseController
     {
         $result = [];
         
+        print_r($request->all());
+        
+        
         $asset = new Asset();
         $asset->fill($request->all());
         $res = $asset->save();
