@@ -40,7 +40,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $visible = ['id', 'username', 'summary'];
+    protected $visible = ['id', 'username', 'summary', 'avatar_url'];
         
     /**
      * The attributes that should be hidden for arrays.

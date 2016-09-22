@@ -214,14 +214,17 @@ class UserController extends BaseController
      *         "user": {
      *           "id": 6,
      *           "username": "pen",
+     *           "avatar_url": "img_url",
      *           "summary": null
      *         },
      *         "follow_id": 2,
      *         "follower": {
      *           "id": 2,
      *           "username": "xiao",
+     *           "avatar_url": "img_url",
      *           "summary": null
-     *         }
+     *         },
+     *         "is_follow": true    // 当前用户是否关注了此用户
      *       }
      *     ],
      *     "meta": {
@@ -252,7 +255,7 @@ class UserController extends BaseController
         
         $follows = Follow::with('user', 'follower')->OfFans($id)->orderBy('id', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($follows, new FollowTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($follows, new FollowTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -270,15 +273,17 @@ class UserController extends BaseController
      *         "user": {
      *           "id": 6,
      *           "username": "pen",
+     *           "avatar_url": "",
      *           "summary": null
      *         },
      *         "follow_id": 2,
      *         "follower": {
      *           "id": 2,
      *           "username": "xiao",
+     *           "avatar_url": "",
      *           "summary": null
      *         }
-     *         "is_follow": 1,  // 当前用户是否已关注此用户: 0.否; 1.是;
+     *         "is_follow": true,  // 当前用户是否已关注此用户
      *       }
      *     ],
      *     "meta": {
@@ -308,8 +313,8 @@ class UserController extends BaseController
         $per_page = $request->input('per_page', $this->per_page);
         
         $follows = Follow::with('user', 'follower')->OfFollowers($id)->orderBy('id', 'desc')->paginate($per_page);
-        
-        return $this->response->paginator($follows, new FollowTransformer())->setMeta(ApiHelper::meta());
+
+        return $this->response->paginator($follows, new FollowTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
 
 
