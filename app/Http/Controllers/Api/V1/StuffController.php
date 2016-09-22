@@ -73,6 +73,7 @@ class StuffController extends BaseController
      *                   "fileurl": "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
      *                 },
      *                 "is_love": true, // 当前用户是否点赞此作品
+     *                 "created_at": "2012-12-12",
      *               },
      *       ],
      *       "meta": {

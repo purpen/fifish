@@ -63,7 +63,7 @@ class Column extends Model
     ];
     
     /**
-     * 获取分享用户
+     * 获取创建用户
      *
      * Defines an inverse one-to-many relationship.
      * @see http://laravel.com/docs/eloquent#one-to-many
@@ -72,24 +72,16 @@ class Column extends Model
     {
         return $this->belongsTo('App\Http\Models\User');
     }
-    
+
     /**
-     * 获取所属评论
+     * 获取所属位置
      *
-     * Defines a one-to-many relationship.
+     * Defines an inverse one-to-many relationship.
      * @see http://laravel.com/docs/eloquent#one-to-many
      */
-    public function comments()
+    public function column_space()
     {
-        return $this->hasMany('App\Http\Models\Comment', 'target_id');
-    }
-    
-    /**
-     * 获取分享的所有的点赞
-     */
-    public function likes()
-    {
-        return $this->morphMany('App\Http\Models\Like', 'likeable');
+        return $this->belongsTo('App\Http\Models\ColumnSpace');
     }
     
     /**
@@ -97,50 +89,18 @@ class Column extends Model
      */
     public function getCoverAttribute ()
     {
-        if ($this->assets()->count()) {
+        if ($this->assets()->first()) {
             return $this->assets()->first();
         }
         return [];
     }
     
     /**
-     * 获取所有分享的照片
+     * 获取所有的照片
      */
     public function assets()
     {
         return $this->morphMany('App\Http\Models\Asset', 'assetable');
-    }
-    
-    /**
-     * 获取分享的所有标签
-     */
-    public function tags()
-    {
-        return $this->morphToMany('App\Http\Models\Tag', 'taggable');
-    }
-    
-    /**
-     * 获取照片/视频截图
-     */
-    public function getAssetAttribute($value)
-    {
-        return Asset::find($value);
-    }
-    
-    /**
-     * 范围：获取精选列表
-     */
-    public function scopeFeatured($query)
-    {
-        return $query->where('featured', 1);
-    }
-    
-    /**
-     * 范围：获取推荐列表
-     */
-    public function scopeSticked($query)
-    {
-        return $query->where('sticked', 1);
     }
     
 }

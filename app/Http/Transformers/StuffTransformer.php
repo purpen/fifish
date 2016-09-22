@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Models\Like;
 use Illuminate\Http\Request;
 use League\Fractal\TransformerAbstract;
+//use Carbon\Carbon;
 
 use App\Http\Models\Stuff;
 
@@ -33,6 +34,7 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
+            'created_at' => $stuff->created_at->format('Y-m-d'),
             'photo' => $this->photo($stuff),
             'is_love' => $this->is_love($stuff),
         ];
