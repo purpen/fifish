@@ -46,8 +46,10 @@ class UploadController extends BaseController
         $body = json_decode($param, true);
         
         // urldecode
-        for($i=0;$i<count($body);$i++){
-            $body[$i] = urldecode($body[$i]);
+        foreach($body as $key=>$value) {
+            if (in_array($key, array('filepath','mime'))) {
+                $body[$key] = urldecode($value);
+            }
         }
         
         // save asset
