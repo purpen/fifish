@@ -43,10 +43,13 @@ class StuffController extends BaseController
      *                 "content": "开始上传一个图片",
      *                 "user_id": 1,
      *                 "kind": 1,   // 类型：1.图片；2.视频；
+     *                 "city": "北京",
+     *                 "address": "798艺术区",
      *                 "user": {
      *                   "id": 1,
      *                   "username": "xiaobeng",
-     *                   "summary": null
+     *                   "summary": null,
+     *                   "avatar_url": "",
      *                 },
      *                 "tags": [
      *                   {
