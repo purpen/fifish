@@ -3,6 +3,7 @@
 namespace App\Http\Transformers;
 
 use App\Http\Requests;
+use App\Http\Models\Like;
 use Illuminate\Http\Request;
 use League\Fractal\TransformerAbstract;
 
