@@ -33,7 +33,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'filepath', 'filename', 'size', 'width', 'height', 'mime'];
+    protected $fillable = ['user_id', 'assetable_id', 'assetable_type', 'filepath', 'filename', 'size', 'width', 'height', 'mime'];
     
     /**
      * 不能被批量赋值的属性
