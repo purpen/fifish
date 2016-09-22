@@ -62,6 +62,8 @@ elixir(function(mix) {
     mix.scripts(['AdminLTE.js'], 'public/js/AdminLTE.min.js');
     mix.scripts([
         'select2.full.js',
+        'jquery.form.js',
+        'jquery.fineuploader-3.5.0.js'
     ], 'public/js/jquery.plugins.min.js');
     mix.scripts(['app.js'], 'public/js/app.js');
 });
