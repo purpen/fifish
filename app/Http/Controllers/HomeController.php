@@ -9,6 +9,7 @@ use Config;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
 
 use App\Http\Models\User;
@@ -61,7 +62,7 @@ class HomeController extends Controller
     }
     
     public function avatar()
-    {
+    {        
         $token = ImageUtil::qiniuToken(false, 'avatar', 1, 'User', 1);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         

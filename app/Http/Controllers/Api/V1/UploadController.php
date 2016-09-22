@@ -40,14 +40,15 @@ class UploadController extends BaseController
         $result = [];
         
         $param = file_get_contents('php://input');
+        
+        Log::warning($param);
+        
         $body = json_decode($param, true);
         
-        Log::warning(var_dump($body));
-        
         // urldecode
-        // for($i=0;$i<count($body);$i++){
-//             $body[$i] = ApiHelper::urlsafe_b64decode($body[$i]);
-//         }
+        for($i=0;$i<count($body);$i++){
+            $body[$i] = urldecode($body[$i]);
+        }
         
         // save asset
         $asset = new Asset();
