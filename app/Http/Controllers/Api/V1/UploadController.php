@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Config;
 use Storage;
 use Illuminate\Http\Request;
+use Log;
 
 use App\Http\ApiHelper;
 use App\Http\Models\User;
@@ -41,10 +42,12 @@ class UploadController extends BaseController
         $param = file_get_contents('php://input');
         $body = json_decode($param, true);
         
+        Log::warning(var_dump($body));
+        
         // urldecode
-        for($i=0;$i<count($body);$i++){
-            $body[$i] = ApiHelper::urlsafe_b64decode($body[$i]);
-        }
+        // for($i=0;$i<count($body);$i++){
+//             $body[$i] = ApiHelper::urlsafe_b64decode($body[$i]);
+//         }
         
         // save asset
         $asset = new Asset();
