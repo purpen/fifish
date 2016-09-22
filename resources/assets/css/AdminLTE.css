@@ -1246,7 +1246,6 @@ a:focus {
  * ---------------
  */
 .form-control {
-  border-radius: 0;
   box-shadow: none;
   border-color: #d2d6de;
 }

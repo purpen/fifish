@@ -62,13 +62,11 @@ class HomeController extends Controller
     
     public function avatar()
     {
-        $token = ImageUtil::qiniuToken();
-        $domain = 'photo';
+        $token = ImageUtil::qiniuToken(false, 'avatar', 1, 'User', 1);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
         return view('avatar', [
-            'token' => $token, 
-            'domain' => $domain,
+            'token' => $token,
             'upload_url' => $upload_url
         ]);
     }

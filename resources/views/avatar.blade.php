@@ -20,7 +20,6 @@
                         <label>图片上传</label>
                         <span class="require">(*)</span>
                         <input name="file" type="file"  required="required">
-                        <input name="x:domain" type="hidden"  value="{{ $domain }}">
                         <input name="token" type="hidden"  value="{{ $token }}">
                         <input type="submit" name="submit" value="开始上传">
 

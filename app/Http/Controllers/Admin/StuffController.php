@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Config;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Models\Stuff;
 use App\Http\Transformers\StuffTransformer;
+use App\Http\Utils\ImageUtil;
 
 class StuffController extends Controller
 {
@@ -27,6 +29,23 @@ class StuffController extends Controller
         
         return view('admin.stuff.index', ['stuffs' => $stuffs]);
     }
+    
+    /**
+     * 新增分享
+     */
+    public function create()
+    {
+        $token = ImageUtil::qiniuToken();
+        $domain = 'photo';
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        
+        return view('admin.stuff.create', [
+            'token' => $token, 
+            'domain' => $domain,
+            'upload_url' => $upload_url
+        ]);
+    }
+    
     
     /**
      * 删除

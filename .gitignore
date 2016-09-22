@@ -8,7 +8,6 @@ Homestead.json
 /public/images
 /public/js
 /public/fonts
-/public/build
 /public/uploads
 .env
 *.swp

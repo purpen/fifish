@@ -11,6 +11,7 @@ class Asset extends Model
      *
      *  Schema: assets
      *      id,
+     *      user_id,
      *      assetable_id,
      *      assetable_type,
      *      filepath,

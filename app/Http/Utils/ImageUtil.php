@@ -64,7 +64,7 @@ class ImageUtil
     /**
      * 生成七牛云存储token
      */
-    static public function qiniuToken ($isLocal=false)
+    static public function qiniuToken ($is_local=false, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
     {
         // 获取配置参数
         $config = Config::get('filesystems.disks.qiniu'); 
@@ -73,16 +73,17 @@ class ImageUtil
         $secretKey = $config['secret_key'];
         $bucket = $config['bucket'];
                 
-        $saveKey = '$(x:domain)/'.date('ymd').'/'.self::genUniKey();
+        $saveKey = $save_dir.'/'.date('ymd').'/'.self::genUniKey();
         $persistentOps = 'avthumb/imageView/1/w/580/h/580/q/85|avthumb/imageView/1/w/160/h/120/q/90';
         
         $policy = array(
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","hash":"$(etag)","desc":"$(x:desc)","parent_id":"$(x:parent_id)","type":"$(x:type)", "user_id":"$(x:user_id)"}',
+            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","hash":"$(etag)","desc":"$(x:desc)","parent_id":'.$assetable_id.',"type":"'.$assetable_type.'", "user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
         );
+        
         foreach ($policy as $k => $v) {
             if ($v === null) unset($policy[$k]);
         }
@@ -90,7 +91,7 @@ class ImageUtil
         $auth = new Auth($accessKey, $secretKey);
         
         // 直接上传还是本地上传
-        if (!$isLocal) {
+        if (!$is_local) {
             return $auth->uploadToken($bucket, null, 3600, $policy);
         } else {
             return $auth->uploadToken($bucket);

@@ -40,16 +40,16 @@ class UploadController extends BaseController
         
         print_r($request->all());
         
-        
         $asset = new Asset();
         $asset->fill($request->all());
         $res = $asset->save();
        
         if ($res) {
+            $result['ret'] = 'success';
             $result['link'] = ImageUtil::qiniu_view_url($asset->filepath);
         }
        
-        return $this->response->array(ApiHelper::success(trans('common.success'), 200, $result));
+        return $this->response->array($result);
     }
     
     /**
