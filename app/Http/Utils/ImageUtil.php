@@ -29,20 +29,12 @@ class ImageUtil
     }
     
     /**
-     * 生成文件存储路径
-     */
-    static public function genStorePath ($prefix='photo')
-    {
-        return $prefix.'/'.date('ymd').'/'.self::genUniKey();
-    }
-    
-    /**
      * 云存储 (服务端上传)
      */
     static public function storeQiniuCloud($filepath, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
     {
         // 生成上传Token
-        $uptoken = self::qiniuToken(true, $save_dir, $assetable_id, $assetable_type, $user_id);
+        $uptoken = self::qiniuToken(false, $save_dir, $assetable_id, $assetable_type, $user_id);
         
         // 初始化UploadManager对象并进行文件的上传
         $uploadManager = new UploadManager();
@@ -51,31 +43,6 @@ class ImageUtil
         list($ret, $err) = $uploadManager->putFile($uptoken, null, $filepath);
         
         return $ret;
-    }
-    
-	/**
-	 * 云存储 附件URL
-	 */
-	static public function qiniuViewUrl($key, $style=null)
-    {
-        // 获取配置参数
-        $config = Config::get('filesystems.disks.qiniu'); 
-        $domain = $config['domains']['custom'];
-        
-		$asset_url = $domain.'/'.$key;
-		if (!is_null($style)){
-			$asset_url .= '!'.$style;
-		}
-        
-		return $asset_url;
-	}
-    
-    /**
-     * 生成唯一的Key
-     */
-    static public function genUniKey ()
-    {
-        return md5(uniqid());
     }
     
     /**
@@ -117,6 +84,39 @@ class ImageUtil
         } else {
             return $auth->uploadToken($bucket);
         }
+    }
+    
+	/**
+	 * 云存储 附件URL
+	 */
+	static public function qiniuViewUrl($key, $style=null)
+    {
+        // 获取配置参数
+        $config = Config::get('filesystems.disks.qiniu'); 
+        $domain = $config['domains']['custom'];
+        
+		$asset_url = $domain.'/'.$key;
+		if (!is_null($style)){
+			$asset_url .= '!'.$style;
+		}
+        
+		return $asset_url;
+	}
+    
+    /**
+     * 生成唯一的Key
+     */
+    static public function genUniKey ()
+    {
+        return md5(uniqid());
+    }
+    
+    /**
+     * 生成文件存储路径
+     */
+    static public function genStorePath ($prefix='photo')
+    {
+        return $prefix.'/'.date('ymd').'/'.self::genUniKey();
     }
     
 }
