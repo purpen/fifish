@@ -25,7 +25,7 @@ class StuffController extends Controller
      */
     public function index() 
     {
-        $stuffs = Stuff::with('user','assets')->orderBy('created_at', 'desc')->paginate(2);
+        $stuffs = Stuff::with('user','assets')->orderBy('created_at', 'desc')->paginate(10);
         
         return view('admin.stuff.index', ['stuffs' => $stuffs]);
     }

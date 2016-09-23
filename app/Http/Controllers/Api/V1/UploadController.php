@@ -58,8 +58,9 @@ class UploadController extends BaseController
         $res = $asset->save();
        
         if ($res) {
+            $result['id'] = $asset->id;
+            $result['link'] = ImageUtil::qiniuViewUrl($asset->filepath);
             $result['ret'] = 'success';
-            $result['link'] = ImageUtil::qiniu_view_url($asset->filepath);
         }
        
         return $this->response->array($result);
@@ -70,8 +71,6 @@ class UploadController extends BaseController
      * @apiVersion 1.0.0
      * @apiName upload token
      * @apiGroup Upload
-     *
-     * @apiParam {String} domain (optional) 上传类型（照片：photo,头像：avatar）.
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -88,16 +87,13 @@ class UploadController extends BaseController
      *
      */
     public function qiniuToken(Request $request)
-    {
+    {        
         // 生成上传Token
-        $token = ImageUtil::qiniuToken();
-        
-        $domain = $request->input('domain', 'photo');
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff');
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
         return $this->response->array(ApiHelper::success(trans('common.success'), 200, array(
             'token' => $token, 
-            'domain' => $domain,
             'upload_url' => $upload_url,
         )));
     }

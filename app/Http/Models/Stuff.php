@@ -12,7 +12,6 @@ class Stuff extends Model
      *  Schema: stuffs
      *      id,
      *      user_id,
-     *      asset,
      *      content,
      *      kind,   // 类型：1.图片；2.视频；3.--
      *      sticked,sticked_at
@@ -33,7 +32,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'asset_id', 'content', 'kind'];
+    protected $fillable = ['user_id', 'content', 'kind'];
     
     /**
      * 不能被批量赋值的属性

@@ -115,7 +115,7 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div id="datatable_info" class="dataTables_info" role="status" aria-live="polite">
-                                    显示 1 至 10 条，共 57 条记录
+                                    显示 {{ $stuffs->firstItem() }} 至 {{ $stuffs->lastItem() }} 条，共 {{ $stuffs->total() }} 条记录
                                 </div>
                             </div>
                             <div class="col-sm-7">

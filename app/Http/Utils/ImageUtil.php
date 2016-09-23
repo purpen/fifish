@@ -36,10 +36,27 @@ class ImageUtil
         return $prefix.'/'.date('ymd').'/'.self::genUniKey();
     }
     
+    /**
+     * 云存储 (服务端上传)
+     */
+    static public function storeQiniuCloud($filepath, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
+    {
+        // 生成上传Token
+        $uptoken = self::qiniuToken(true, $save_dir, $assetable_id, $assetable_type, $user_id);
+        
+        // 初始化UploadManager对象并进行文件的上传
+        $uploadManager = new UploadManager();
+        
+        // 文件上传
+        list($ret, $err) = $uploadManager->putFile($uptoken, null, $filepath);
+        
+        return $ret;
+    }
+    
 	/**
 	 * 云存储 附件URL
 	 */
-	static public function qiniu_view_url ($key, $style=null)
+	static public function qiniuViewUrl($key, $style=null)
     {
         // 获取配置参数
         $config = Config::get('filesystems.disks.qiniu'); 

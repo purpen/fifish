@@ -260,13 +260,21 @@ class StuffController extends BaseController
             throw new ApiExceptions\StoreFailedException(501, '提交失败.');
         }
         
-        // 保存图片或视频
+        // 更新图片或视频（支持图片或视频先上传后保存资料）
+        $asset_id = $request->input('asset_id');
+        if ($asset_id) {
+            $asset = Asset::findOrFail($asset_id);
+            $asset->assetable_id = $stuff->id;
+            $asset->save();
+        }
+        
+        // 保存照片或视频
         $file = $request->file('file');
-        if ($file) {
-            $somedata = ImageUtil::assetParams($file, array(
-                'user_id' => $this->auth_user_id
-            ));
-            $assetInfo = $stuff->assets()->create($somedata);
+        if ($file) {                
+            $upRet = ImageUtil::storeQiniuCloud($file, 'photo', $stuff->id, 'Stuff', $this->auth_user_id);
+            if (!$upRet) {
+                throw new ApiExceptions\StoreFailedException(501, '照片保存失败.');
+            }
         }
         
         // 同步保存标签

@@ -25,6 +25,12 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     
+    // 管理员
+    const ROLE_ADMINISTER = 9;
+    
+    // 普通用户
+    const ROLE_PEOPLE = 1;
+    
     /**
      * The attributes that are mass assignable.
      * 可以被批量赋值的属性.
@@ -141,6 +147,23 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany('Comment');
+    }
+    
+    
+    /**
+     * 范围：获取管理员
+     */
+    public function scopeAdminister($query)
+    {
+        return $query->where('role_id', self::ROLE_ADMINISTER);
+    }
+    
+    /**
+     * 范围：获取普通用户
+     */
+    public function scopePeople($query)
+    {
+        return $query->where('role_id', self::ROLE_PEOPLE);
     }
     
 }

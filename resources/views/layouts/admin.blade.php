@@ -125,7 +125,7 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="dist/img/user2-160x160.jpg" class="user-image">
                             <span class="hidden-xs">{{ Auth::user()->username }}</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -199,8 +199,8 @@
                         <i class="fa fa-user" aria-hidden="true"></i> <span>用户管理</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="/admin/users/administer">管理员</a></li>
-                        <li><a href="/admin/users/people">普通用户</a></li>
+                        <li><a href="/admin/users?type=people" class="{{ $sitebar_subnav_people or '' }}">普通用户</a></li>
+                        <li><a href="/admin/users?type=administer" class="{{ $sitebar_subnav_administer or '' }}">管理员</a></li>
                     </ul>
                 </li>
                 <li class="treeview {{ $sitebar_menu_system or '' }}">
