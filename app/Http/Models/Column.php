@@ -12,6 +12,7 @@ class Column extends Model
      *  Schema: columns
      *      id,
      *      user_id,
+     *      column_space_id,
      *      title,
      *      sub_title,
      *      summary,
@@ -38,7 +39,7 @@ class Column extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order'];
+    protected $fillable = ['user_id', 'cover_id', 'column_space_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order'];
     
     /**
      * 不能被批量赋值的属性
@@ -52,7 +53,7 @@ class Column extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'user_id', 'user', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
+    protected $visible = ['id', 'user_id', 'column_space_id', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
 
 
     /**

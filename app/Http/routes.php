@@ -139,6 +139,12 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('user/hot_users', [
         'as' => 'user.hot_users', 'uses' => 'UserController@hotUsers'
     ]);
+
+    // 公共接口
+    // 栏目列表
+    $api->get('gateway/columns', [
+        'as' => 'gateway.columns', 'uses' => 'GatewayController@columnList'
+    ]);
     
     // 第三方登录跳转 
     $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
