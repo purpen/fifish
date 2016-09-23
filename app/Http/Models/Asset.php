@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Utils\ImageUtil;
 
 class Asset extends Model
 {    
@@ -47,7 +48,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'fileurl'];
+    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'file'];
     
     /**
      * 获取所有拥有的 assetable 模型。
@@ -66,11 +67,21 @@ class Asset extends Model
     }
     
     /**
-     * 获取照片/视频截图访问fileurl
+     * 获取照片/视频截图访问file
      */
-    public function getFileurlAttribute()
+    public function getFileAttribute()
     {
-        return config('app.static_url').'/'.$this->filepath;
+        if ($this->assetable_type == 'User') {
+            return (object)[
+                'small' => ImageUtil::qiniuViewUrl($this->filepath, '!smx50'),
+                'large' => ImageUtil::qiniuViewUrl($this->filepath, '!lgx180'),
+            ];
+        } else {
+            return (object)[
+                'small' => ImageUtil::qiniuViewUrl($this->filepath, '!cvxsm'),
+                'large' => ImageUtil::qiniuViewUrl($this->filepath, '!cvxlg'),
+            ];
+        }
     }
     
 }

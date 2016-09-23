@@ -23,10 +23,8 @@ class UserTransformer extends TransformerAbstract
             'fans_count' => $user->fans_count,
             'stuff_count' => $user->stuff_count,
             'like_count' => $user->like_count,
-            'avatar' => array(
-                'small' => '',
-                'large' => '',
-            )
+            'avatar' => $user->avatar,
         ];
     }
+    
 }

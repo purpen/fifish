@@ -83,7 +83,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ $stuff->cover ? $stuff->cover->fileurl : '' }}" width="90px" >
+                                                <img src="{{ $stuff->cover ? $stuff->cover->file->small : '' }}" width="90px" >
                                             </td>
                                             <td>{{ $stuff->user->username }}</td>
                                             <td>{{ $stuff->created_at }}</td>

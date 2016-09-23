@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Models\User;
+use App\Http\Transformers\UserTransformer;
 
 class UserController extends Controller
 {

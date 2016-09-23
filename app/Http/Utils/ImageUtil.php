@@ -64,7 +64,7 @@ class ImageUtil
         
 		$asset_url = $domain.'/'.$key;
 		if (!is_null($style)){
-			$asset_url .= '-'.$style;
+			$asset_url .= '!'.$style;
 		}
         
 		return $asset_url;
@@ -91,7 +91,11 @@ class ImageUtil
         $bucket = $config['bucket'];
                 
         $saveKey = $save_dir.'/'.date('ymd').'/'.self::genUniKey();
-        $persistentOps = 'avthumb/imageView/1/w/580/h/580/q/85|avthumb/imageView/1/w/160/h/120/q/90';
+        if ($assetable_type == 'User') {
+            $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
+        } else {
+            $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
+        }
         
         $policy = array(
             'deadline'      => time() + 36000,

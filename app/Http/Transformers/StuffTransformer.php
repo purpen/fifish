@@ -22,18 +22,7 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
-            'photo' => $this->photo($stuff),
+            'photo' => $stuff->cover,
         ];
     }
-    
-    /**
-     * 获取照片的信息
-     */
-    protected function photo($stuff)
-    {
-        if ($stuff->assets()->count()) {
-            return $stuff->assets()->first();
-        }
-    }
-    
 }

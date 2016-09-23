@@ -46,7 +46,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'user', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count', 'kind'];
+    protected $visible = ['id', 'user', 'cover', 'content', 'tags', 'sticked', 'featured', 'view_count', 'like_count', 'comment_count', 'kind'];
     
     /**
      * 获取分享用户

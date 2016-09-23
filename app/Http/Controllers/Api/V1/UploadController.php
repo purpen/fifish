@@ -26,14 +26,14 @@ class UploadController extends BaseController
      *
      * @apiSuccessExample 成功响应:
      *   {
-     *       "meta": {
-     *         "message": "request ok",
-     *         "status_code": 200
-     *       },
-     *       "data": {
-     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
-     *       }
+     *       "id": 200,
+     *       "link": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg",
+     *       "ret": "success"
      *   }
+     * @apiErrorExample 失败响应:
+     * {
+     *   // 空数组
+     * }
      */
     public function qiniuback(Request $request)
     {
@@ -72,6 +72,8 @@ class UploadController extends BaseController
      * @apiName upload token
      * @apiGroup Upload
      *
+     * @apiParam {String} assetable_type (头像：User, 分享：Stuff)
+     *
      * @apiSuccessExample 成功响应:
      *   {
      *       "meta": {
@@ -80,52 +82,30 @@ class UploadController extends BaseController
      *       },
      *       "data": {
      *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
-     *            "domain": "photo",
-     *            "upload_url": "http://up.qiniu.com",
-     *         }
+     *           "upload_url": "http://up.qiniu.com",
+     *       }
      *   }
      *
      */
-    public function qiniuToken(Request $request)
-    {        
-        // 生成上传Token
-        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff');
+    public function qiniuToken(Request $request, $assetable_type='Stuff')
+    {   
+        $assetable_id = 0;
+        $store_prefix = 'photo';
+        
+        if ($assetable_type == 'User') {
+            $store_prefix = 'avatar';
+            $assetable_id = $this->auth_user_id;
+        }
+        
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        
+        // 生成上传Token
+        $token = ImageUtil::qiniuToken(false, $store_prefix, $assetable_id, $assetable_type, $this->auth_user_id);
         
         return $this->response->array(ApiHelper::success(trans('common.success'), 200, array(
             'token' => $token, 
             'upload_url' => $upload_url,
         )));
-    }
-    
-    /**
-     * @api {get} /upload/photo 本地上传照片
-     * @apiVersion 1.0.0
-     * @apiName upload photo
-     * @apiGroup Upload
-     *
-     * @apiSuccessExample 成功响应:
-     *   {
-     *       "meta": {
-     *         "message": "request ok",
-     *         "status_code": 200
-     *       },
-     *       "data": {
-     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
-     *       }
-     *   }
-     *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
-     */
-    public function photo(Request $request)
-    {
-        
     }
     
     /**
@@ -196,19 +176,17 @@ class UploadController extends BaseController
         if (!$user) {
             throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
         }
-        $result = [];
-        $somedata = ImageUtil::assetParams($file, array(
-            'user_id' => $this->auth_user_id
-        ));
-        $res = $user->assets()->create($somedata);
-        if ($res) {
-            $result = [
-                'id' => $res->id,
-                'asset_url' => config('app.static_url').'/'.$res->filepath,
-            ];
+        $avatar = [];
+        $upRet = ImageUtil::storeQiniuCloud($file, 'avatar', $this->auth_user_id, 'User', $this->auth_user_id);
+        if (!$upRet) {
+            throw new ApiExceptions\StoreFailedException(501, '头像保存失败.');
         }
+        $avatar = [
+            'large' => ImageUtil::qiniuViewUrl($upRet['key']).'!lgx180',
+            'small' => ImageUtil::qiniuViewUrl($upRet['key']).'!smx50',
+        ];
         
-        return $this->response->array(ApiHelper::success(trans('common.upload_ok'), 200, $result));
+        return $this->response->array(ApiHelper::success(trans('common.upload_ok'), 200, $avatar));
     }
     
 }

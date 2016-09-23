@@ -14,7 +14,7 @@ class User extends Authenticatable
      *      id,
      *      account,password
      *      username,email,phone,job,zone
-     *      avatar_url,sex,summary,tags
+     *      sex,summary,tags
      *      role_id,
      *      follow_count,fans_count,stuff_count,like_count
      *      from_site,status
@@ -42,11 +42,16 @@ class User extends Authenticatable
     ];
     
     /**
+     * 添加不存在的属性
+     */
+    protected $appends = ['avatar'];
+    
+    /**
      * 在数组中显示的属性
      *
      * @var array
      */
-    protected $visible = ['id', 'username', 'summary'];
+    protected $visible = ['id', 'username', 'avatar', 'summary'];
         
     /**
      * The attributes that should be hidden for arrays.
@@ -103,6 +108,27 @@ class User extends Authenticatable
     public function assets()
     {
         return $this->morphMany('App\Http\Models\Asset', 'assetable');
+    }
+    
+    /**
+     * 获取用户头像
+     */
+    public function getAvatarAttribute()
+    {
+        // 设置默认头像
+        $avatar = [
+            'small' => config('app.static_url').'/img/avatar!smx50.png',
+            'large' => config('app.static_url').'/img/avatar!lgx180.png',
+        ];
+                
+        // 验证是否有头像 
+        if ($this->assets()->count()){
+            $asset = $this->assets()->first();
+            $avatar['small'] = $asset->file->small;
+            $avatar['large'] = $asset->file->large;
+        }
+        
+        return (object)$avatar;
     }
     
     /**
