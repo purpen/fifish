@@ -43,10 +43,13 @@ class StuffController extends BaseController
      *                 "content": "开始上传一个图片",
      *                 "user_id": 1,
      *                 "kind": 1,   // 类型：1.图片；2.视频；
+     *                 "city": "北京",
+     *                 "address": "798艺术区",
      *                 "user": {
      *                   "id": 1,
      *                   "username": "xiaobeng",
-     *                   "summary": null
+     *                   "summary": null,
+     *                   "avatar_url": "",
      *                 },
      *                 "tags": [
      *                   {
@@ -70,8 +73,10 @@ class StuffController extends BaseController
      *                   "file": {
      *                       "small" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg",
      *                       "large" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
-     *                    }
-     *                 }
+     *                    }              
+     *                 },
+     *                 "is_love": true, // 当前用户是否点赞此作品
+     *                 "created_at": "2012-12-12",
      *               },
      *       ],
      *       "meta": {
@@ -106,7 +111,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::with('user')->where($query)->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -129,7 +134,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::sticked()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -152,7 +157,7 @@ class StuffController extends BaseController
         
         $stuffs = Stuff::featured()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($stuffs, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -203,7 +208,7 @@ class StuffController extends BaseController
         // 查看次数+1
         $stuff->increment('view_count');
         
-        return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
+        return $this->response->item($stuff, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -214,6 +219,9 @@ class StuffController extends BaseController
      *
      * @apiParam {String} content 分享内容
      * @apiParam {File} file 上传文件
+     * @apiParam {String} city 城市名
+     * @apiParam {String} address 地址
+     * @apiParam {Integer} kind 类型：1.图片；2.视频 
      * @apiParam {Array} tags 标签ID
      *
      * @apiSuccessExample 成功响应:

@@ -23,3 +23,6 @@ App::environment();
 ```
 if (App::environment('local', 'staging')){}
 ```
+
+php artisan make:migration create_xxx_table
+php artisan migrate:rollback

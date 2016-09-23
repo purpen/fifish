@@ -71,5 +71,6 @@ class Follow extends Model
     {
         return $this->belongsTo('App\Http\Models\User', 'follow_id');
     }
+
     
 }
