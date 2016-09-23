@@ -22,7 +22,7 @@ use App\Exceptions as ApiExceptions;
 class GatewayController extends BaseController
 {   
     /**
-     * @api {get} /columns 栏目列表
+     * @api {get} /gateway/columns 栏目列表
      * @apiVersion 1.0.0
      * @apiName column list 
      * @apiGroup Gateway
