@@ -123,7 +123,7 @@ class User extends Authenticatable
                 
         // 验证是否有头像 
         if ($this->assets()->count()){
-            $asset = $this->assets()->first();
+            $asset = $this->assets()->orderBy('created_at', 'desc')->first();
             $avatar['small'] = $asset->file->small;
             $avatar['large'] = $asset->file->large;
         }

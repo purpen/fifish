@@ -86,7 +86,7 @@ class Stuff extends Model
     public function getCoverAttribute ()
     {
         if ($this->assets()->count()) {
-            return $this->assets()->first();
+            return $this->assets()->orderBy('created_at', 'desc')->first();
         }
         return [];
     }
