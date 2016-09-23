@@ -81,7 +81,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ $user->avatar['small'] }}" width="50px" >
+                                                <img src="{{ $user->avatar->small }}" width="50px" >
                                             </td>
                                             <td>
                                                 {{ $user->username }}
