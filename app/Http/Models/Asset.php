@@ -27,7 +27,7 @@ class Asset extends Model
     /**
      * 添加不存在的属性
      */
-    protected $appends = ['fileurl'];
+    protected $appends = ['file'];
     
     /**
      * 可以被批量赋值的属性.
