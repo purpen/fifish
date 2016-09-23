@@ -73,13 +73,13 @@ class Asset extends Model
     {
         if ($this->assetable_type == 'User') {
             return (object)[
-                'small' => ImageUtil::qiniuViewUrl($this->filepath, '!smx50'),
-                'large' => ImageUtil::qiniuViewUrl($this->filepath, '!lgx180'),
+                'small' => ImageUtil::qiniuViewUrl($this->filepath, 'smx50'),
+                'large' => ImageUtil::qiniuViewUrl($this->filepath, 'lgx180'),
             ];
         } else {
             return (object)[
-                'small' => ImageUtil::qiniuViewUrl($this->filepath, '!cvxsm'),
-                'large' => ImageUtil::qiniuViewUrl($this->filepath, '!cvxlg'),
+                'small' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxsm'),
+                'large' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxlg'),
             ];
         }
     }
