@@ -27,7 +27,10 @@ class UploadController extends BaseController
      * @apiSuccessExample 成功响应:
      *   {
      *       "id": 200,
-     *       "link": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg",
+     *       "file": {
+     *           "large": "http://obbrr76ua.bkt.clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxlg",
+     *           "small": "http://obbrr76ua.bkt.clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxsm"
+     *       },
      *       "ret": "success"
      *   }
      * @apiErrorExample 失败响应:
@@ -82,7 +85,7 @@ class UploadController extends BaseController
      *       },
      *       "data": {
      *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
-     *           "upload_url": "http://up.qiniu.com",
+     *           "upload_url": "http://up.qiniu.com", // 图片云上传地址
      *       }
      *   }
      *
@@ -109,29 +112,11 @@ class UploadController extends BaseController
     }
     
     /**
-     * @api {get} /upload/video 本地上传视频
+     * @api {get} /upload/video 本地上传视频 （Todo: 请使用云上传）
      * @apiVersion 1.0.0
      * @apiName upload video
      * @apiGroup Upload
-     *
-     * @apiSuccessExample 成功响应:
-     *   {
-     *       "meta": {
-     *         "message": "request ok",
-     *         "status_code": 200
-     *       },
-     *       "data": {
-     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
-     *       }
-     *   }
-     *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
+     * 
      */
     public function video(Request $request)
     {   
@@ -139,35 +124,14 @@ class UploadController extends BaseController
     }
     
     /**
-     * @api {post} /upload/avatar 更新用户头像
+     * @api {post} /upload/avatar 更新用户头像 （Todo: 请使用云上传）
      * @apiVersion 1.0.0
      * @apiName upload avatar
      * @apiGroup Upload
-     *
-     * @apiParam {File} avatar 上传文件
-     * 
-     * @apiSuccessExample 成功响应:
-     *   {
-     *       "meta": {
-     *         "message": "request ok",
-     *         "status_code": 200
-     *       },
-     *       "data": {
-     *           "imageUrl": "http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg"
-     *       }
-     *   }
-     *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
      */
     public function avatar(Request $request)
     {
-        $file = $request->file('avatar');
+        $file = $request->file('file');
         if (empty($file) || !$file->isValid()) {
             return $this->response->array(ApiHelper::error('File is invalid!', 401));
         }
