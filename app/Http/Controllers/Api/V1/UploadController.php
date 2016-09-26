@@ -59,8 +59,8 @@ class UploadController extends BaseController
        
         if ($res) {
             $result['id'] = $asset->id;
-            $result['link'] = ImageUtil::qiniuViewUrl($asset->filepath);
             $result['ret'] = 'success';
+            $result['file'] = $asset->file;
         }
        
         return $this->response->array($result);
