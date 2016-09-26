@@ -4,7 +4,12 @@
 @link-black-color: #333;
 @link-gray-color: #666;
 @btn-font-weight: 300;
+@back-color: #f8f8f8;
 @font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
+
+body {
+    background-color: @back-color;
+}
 
 a {
     color: @link-black-color;
@@ -28,6 +33,7 @@ a {
 
 .navbar-black {
     background-color: rgba(0, 0, 0, 1.0);
+    margin-bottom: 0px;
     
     .navbar-nav {
         a {        
@@ -51,25 +57,38 @@ a {
     bottom: 150px;
     left: auto;
     padding: 20px;
-    right: 10%;
+    right: 9%;
     text-align: left;
     width: 265px;
 }
 
 .focus {
     margin: 20px auto;
-    padding: 0 10%;
     
     .focus-item {
         background: rgba(0, 0, 0, 0) url("/img/f_tutorials.jpg") no-repeat scroll center center;
-        min-height: 180px;
+        min-height: 200px;
         overflow: hidden;
         position: relative;
         text-align: center;
         
         h4 {
             color: #fff;
-            padding-top: 50%;
+            position: absolute;
+            bottom: 0px;
+            z-index: 10;
+            width: 100%;
+            font-weight: 400;
+        }
+        .transparent {
+            position: absolute;
+            top:0;
+            bottom:0;
+            background-color: rgba(0,0,0,0.15);
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease 0.1s;
+            z-index: 9;
         }
     }
     
@@ -79,6 +98,16 @@ a {
     
     .event {
         background-image: url("/img/f_event.jpg");
+    }
+}
+
+.insmenu {
+    margin-top: 10px;
+    
+    .subnav {
+        a {
+            margin-left: 10px;
+        }
     }
 }
 
@@ -99,12 +128,14 @@ a {
 .aboutus {
     p {
         margin: 20px auto 0;
+        line-height: 2;
     }
 }
 
 .contact {
     p {
         margin: 20px auto 0;
+        line-height: 2;
     }
 }
 
@@ -154,6 +185,7 @@ a {
     a {
         color: @link-white-color;
         text-decoration: none;
+        line-height: 2;
         
         &:hover {
             color: @link-gray-color;

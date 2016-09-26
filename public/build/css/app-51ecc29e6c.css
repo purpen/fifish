@@ -1,3 +1,6 @@
+body {
+  background-color: #f8f8f8;
+}
 a {
   color: #333;
   text-decoration: none;
@@ -14,6 +17,7 @@ a.active {
 }
 .navbar-black {
   background-color: #000000;
+  margin-bottom: 0px;
 }
 .navbar-black .navbar-nav a {
   color: #999;
@@ -31,30 +35,49 @@ a.active {
   bottom: 150px;
   left: auto;
   padding: 20px;
-  right: 10%;
+  right: 9%;
   text-align: left;
   width: 265px;
 }
 .focus {
   margin: 20px auto;
-  padding: 0 10%;
 }
 .focus .focus-item {
   background: rgba(0, 0, 0, 0) url("/img/f_tutorials.jpg") no-repeat scroll center center;
-  min-height: 180px;
+  min-height: 200px;
   overflow: hidden;
   position: relative;
   text-align: center;
 }
 .focus .focus-item h4 {
   color: #fff;
-  padding-top: 50%;
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+  width: 100%;
+  font-weight: 400;
+}
+.focus .focus-item .transparent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease 0.1s;
+  z-index: 9;
 }
 .focus .video {
   background-image: url("/img/f_video.jpg");
 }
 .focus .event {
   background-image: url("/img/f_event.jpg");
+}
+.insmenu {
+  margin-top: 10px;
+}
+.insmenu .subnav a {
+  margin-left: 10px;
 }
 .banner {
   min-height: 320px;
@@ -69,9 +92,11 @@ a.active {
 }
 .aboutus p {
   margin: 20px auto 0;
+  line-height: 2;
 }
 .contact p {
   margin: 20px auto 0;
+  line-height: 2;
 }
 .footer {
   margin-top: 20px;
@@ -111,6 +136,7 @@ a.active {
 .text-list a {
   color: #fff;
   text-decoration: none;
+  line-height: 2;
 }
 .text-list a:hover {
   color: #666;

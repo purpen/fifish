@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container insmenu">
     <div class="row">
         <div class="col-lg-8">
-            <h5>关于FIFISH</h5>
+            <h5>关于Fifish</h5>
         </div>
         <div class="col-lg-4 text-right">
             <h5 class="subnav">
@@ -13,13 +13,13 @@
             </h5>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="banner banner-contact">
-              <h4 class="text-center">联系我们</h4>
-            </div>
-        </div>
-    </div>
+</div>   
+ 
+<div class="banner banner-contact">
+    <h4 class="text-center">联系我们</h4>
+</div>
+
+<div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 text-center">     
             <div class="contact">       
