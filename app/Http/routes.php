@@ -208,7 +208,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
             'as' => 'stuffs.dolike', 'uses' => 'StuffController@dolike'
         ]);
         $api->post('stuffs/{id}/cancelike', [
-            'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
+            'as' => 'stuffs.cancelike', 'uses' => 'StuffController@canceLike'
         ]);
         
         
