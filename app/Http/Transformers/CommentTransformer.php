@@ -16,7 +16,8 @@ class CommentTransformer extends TransformerAbstract
             'id' => $comment->id,
             'content' => $comment->content,
             'user' => $comment->user,
-            'like_count' => $comment->like_count
+            'like_count' => $comment->like_count,
+            'reply_user' => $comment->reply_to_user,
         ];
     }
 }

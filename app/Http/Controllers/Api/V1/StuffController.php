@@ -425,6 +425,8 @@ class StuffController extends BaseController
      * @apiGroup Stuff
      *
      * @apiParam {String} content 回复内容.
+     * @apiParam {Integer} reply_user_id 回复某人（可选）
+     * @apiParam {Integer} parent_id 回复ID (可选)
      *
      * @apiSuccessExample 成功响应:
      * {
@@ -469,6 +471,8 @@ class StuffController extends BaseController
         $comment = $stuff->comments()->create([
            'content' => $request->input('content'),
            'user_id' => $this->auth_user_id,
+           'reply_user_id' => (int)$request->input('reply_user_id', 0),
+           'parent_id' => (int)$request->input('parent_id', 0),
         ]);
         
         if (!$comment) {

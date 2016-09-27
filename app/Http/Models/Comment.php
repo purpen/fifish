@@ -14,7 +14,7 @@ class Comment extends Model
      *      user_id,
      *      target_id,
      *      content,
-     *      reply_user_id,
+     *      reply_user_id,parent_id
      *      like_count,type
      *
      * @var string
@@ -33,7 +33,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'target_id', 'content', 'type'];
+    protected $fillable = ['user_id', 'target_id', 'reply_user_id', 'parent_id', 'content', 'type'];
     
     /**
      * 获取所属的分享
@@ -64,6 +64,17 @@ class Comment extends Model
     public function likes()
     {
         return $this->morphMany('App\Http\Models\Like', 'likeable');
+    }
+    
+    /**
+     * 获取回复给某人的信息
+     */
+    public function getReplyToUserAttribute()
+    {
+        if ($this->reply_user_id) {
+            return User::findOrFail($this->reply_user_id);
+        }
+        return [];
     }
     
 }
