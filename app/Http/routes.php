@@ -207,7 +207,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->post('stuffs/{id}/dolike', [
             'as' => 'stuffs.dolike', 'uses' => 'StuffController@dolike'
         ]);
-        $api->post('stuffs/cancelike/{id}', [
+        $api->post('stuffs/{id}/cancelike', [
             'as' => 'stuffs.cancelike', 'uses' => 'StuffController@cancelike'
         ]);
         
@@ -251,6 +251,12 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         // 获取个人信息
         $api->get('user/profile', [
             'as' => 'user.profile', 'uses' => 'UserController@profile'
+        ]);
+
+
+        // 搜索接口
+        $api->get('search/list', [
+            'as' => 'search.list', 'uses' => 'SearchController@getList'
         ]);
         
     });
