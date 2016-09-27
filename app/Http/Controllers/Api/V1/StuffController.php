@@ -368,7 +368,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {post} /stuffs/:id/comments 某个分享的评论列表
+     * @api {get} /stuffs/:id/comments 某个分享的评论列表
      * @apiVersion 1.0.0
      * @apiName stuff comments
      * @apiGroup Stuff
@@ -660,7 +660,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {post} /stuffs/:id/cancelLike 取消点赞
+     * @api {post} /stuffs/:id/cancelike 取消点赞
      * @apiVersion 1.0.0
      * @apiName stuff destory like 
      * @apiGroup Stuff
@@ -676,7 +676,7 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function cancelike(Request $request, $id)
+    public function canceLike(Request $request, $id)
     {
         $like = Like::find($id);
         if (!$like) {
