@@ -369,6 +369,8 @@ class StuffController extends BaseController
     
     /**
      * @api {get} /stuffs/:id/comments 某个分享的评论列表
+     * @apiParam {Integer} page 当前分页.
+     * @apiParam {Integer} per_page 每页数量
      * @apiVersion 1.0.0
      * @apiName stuff comments
      * @apiGroup Stuff
