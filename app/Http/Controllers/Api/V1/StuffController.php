@@ -391,6 +391,7 @@ class StuffController extends BaseController
      *            }
      *         },
      *         "like_count": 0,
+     *         "reply_user": [],
      *         "created_at": '',
      *       }
      *  ],
