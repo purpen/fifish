@@ -666,7 +666,7 @@ class StuffController extends BaseController
      * @apiName stuff destory like 
      * @apiGroup Stuff
      *
-     * @apiParam {Integer} id 喜欢Id.
+     * @apiParam {Integer} id 分享Id.
      *
      * @apiSuccessExample 成功响应:
      * {
@@ -679,13 +679,14 @@ class StuffController extends BaseController
      */
     public function canceLike(Request $request, $id)
     {
-        $like = Like::find($id);
+        $like = Like::where(['user_id'=>$this->auth_user_id, 'likeable_id'=>$id, 'likeable_type'=>'Stuff'])->first();
         if (!$like) {
             throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
         }
-        $stuff_id = $like->likeable_id;
+        
         if ($like->delete()) {
-            Stuff::findOrFail($stuff_id)->decrement('like_count');
+            // 目标评论数-1
+            Stuff::findOrFail($id)->decrement('like_count');
         }
         
         return $this->response->array(ApiHelper::success());
