@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use League\Fractal\TransformerAbstract;
+use App\Http\Utils\DateModifier;
 
 class CommentTransformer extends TransformerAbstract
 {
@@ -18,6 +19,7 @@ class CommentTransformer extends TransformerAbstract
             'user' => $comment->user,
             'like_count' => $comment->like_count,
             'reply_user' => $comment->reply_to_user,
+            'created_at' => DateModifier::relative_datetime($comment->created_at->getTimestamp()),
         ];
     }
 }

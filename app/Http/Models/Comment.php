@@ -20,7 +20,7 @@ class Comment extends Model
      * @var string
      */
     protected $table = 'comments';
-    
+        
     /**
      * 要触发的所有关联关系
      * ”触发“创建其所属模型的updated_at时间戳
@@ -76,5 +76,6 @@ class Comment extends Model
         }
         return [];
     }
+    
     
 }

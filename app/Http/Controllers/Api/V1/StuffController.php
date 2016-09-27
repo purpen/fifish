@@ -384,9 +384,14 @@ class StuffController extends BaseController
      *         "user": {
      *           "id": 1,
      *           "username": "xiaobeng",
-     *           "summary": null
+     *           "summary": null,
+     *            "avatar": {
+     *               "small": "http://clouddn.com/uploads/images/cf56091a3f38d579c814f1025cb498c7.jpg!smx50",
+     *               "large": "http://clouddn.com/uploads/images/cf56091a3f38d579c814f1025cb498c7.jpg!lgx180"
+     *            }
      *         },
-     *         "like_count": 0
+     *         "like_count": 0,
+     *         "created_at": '',
      *       }
      *  ],
      *  "meta": {
