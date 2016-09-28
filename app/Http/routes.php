@@ -23,6 +23,11 @@ Route::get('/job', 'HomeController@job');
 Route::get('/avatar', 'HomeController@avatar');
 
 /**
+ * 测试
+ */
+Route::get('/test/search', 'TestController@search');
+
+/**
  * 静态文件
  */
 Route::get('/aboutus', 'WebController@aboutUs');

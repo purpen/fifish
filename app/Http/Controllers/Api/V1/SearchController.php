@@ -16,6 +16,8 @@ use App\Http\Transformers\StuffTransformer;
 use App\Http\ApiHelper;
 use App\Exceptions as ApiExceptions;
 
+use App\Http\Utils\XSUtil;
+
 class SearchController extends BaseController
 {   
     /**
@@ -28,9 +30,11 @@ class SearchController extends BaseController
      * @apiParam {Integer} per_page 每页数量
      * @apiParam {String} str 内容
      * @apiParam {Integer} type 类型：1.作品；2.用户；3.－－；
-     * @apiParam {Integer} cid 子类型(根据父类型判断条件)：作品：1.图片；2.视频；
+     * @apiParam {Integer} tid  子类型(根据父类型判断条件)：作品：0.所有；1.图片；2.视频；
+     * @apiParam {Integer} cid 分类ID
      * @apiParam {Integer} evt 搜索方式：1.内容；2.标签；
      * @apiParam {Integer} sort 排序：0.关联度；1.最新创建；2.最近更新；
+     * @apiParam {Integer}  ingore_id 忽略的ID(针对相关搜索，过滤当前内容)
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -98,8 +102,10 @@ class SearchController extends BaseController
         $type = $request->input('type', 1);
         $str = $request->input('str', null);
         $cid = $request->input('cid', 0);
+        $tid = $request->input('tid', 0);
         $evt = $request->input('evt', 1);
         $sort = $request->input('sort', 0);
+        $ignore_id = $request->input('ignore_id', 0);
 
         $query = array();
 
