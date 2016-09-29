@@ -1,5 +1,27 @@
 @extends('layouts.admin')
 
+@section('jquery')
+    //实例化一个plupload上传对象
+    var uploader = new plupload.Uploader({
+        browse_button : 'browse', //触发文件选择对话框的按钮，为那个元素id
+        url : 'upload.php', //服务器端的上传页面地址
+    	filters : {
+    		max_file_size : '10mb',
+    		mime_types: [
+    			{ title : "Image files", extensions : "jpg,gif,png" },
+    			{ title : "Zip files", extensions : "zip" }
+    		]
+    	},
+        flash_swf_url : '{{ asset('js/plupload/Moxie.swf') }}', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+        silverlight_xap_url : '{{ asset('js/plupload/Moxie.xap') }}' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+    });
+    
+    //在实例对象上调用init()方法进行初始化
+    uploader.init();
+    
+    
+@endsection
+
 @section('content')
 <div class="content-header">
     <h1>
@@ -35,7 +57,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">上传照片</label>
                             <div class="col-sm-10">
-                                <input name="file" type="file"  required="required">
+                                <button id="browse">选择照片</button>
                             </div>
                         </div>
                         <div class="form-group">

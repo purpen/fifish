@@ -233,11 +233,14 @@
     <script src="{{ asset('js/jquery-3.0.0.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/AdminLTE.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plupload/plupload.full.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function(){
             $(".select2").select2();
+            
+            @yield('jquery')
         });
     </script>
 </body>

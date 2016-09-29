@@ -71,6 +71,7 @@ elixir(function(mix) {
 elixir(function(mix) {
     mix.copy('resources/assets/fonts/', 'public/fonts/');
     mix.copy('resources/assets/img/', 'public/img/');
+    mix.copy('resources/assets/js/plupload', 'public/js/plupload');
 });
 
 // 添加版本号
