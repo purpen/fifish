@@ -18,7 +18,7 @@ class CommentTransformer extends TransformerAbstract
             'content' => $comment->content,
             'user' => $comment->user,
             'like_count' => $comment->like_count,
-            'reply_user' => $comment->reply_to_user,
+            'reply_user' => !empty($comment->reply_to_user) ? $comment->reply_to_user : null,
             'created_at' => DateModifier::relative_datetime($comment->created_at->getTimestamp()),
         ];
     }

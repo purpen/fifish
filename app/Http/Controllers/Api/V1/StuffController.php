@@ -76,6 +76,7 @@ class StuffController extends BaseController
      *                    }              
      *                 },
      *                 "is_love": true, // 当前用户是否点赞此作品
+     *                 "is_follow": false,  // 当前用户是否关注此用户
      *                 "created_at": "2012-12-12",
      *               },
      *       ],
@@ -115,7 +116,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {get} /stuffs 获取推荐的分享列表
+     * @api {get} /stuffs/sticklist 获取推荐的分享列表
      * @apiVersion 1.0.0
      * @apiName stuff sticklist 
      * @apiGroup Stuff
@@ -132,13 +133,13 @@ class StuffController extends BaseController
     {
         $per_page = $request->input('per_page', $this->per_page);
         
-        $stuffs = Stuff::sticked()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
+        $stuffs = Stuff::sticked()->with('user')->orderBy('sticked_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
     
     /**
-     * @api {get} /stuffs 获取精选的分享列表
+     * @api {get} /stuffs/featurelist 获取精选的分享列表
      * @apiVersion 1.0.0
      * @apiName stuff featurelist 
      * @apiGroup Stuff
@@ -155,7 +156,7 @@ class StuffController extends BaseController
     {
         $per_page = $request->input('per_page', $this->per_page);
         
-        $stuffs = Stuff::featured()->with('user')->orderBy('created_at', 'desc')->paginate($per_page);
+        $stuffs = Stuff::featured()->with('user')->orderBy('featured_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($stuffs, new StuffTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
     }
@@ -369,6 +370,8 @@ class StuffController extends BaseController
     
     /**
      * @api {get} /stuffs/:id/comments 某个分享的评论列表
+     * @apiParam {Integer} page 当前分页.
+     * @apiParam {Integer} per_page 每页数量
      * @apiVersion 1.0.0
      * @apiName stuff comments
      * @apiGroup Stuff
