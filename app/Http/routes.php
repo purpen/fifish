@@ -86,10 +86,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('stuffs', [
         'as' => 'stuffs', 'uses' => 'StuffController@getList'
     ]);
-    $api->get('stuffs/stickList', [
+    $api->get('stuffs/sticklist', [
         'as' => 'stuffs.sticklist', 'uses' => 'StuffController@stickList'
     ]);
-    $api->get('stuffs/featureList', [
+    $api->get('stuffs/featurelist', [
         'as' => 'stuffs.featurelist', 'uses' => 'StuffController@featureList'
     ]);
     $api->get('stuffs/{id}', [
