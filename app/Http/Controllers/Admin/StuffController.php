@@ -35,13 +35,11 @@ class StuffController extends Controller
      */
     public function create()
     {
-        $token = ImageUtil::qiniuToken();
-        $domain = 'photo';
+        $token = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
         return view('admin.stuff.create', [
-            'token' => $token, 
-            'domain' => $domain,
+            'token' => $token,
             'upload_url' => $upload_url
         ]);
     }

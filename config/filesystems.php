@@ -70,8 +70,8 @@ return [
                 'https'     => 'fs.fifish.com',         // 你的HTTPS域名
                 'custom'    => 'http://obbrr76ua.bkt.clouddn.com',         // 你的自定义域名
              ],
-            'access_key'=> 'lg_vCeWVeSr6uH-C1MStxcubFGDRsmnu29jkWq0J',  //AccessKey
-            'secret_key'=> 'ul1T1InbNoYQ_iwTmzXpXAE1Q5h0MA_IlWRrnrb7',  //SecretKey
+            'access_key'=> 'x9Ys5weZ-B6-qKywyX2N34bhFIT3XQLpxz0g9vZU',  //AccessKey
+            'secret_key'=> 'BqjfA2zx5JgxAS2N5NKH6kAvPsr3NnD4pY84j2Fm',  //SecretKey
             'bucket'    => 'fifish',  //Bucket名字
             'notify_url'=> 'http://fish.taihuoniao.com/api/upload/qiniuback',  //持久化处理回调地址
         ],
