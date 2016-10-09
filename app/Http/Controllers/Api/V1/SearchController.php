@@ -99,6 +99,11 @@ class SearchController extends BaseController
     public function getList(Request $request)
     {
         $per_page = $request->input('per_page', $this->per_page);
+        $page = $request->input('page', 1);
+        $str = $request->input('str', null);
+
+        if(empty($str)) return $this->response->array(ApiHelper::error('please input keywork!', 401));
+
         $type = $request->input('type', 1);
         $str = $request->input('str', null);
         $cid = $request->input('cid', 0);
@@ -107,7 +112,61 @@ class SearchController extends BaseController
         $sort = $request->input('sort', 0);
         $ignore_id = $request->input('ignore_id', 0);
 
-        $query = array();
+        $options = array(
+            'page' => $page,
+            'size' => $per_page,
+            'type' => $type,
+            'cid' => $cid,
+            'tid' => $tid,
+            'evt' => $evt,
+            'sort' => $sort,
+            'ingore_id' => $ignore_id,
+        );
+
+        $result = XSUtil::search($str, $options);
+        if(!$result['success']){
+            return $this->response->array(ApiHelper::error('search fail!', 402));
+        }
+
+        print_r($result['data']);
+
+
+    }
+
+
+    /**
+     * @api {get} /search/expanded 搜索建议
+     * @apiVersion 1.0.0
+     * @apiName search expanded
+     * @apiGroup Search
+     *
+     * @apiParam {String} q 搜索内容.
+     * @apiParam {Integer} size 数量
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "data": {
+     *          "swords": [
+     *              "测试",
+     *              "你好"
+     *          ]
+     *       },
+     *   }
+     */
+    public function getExpanded(Request $request)
+    {
+        $size = $request->input('size', 8);
+        $q = $request->input('q', null);
+
+        if(empty($q)) return $this->response->array(ApiHelper::error('please input keywork!', 401));
+
+
+        $result = XSUtil::expanded($q, $size);
+
+        if($result['success']){
+            return $this->response->item(array('data'=>$result['data']))->setMeta(ApiHelper::meta());
+        }else{
+            return $this->response->array(ApiHelper::error('search fail!', 402));
+        }
 
     }
     

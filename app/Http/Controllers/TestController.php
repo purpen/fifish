@@ -13,7 +13,6 @@ use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
 
 use App\Http\Models\User;
-use App\Jobs\SendReminderEmail;
 
 use App\Http\Utils\XSUtil;
 
@@ -41,23 +40,39 @@ class TestController extends Controller
     
 
     /**
-     * 特殊活动展示
+     * 测试添加搜索
      */
     public function search()
     {
-        phpinfo();
+        //phpinfo();
         $data = array(
-            'oid' => 1,
-            'pid' => 'stuff_1',
+            'oid' => 3,
+            'pid' => 'stuff_3',
             'kind' => 'Stuff',
             'user_id' => 1,
             'tid' => 1,
-            'tags' => '测试, test, 你好, hello',
-            'title' => '这是测试内容',
+            'tags' => '无效,无限,参与,test,city,baby,beijing',
+            'title' => '这是测试内容3',
             'created_on' => time(),
             'updated_on' => time(),
         );
         return XSUtil::add($data);
     }
+
+
+    /**
+     * 删除索引
+     */
+    public function delSearch(Request $request)
+    {
+        $id = $request->input('id', null);
+        $ok = XSUtil::delIds($id);
+        if($ok['success']){
+            echo $ok['msg'];
+        }else{
+            echo $ok['msg'];
+        }
+    }
+    
     
 }

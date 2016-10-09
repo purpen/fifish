@@ -25,7 +25,7 @@ class XSUtil
             $xs = new \XS($db);
             $index = $xs->index; // 获取 索引对象
             // 创建文档对象
-            $doc = new XSDocument;
+            $doc = new \XSDocument;
             $doc->setFields($data);
 
             // 添加到索引数据库中
@@ -68,7 +68,7 @@ class XSUtil
      * 删除文档
      * ID可为数组
     */
-    public static function del_ids($ids, $db='phenix')
+    public static function delIds($ids)
     {
         $db = Config::get('xunSearch.name');
         try{
