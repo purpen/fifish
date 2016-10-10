@@ -26,6 +26,7 @@ Route::get('/avatar', 'HomeController@avatar');
  * 测试
  */
 Route::get('/test/search', 'TestController@search');
+Route::get('/test/del_search', 'TestController@delSearch');
 
 /**
  * 静态文件
@@ -259,9 +260,13 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         ]);
 
 
-        // 搜索接口
+        // 搜索列表接口
         $api->get('search/list', [
             'as' => 'search.list', 'uses' => 'SearchController@getList'
+        ]);
+        // 搜索建议
+        $api->get('search/expanded', [
+            'as' => 'search.expanded', 'uses' => 'SearchController@getExpanded'
         ]);
         
     });
