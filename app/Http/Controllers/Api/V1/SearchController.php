@@ -40,10 +40,6 @@ class SearchController extends BaseController
      *
      * @apiSuccessExample 成功响应:
      *   {
-     *       "success": true,
-     *       "msg": "success",
-     *       "total_count": 120,
-     *       "total_page": 7,
      *       "data": [
      *           {
      *                 "pid": stuff_6,  // 索引ID
@@ -70,6 +66,20 @@ class SearchController extends BaseController
      *              ...
      *          }
      *       ],
+     *       "meta": {
+     *           "message": "Success.",
+     *           "status_code": 200,
+     *           "pagination": {
+     *               "total": 10,
+     *               "count": 2,
+     *               "per_page": 2,
+     *               "current_page": 1,
+     *               "total_pages": 5,
+     *               "links": {
+     *                   "next": "http://fifish.me/api/stuffs?page=2"
+     *               }
+     *           }
+     *       }
      *   }
      */
     public function getList(Request $request)
@@ -139,7 +149,17 @@ class SearchController extends BaseController
         
         }   // endfor
 
-        return $this->response->item($result)->setMeta(ApiHelper::meta());
+        $meta = array(
+            'pagination'=>
+                array(
+                    'total' => $result['total_count'],
+                    'count' => $per_page,
+                    'per_page' => $per_page,
+                    'current_page' => $page,
+                    'total_pages' => $result['total_page']
+                )
+        );
+        return $this->response->array(ApiHelper::success('success', 200, $result['data'], $meta));
         //print_r($result['data']);
 
     }
@@ -161,6 +181,10 @@ class SearchController extends BaseController
      *              "你好"
      *          ]
      *       },
+     *      "meta": {
+     *           "message": "success",
+     *           "status_code": 200
+     *       }
      *   }
      */
     public function getExpanded(Request $request)
@@ -174,7 +198,7 @@ class SearchController extends BaseController
         $result = XSUtil::expanded($q, $size);
 
         if($result['success']){
-            return $this->response->item(array('data'=>$result['data']))->setMeta(ApiHelper::meta());
+            return $this->response->array(ApiHelper::success('success', 200, $result['data']));
         }else{
             return $this->response->array(ApiHelper::error('search fail!', 402));
         }
