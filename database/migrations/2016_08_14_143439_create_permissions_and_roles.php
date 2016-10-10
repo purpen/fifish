@@ -13,6 +13,8 @@ class CreatePermissionsAndRoles extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->increments('id');
             $table->string('name');
             $table->string('label');
@@ -21,6 +23,8 @@ class CreatePermissionsAndRoles extends Migration
         });
         
         Schema::create('permissions', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->increments('id');
             $table->string('name');
             $table->string('label');

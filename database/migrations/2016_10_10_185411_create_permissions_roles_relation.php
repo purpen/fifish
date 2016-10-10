@@ -13,6 +13,8 @@ class CreatePermissionsRolesRelation extends Migration
     public function up()
     {
         Schema::create('permission_role', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->integer('permission_id')->unsigned();
             $table->integer('role_id')->unsigned();
             
@@ -30,6 +32,8 @@ class CreatePermissionsRolesRelation extends Migration
         });
         
         Schema::create('role_user', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
             
