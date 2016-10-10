@@ -29,11 +29,20 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         // 定义控制权限
-        $permissions = Permission::with('roles')->get();
+        $permissions = $this->getPermissions();
         foreach ($permissions as $permission) {
             $gate->define($permission->name, function ($user) use ($permission) {
                 return $user->hasPermission($permission);
             });
+        }
+    }
+    
+    protected function getPermissions()
+    {
+        try {
+            return Permission::with('roles')->get();
+        } catch (\Exception $e) {
+            return [];
         }
     }
 }
