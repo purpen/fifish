@@ -5,7 +5,9 @@
     var uploader = new plupload.Uploader({
         browse_button : 'browse', //触发文件选择对话框的按钮，为那个元素id
         url : '{{ $upload_url }}', //服务器端的上传页面地址
-        multipart_params: '{ token: "{{ $token }}" }',
+        multipart_params: { 
+            token: "{{ $token }}" 
+        },
     	filters : {
     		max_file_size : '10mb',
     		mime_types: [

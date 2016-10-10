@@ -64,7 +64,7 @@ return [
         
         'qiniu' => [
             'driver'  => 'qiniu',
-            'upload_url' => 'http://up.qiniu.com',
+            'upload_url' => 'http://up-z2.qiniu.com',
             'domains' => [
                 'default'   => 'obbrr76ua.bkt.clouddn.com', // 你的七牛域名
                 'https'     => 'fs.fifish.com',         // 你的HTTPS域名
