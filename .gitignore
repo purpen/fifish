@@ -3,11 +3,6 @@ Homestead.yaml
 Homestead.json
 /vendor
 /node_modules
-/public/assets
-/public/css
-/public/images
-/public/js
-/public/fonts
 /public/uploads
 .env
 *.swp
