@@ -41,10 +41,16 @@ composer install
 * 安装 Laravel 之后，需要你配置 **storage** 和 **bootstrap/cache** 目录的读写(777)权限。
 
 ```
-sudo chmod -R 777 storage 
-```
-```
 sudo chmod -R 777 bootstrap/cache
+```
+* 如出现无法正常访问，并且日志为空，请检测日志权限
+```
+sudo chmod -R 777 storage/logs/xxx.log
+```
+```
+sudo chmod -R 777 storage 
+sudo chmod -R 777 storage/framework/cache
+sudo chmod -R 777 storage/framework/views
 ```
 
 * 安装 Laravel 之后，一般应用程序根目录会有一个 **.env** 的文件。如果没有的话，复制 **.env.example** 并重命名为 **.env** 。
@@ -53,7 +59,7 @@ sudo chmod -R 777 bootstrap/cache
 php -r "copy('.env.example', '.env');"
 ```
 
-* 更新系统秘钥
+* 更新系统秘钥 （错误：No supported encrypter found，laravel5.1开始APP_KEY必须是长度32且有cipher）
 ```
 php artisan key:generate
 ```
