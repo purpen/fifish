@@ -90,7 +90,7 @@ class Asset extends Model
                 return (object)[
                     'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
                     'small' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrsm'),
-                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrlg'),
+                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'vfr'),
                 ];
             }
         }
