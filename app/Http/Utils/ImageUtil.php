@@ -57,7 +57,7 @@ class ImageUtil
         $secretKey = $config['secret_key'];
         $bucket = $config['bucket'];
                 
-        $saveKey = $save_dir.'/'.date('ymd').'/'.self::genUniKey().'.$(ext)';
+        $saveKey = $save_dir.'/'.date('ymd').'/'.self::genUniKey().'$(ext)';
         if ($assetable_type == 'User') {
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
