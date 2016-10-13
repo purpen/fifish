@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://fifish.me'),
+    'url' => env('APP_URL', 'http://www.qysea.com'),
     
     
     /*
@@ -49,7 +49,7 @@ return [
     |
     */
 
-    'static_url' => env('APP_STATIC_URL', 'http://static.fifish.me'),
+    'static_url' => env('APP_STATIC_URL', 'http://s1.qysea.com'),
     
     /*
     |--------------------------------------------------------------------------
