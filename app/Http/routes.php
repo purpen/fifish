@@ -184,6 +184,21 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->get('upload/qiniuToken', [
             'as' => 'upload.token', 'uses' => 'UploadController@qiniuToken'
         ]);
+        
+        // 获取七牛上传视频Token
+        $api->get('upload/videoToken', [
+            'as' => 'upload.videotoken', 'uses' => 'UploadController@videoToken'
+        ]); 
+        
+        // 获取七牛上传照片Token
+        $api->get('upload/photoToken', [
+            'as' => 'upload.phototoken', 'uses' => 'UploadController@photoToken'
+        ]);
+            
+        // 获取七牛上传头像Token
+        $api->get('upload/avatarToken', [
+            'as' => 'upload.avatartoken', 'uses' => 'UploadController@avatarToken'
+        ]);
 
         // 本地上传
         $api->post('upload/photo', [

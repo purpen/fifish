@@ -73,7 +73,7 @@ class UploadController extends BaseController
     /**
      * @api {get} /upload/photoToken 获取上传照片Token
      * @apiVersion 1.0.0
-     * @apiName upload video
+     * @apiName upload photo
      * @apiGroup Upload
      * 
      * @apiSuccessExample 成功响应:
@@ -127,7 +127,7 @@ class UploadController extends BaseController
     /**
      * @api {get} /upload/avatarToken 获取上传头像Token
      * @apiVersion 1.0.0
-     * @apiName upload video
+     * @apiName upload avatar
      * @apiGroup Upload
      * 
      * @apiSuccessExample 成功响应:
