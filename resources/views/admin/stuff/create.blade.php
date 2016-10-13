@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="{{ $upload_url }}" method="post" id="imgForm" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">                        
+                    <form action="{{ $upload_url }}" method="post" id="imgForm" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">                     
                         <div class="form-group">
                             <label class="col-sm-2 control-label">选择照片</label>
                             <div class="col-sm-10">

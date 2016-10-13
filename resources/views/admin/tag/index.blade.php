@@ -23,7 +23,7 @@
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
                     <div class="box-tools">
-                        
+                        <a href="{{ url('/admin/tags/create') }}" class="btn btn-link">+新增</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -91,7 +91,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form action="/admin/stuffs/{{ $tag->id }}" method="POST">
+                                                <form action="/admin/tags/{{ $tag->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 

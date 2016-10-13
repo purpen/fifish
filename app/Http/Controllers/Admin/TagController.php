@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Models\Tag;
 use App\Http\Transformers\StuffTransformer;
+use Validator;
 
 class TagController extends Controller
 {
@@ -19,13 +20,40 @@ class TagController extends Controller
     }
     
     /**
-     * stuff 列表
+     * tags 列表
      */
     public function index() 
     {
         $tags = Tag::orderBy('created_at', 'desc')->paginate(10);
         
         return view('admin.tag.index', ['tags' => $tags]);
+    }
+    
+    /**
+     * 新增标签
+     */
+    public function create()
+    {
+        return view('admin.tag.create');
+    }
+    
+    /**
+     * 保存标签
+     */
+    public function store(Request $request)
+    {
+        $check = Validator::make($request->all(), [
+            'name' => ['required', 'min:2', 'max:15'],
+            'display_name' => ['required', 'min:2', 'max:15']
+        ]);
+        if ($check->fails()) {
+            return Redirect::to('/admin/tag/create')
+            			->withErrors($check);
+        }
+        
+        $tag = Tag::create($request->only(['name', 'display_name', 'description']));
+        
+        return redirect('/admin/tags');
     }
     
     /**

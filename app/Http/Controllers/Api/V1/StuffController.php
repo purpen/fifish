@@ -222,6 +222,8 @@ class StuffController extends BaseController
      * @apiParam {Integer} asset_id 上传文件ID
      * @apiParam {String} city 城市名
      * @apiParam {String} address 地址
+     * @apiParam {Double} lat 纬度
+     * @apiParam {Double} lng 经度
      * @apiParam {Integer} kind 类型：1.图片；2.视频 
      * @apiParam {Array} tags 标签ID
      *

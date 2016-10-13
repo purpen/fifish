@@ -25,7 +25,7 @@ class TagController extends BaseController
      *  "data": [
      *    {
      *         "id": 1,
-     *        "name": "科技2",
+     *         "name": "科技2",
      *         "display_name": "科技范"
      *     }
      *
