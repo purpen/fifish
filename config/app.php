@@ -38,9 +38,10 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
-    'url' => env('APP_URL', 'http://www.qysea.com'),
     
+    'domain' => env('APP_DOMAIN', 'www.qysea.com'),
+    
+    'url' => env('APP_URL', 'http://www.qysea.com'),
     
     /*
     |--------------------------------------------------------------------------

@@ -10,42 +10,43 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+// 限定域名访问
+Route::group(array('domain' => env('APP_DOMAIN')), function(){
+    Route::get('/', 'HomeController@index');
 
+    Route::auth();
 
-Route::get('/', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
 
-Route::auth();
+    Route::get('/job', 'HomeController@job');
 
-Route::get('/home', 'HomeController@index');
+    Route::get('/avatar', 'HomeController@avatar');
 
-Route::get('/job', 'HomeController@job');
+    /**
+     * 测试
+     */
+    Route::get('/test/search', 'TestController@search');
+    Route::get('/test/del_search', 'TestController@delSearch');
 
-Route::get('/avatar', 'HomeController@avatar');
+    /**
+     * 静态文件
+     */
+    Route::get('/aboutus', 'WebController@aboutUs');
+    Route::get('/contact', 'WebController@contact');
 
-/**
- * 测试
- */
-Route::get('/test/search', 'TestController@search');
-Route::get('/test/del_search', 'TestController@delSearch');
-
-/**
- * 静态文件
- */
-Route::get('/aboutus', 'WebController@aboutUs');
-Route::get('/contact', 'WebController@contact');
-
-/**
- * 后台管理的路由组
- */
-Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    /**
+     * 后台管理的路由组
+     */
+    Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     
-    Route::get('/', 'OverviewController@index');
+        Route::get('/', 'OverviewController@index');
     
-    Route::resource('stuffs', 'StuffController');
-    Route::resource('comments', 'TagController');
-    Route::resource('assets', 'AssetController');
-    Route::resource('users', 'UserController');
-    Route::resource('tags', 'TagController');
+        Route::resource('stuffs', 'StuffController');
+        Route::resource('comments', 'TagController');
+        Route::resource('assets', 'AssetController');
+        Route::resource('users', 'UserController');
+        Route::resource('tags', 'TagController');
+    });
 });
 
 /**
