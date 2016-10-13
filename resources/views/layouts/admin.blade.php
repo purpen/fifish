@@ -54,7 +54,7 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="http://s3.qysea.com/img/avatar!smx50.png" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 Sender Name<small><i class="fa fa-clock-o"></i> 5 mins</small>
