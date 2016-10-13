@@ -73,7 +73,7 @@ return [
             'access_key'=> 'x9Ys5weZ-B6-qKywyX2N34bhFIT3XQLpxz0g9vZU',  //AccessKey
             'secret_key'=> 'BqjfA2zx5JgxAS2N5NKH6kAvPsr3NnD4pY84j2Fm',  //SecretKey
             'bucket'    => 'fifish',  //Bucket名字
-            'notify_url'=> 'http://www.qysea.com/api/upload/qiniuback',  //持久化处理回调地址
+            'notify_url'=> 'http://api.qysea.com/upload/qiniuback',  //持久化处理回调地址
         ],
 
     ],
