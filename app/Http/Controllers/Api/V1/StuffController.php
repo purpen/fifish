@@ -219,7 +219,7 @@ class StuffController extends BaseController
      * @apiGroup Stuff
      *
      * @apiParam {String} content 分享内容
-     * @apiParam {File} file 上传文件
+     * @apiParam {Integer} asset_id 上传文件ID
      * @apiParam {String} city 城市名
      * @apiParam {String} address 地址
      * @apiParam {Integer} kind 类型：1.图片；2.视频 
