@@ -11,7 +11,7 @@
     	filters : {
     		max_file_size : '10mb',
     		mime_types: [
-    			{ title : "Image files", extensions : "jpg,gif,png" },
+    			{ title : "Image files", extensions : "jpg,gif,png,mp4" },
     			{ title : "Zip files", extensions : "zip" }
     		]
     	},
@@ -69,11 +69,17 @@
                 <div class="box-body">
                     <form action="{{ $upload_url }}" method="post" id="imgForm" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">                        
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">上传照片</label>
+                            <label class="col-sm-2 control-label">选择照片</label>
                             <div class="col-sm-10">
-                                <button id="browse">选择照片</button>
+                                <button id="browse">上传照片</button>
                                 
                                 <a herf="javascript:void(0);" id="start_upload">开始上传</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择视频</label>
+                            <div class="col-sm-10">
+                                <button id="video" class="btn btn-default">上传视频</button>
                             </div>
                         </div>
                         <div class="form-group">
