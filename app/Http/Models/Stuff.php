@@ -81,7 +81,7 @@ class Stuff extends Model
     }
     
     /**
-     * 获取封面图
+     * 获取原文件及封面图
      */
     public function getCoverAttribute ()
     {

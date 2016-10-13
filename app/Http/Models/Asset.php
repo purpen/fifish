@@ -19,6 +19,7 @@ class Asset extends Model
      *      filename,
      *      size,width,height,mime
      *      state,created_at,updated_at
+     *      kind // 类型：1.图片；2.视频
      *
      * @var string
      */
@@ -34,7 +35,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'assetable_id', 'assetable_type', 'filepath', 'filename', 'size', 'width', 'height', 'mime'];
+    protected $fillable = ['user_id', 'assetable_id', 'assetable_type', 'filepath', 'filename', 'size', 'width', 'height', 'mime', 'kind'];
     
     /**
      * 不能被批量赋值的属性
@@ -48,7 +49,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'file'];
+    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'file', 'kind'];
     
     /**
      * 获取所有拥有的 assetable 模型。
@@ -73,14 +74,25 @@ class Asset extends Model
     {
         if ($this->assetable_type == 'User') {
             return (object)[
+                'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
                 'small' => ImageUtil::qiniuViewUrl($this->filepath, 'smx50'),
                 'large' => ImageUtil::qiniuViewUrl($this->filepath, 'lgx180'),
             ];
         } else {
-            return (object)[
-                'small' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxsm'),
-                'large' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxlg'),
-            ];
+            if ($this->kind == 1) {
+                return (object)[
+                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
+                    'small' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxsm'),
+                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxlg'),
+                ];
+            } else {
+                // 视频、文档等无缩略图
+                return (object)[
+                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
+                    'small' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrsm'),
+                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrlg'),
+                ];
+            }
         }
     }
     

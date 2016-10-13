@@ -17,7 +17,7 @@ class AssetTransformer extends TransformerAbstract
             'size' => ceil($asset->size/1024).'k', // k
             'width' => $asset->width,
             'height' => $asset->height,
-            'fileurl' => $asset->fileurl,
+            'file' => $asset->file,
         ];
     }
 }

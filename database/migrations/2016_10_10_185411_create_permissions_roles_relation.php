@@ -18,16 +18,6 @@ class CreatePermissionsRolesRelation extends Migration
             $table->integer('permission_id')->unsigned();
             $table->integer('role_id')->unsigned();
             
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on('permissions')
-                ->onDelete('cascade');
-            
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
-            
             $table->primary(['permission_id', 'role_id']);        
         });
         
@@ -36,16 +26,6 @@ class CreatePermissionsRolesRelation extends Migration
             
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
-            
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
-            
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('Users')
-                ->onDelete('cascade');
             
             $table->primary(['role_id', 'user_id']);      
         });

@@ -28,8 +28,9 @@ class UploadController extends BaseController
      *   {
      *       "id": 200,
      *       "file": {
-     *           "large": "http://obbrr76ua.bkt.clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxlg",
-     *           "small": "http://obbrr76ua.bkt.clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxsm"
+     *           "srcfile":"http://clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0",
+     *           "large": "http://clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxlg",
+     *           "small": "http://clouddn.com/photo/160926/cbbd34cc77e73f06abbcc86cecfdd8b0!cvxsm"
      *       },
      *       "ret": "success"
      *   }
@@ -67,6 +68,102 @@ class UploadController extends BaseController
         }
        
         return $this->response->array($result);
+    }
+    
+    /**
+     * @api {get} /upload/photoToken 获取上传照片Token
+     * @apiVersion 1.0.0
+     * @apiName upload video
+     * @apiGroup Upload
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       },
+     *       "data": {
+     *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
+     *           "upload_url": "http://up.qiniu.com",
+     *       }
+     *   }
+     */
+    public function photoToken(Request $request)
+    {
+        $assetable_id = 0;
+        $assetable_type = 'Stuff';
+        $store_prefix = 'photo';
+        
+        return $this->upToken(false, $store_prefix, $assetable_id, $assetable_type);
+    }
+    
+    /**
+     * @api {get} /upload/videoToken 获取上传视频Token
+     * @apiVersion 1.0.0
+     * @apiName upload video
+     * @apiGroup Upload
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       },
+     *       "data": {
+     *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
+     *           "upload_url": "http://up.qiniu.com",
+     *       }
+     *   }
+     */
+    public function videoToken(Request $request)
+    {   
+        $assetable_id = 0;
+        $assetable_type = 'Stuff';
+        $store_prefix = 'video';
+        
+        return $this->upToken(false, $store_prefix, $assetable_id, $assetable_type, 2);
+    }
+    
+    /**
+     * @api {get} /upload/avatarToken 获取上传头像Token
+     * @apiVersion 1.0.0
+     * @apiName upload video
+     * @apiGroup Upload
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       },
+     *       "data": {
+     *           "token": "lg_vCeWWdlVmlld1wvMVwvd1wvMTY.......wXC9oXC8xMjBcL3DkyMn0=",
+     *           "upload_url": "http://up.qiniu.com",
+     *       }
+     *   }
+     */
+    public function avatarToken(Request $request)
+    {
+        $assetable_id = $this->auth_user_id;
+        $assetable_type = 'User';
+        $store_prefix = 'avatar';
+        
+        return $this->upToken(false, $store_prefix, $assetable_id, $assetable_type);
+    }
+    
+    /**
+     * 获取七牛上传token
+     */
+    protected function upToken($is_local=false, $store_prefix='photo', $assetable_id=0, $assetable_type='Stuff',$kind=1){
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        
+        // 生成上传Token
+        $token = ImageUtil::qiniuToken($is_local, $store_prefix, $assetable_id, $assetable_type, $this->auth_user_id, $kind);
+        
+        return $this->response->array(ApiHelper::success(trans('common.success'), 200, array(
+            'token' => $token, 
+            'upload_url' => $upload_url,
+        )));
     }
     
     /**
@@ -109,48 +206,6 @@ class UploadController extends BaseController
             'token' => $token, 
             'upload_url' => $upload_url,
         )));
-    }
-    
-    /**
-     * @api {get} /upload/video 本地上传视频 （Todo: 请使用云上传）
-     * @apiVersion 1.0.0
-     * @apiName upload video
-     * @apiGroup Upload
-     * 
-     */
-    public function video(Request $request)
-    {   
-        
-    }
-    
-    /**
-     * @api {post} /upload/avatar 更新用户头像 （Todo: 请使用云上传）
-     * @apiVersion 1.0.0
-     * @apiName upload avatar
-     * @apiGroup Upload
-     */
-    public function avatar(Request $request)
-    {
-        $file = $request->file('file');
-        if (empty($file) || !$file->isValid()) {
-            return $this->response->array(ApiHelper::error('File is invalid!', 401));
-        }
-        
-        $user = User::find($this->auth_user_id);
-        if (!$user) {
-            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
-        }
-        $avatar = [];
-        $upRet = ImageUtil::storeQiniuCloud($file, 'avatar', $this->auth_user_id, 'User', $this->auth_user_id);
-        if (!$upRet) {
-            throw new ApiExceptions\StoreFailedException(501, '头像保存失败.');
-        }
-        $avatar = [
-            'large' => ImageUtil::qiniuViewUrl($upRet['key']).'!lgx180',
-            'small' => ImageUtil::qiniuViewUrl($upRet['key']).'!smx50',
-        ];
-        
-        return $this->response->array(ApiHelper::success(trans('common.upload_ok'), 200, $avatar));
     }
     
 }

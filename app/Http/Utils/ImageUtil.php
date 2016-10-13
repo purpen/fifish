@@ -48,7 +48,7 @@ class ImageUtil
     /**
      * 生成七牛云存储token
      */
-    static public function qiniuToken ($is_local=false, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
+    static public function qiniuToken ($is_local=false, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0, $kind=1)
     {
         // 获取配置参数
         $config = Config::get('filesystems.disks.qiniu'); 
@@ -61,14 +61,18 @@ class ImageUtil
         if ($assetable_type == 'User') {
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
-            $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
+            if ($save_dir == 'video') {
+                $persistentOps = 'vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67';
+            } else {
+                $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
+            }
         }
         
         $policy = array(
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "user_id":'.$user_id.'}',
+            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
         );
         
