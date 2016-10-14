@@ -62,7 +62,7 @@ class ImageUtil
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
             if ($save_dir == 'video') {
-                $persistentOps = 'vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67|vwatermark/1/image/aHR0cDovL29lNXRrdWJjai5ia3QuY2xvdWRkbi5jb20vd2F0ZXJAMngucG5n/gravity/SouthWest';
+                $persistentOps = 'avthumb/mp4/wmImage/aHR0cDovL29lNXRrdWJjai5ia3QuY2xvdWRkbi5jb20vd2F0ZXJAMngucG5n/wmGravityText/SouthWest|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67';
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
