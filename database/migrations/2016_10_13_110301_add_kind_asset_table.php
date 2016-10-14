@@ -26,7 +26,7 @@ class AddKindAssetTable extends Migration
     public function down()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->drop_column('kind');
+            $table->dropColumn('kind');
         });
     }
 }

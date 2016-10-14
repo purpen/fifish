@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddKindToStuffTable extends Migration
+class AddDurationAssetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class AddKindToStuffTable extends Migration
      */
     public function up()
     {
-        Schema::table('stuffs', function (Blueprint $table) {
-            // 类型：1.图片；2.视频
-            $table->tinyInteger('kind')->default(1);
+        Schema::table('assets', function (Blueprint $table) {
+            // 视频时长
+            $table->float('duration')->default(0)->after('mime');
         });
     }
 
@@ -25,8 +25,8 @@ class AddKindToStuffTable extends Migration
      */
     public function down()
     {
-        Schema::table('stuffs', function (Blueprint $table) {
-            $table->dropColumn('kind');
+        Schema::table('assets', function (Blueprint $table) {
+            $table->dropColumn('duration');
         });
     }
 }

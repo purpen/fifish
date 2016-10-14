@@ -72,7 +72,7 @@ class ImageUtil
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
+            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
         );
         

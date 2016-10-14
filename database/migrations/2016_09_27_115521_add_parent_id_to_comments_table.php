@@ -25,7 +25,7 @@ class AddParentIdToCommentsTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->drop_column('parent_id');
+            $table->dropColumn('parent_id');
         });
     }
 }

@@ -26,8 +26,8 @@ class AddAddressToStuffTable extends Migration
     public function down()
     {
         Schema::table('stuffs', function (Blueprint $table) {
-            $table->drop_column('address');
-            $table->drop_column('city');
+            $table->dropColumn('address');
+            $table->dropColumn('city');
         });
     }
 }

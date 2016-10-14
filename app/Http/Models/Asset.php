@@ -17,6 +17,7 @@ class Asset extends Model
      *      assetable_type,
      *      filepath,
      *      filename,
+     *      duration 视频时长
      *      size,width,height,mime
      *      state,created_at,updated_at
      *      kind // 类型：1.图片；2.视频
@@ -35,7 +36,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'assetable_id', 'assetable_type', 'filepath', 'filename', 'size', 'width', 'height', 'mime', 'kind'];
+    protected $fillable = ['user_id', 'assetable_id', 'assetable_type', 'filepath', 'filename', 'size', 'width', 'height', 'mime', 'duration','kind'];
     
     /**
      * 不能被批量赋值的属性
@@ -49,7 +50,7 @@ class Asset extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'file', 'kind'];
+    protected $visible = ['id', 'filepath', 'size', 'width', 'height', 'file', 'duration', 'kind'];
     
     /**
      * 获取所有拥有的 assetable 模型。

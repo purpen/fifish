@@ -28,8 +28,8 @@ class AddLocationStuffTable extends Migration
     public function down()
     {
         Schema::table('stuffs', function (Blueprint $table) {
-            $table->drop_column('lat');
-            $table->drop_column('lng');
+            $table->dropColumn('lat');
+            $table->dropColumn('lng');
         });
     }
 }
