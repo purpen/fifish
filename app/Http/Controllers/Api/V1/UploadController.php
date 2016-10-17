@@ -56,11 +56,16 @@ class UploadController extends BaseController
             }
         }
         
+        // 获取视频字节
+        if ($body['kind'] == 2) {
+            $body['size'] = $body['vbyte'];
+        }
+        
         // save asset
         $asset = new Asset();
         $asset->fill($body);
         $res = $asset->save();
-       
+        
         if ($res) {
             $result['id'] = $asset->id;
             $result['ret'] = 'success';

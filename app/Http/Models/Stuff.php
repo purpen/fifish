@@ -88,7 +88,7 @@ class Stuff extends Model
         if ($this->assets()->count()) {
             return $this->assets()->orderBy('created_at', 'desc')->first();
         }
-        return [];
+        return null;
     }
     
     /**

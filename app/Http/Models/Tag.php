@@ -80,4 +80,16 @@ class Tag extends Model
         return $tag->save();
     }
     
+    /**
+     * 获取Tag ID
+     */
+    static public function findTagsID($tags)
+    {
+        if (!is_array($tags)) {
+            $tags = array_values(array_unique(preg_split('/[,，;；\s]+/u', $tags))); 
+        }
+        
+        return self::whereIn('name', $tags)->select('id')->get();
+    }
+    
 }

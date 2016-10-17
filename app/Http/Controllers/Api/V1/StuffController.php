@@ -294,7 +294,9 @@ class StuffController extends BaseController
         // 同步保存标签
         $tags = $request->input('tags', []);
         if (!empty($tags)) {
-            $stuff->tags()->sync($tags, ['updated_at' => date('Y-m-d H:i:s')]);
+            $tags_id = Tag::findTagsID($tags);
+            
+            $stuff->tags()->sync($tags_id, ['updated_at' => date('Y-m-d H:i:s')]);
         }
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());

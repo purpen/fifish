@@ -65,13 +65,13 @@ class ImageUtil
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
             if ($save_dir == 'video') {
-                // http://www.qysea.com/img/logo_fifish.png
-                $water_image = 'aHR0cDovL3d3dy5xeXNlYS5jb20vaW1nL2xvZ29fZmlmaXNoLnBuZw==';
+                // 水印图片：http://oe5tkubcj.bkt.clouddn.com/water@2x.png
+                $water_image = 'aHR0cDovL29lNXRrdWJjai5ia3QuY2xvdWRkbi5jb20vd2F0ZXJAMngucG5n';
                 
                 Log::warning('saveas:'.$bucket.':'.$file_path.'$(ext)!wm');
                 
                 $saveas = self::urlsafe_base64_encode($bucket.':'.$file_path.'$(ext)!wm');
-                $persistentOps = 'vframe/jpg/offset/1/w/480/h/270|watermark/1/image/aHR0cDovL29lNXRrdWJjai5ia3QuY2xvdWRkbi5jb20vd2F0ZXJAMngucG5n/dissolve/70/gravity/SouthWest/dx/20/dy/20;vframe/jpg/offset/1/w/120/h/67;avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas;
+                $persistentOps = 'vframe/jpg/offset/1/w/480/h/270|imageView2/1/w/480/h/270/interlace/1/q/90|watermark/1/image/aHR0cDovL29lNXRrdWJjai5ia3QuY2xvdWRkbi5jb20vd2F0ZXJAMngucG5n/dissolve/70/gravity/SouthWest/dx/20/dy/20;vframe/jpg/offset/1/w/120/h/67|imageView2/1/w/120/h/67/interlace/1/q/100;avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas;
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
@@ -83,7 +83,7 @@ class ImageUtil
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"persistentId":"$(persistentId)", "filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
+            'callbackBody'  => '{"persistentId":"$(persistentId)", "filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","vbyte":"$(avinfo.format.size)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
             'persistentNotifyUrl' => $config['persistent_url'],
         );
