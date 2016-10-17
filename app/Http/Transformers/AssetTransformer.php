@@ -14,7 +14,7 @@ class AssetTransformer extends TransformerAbstract
     {
         return [
             'id' => $asset->id,
-            'size' => ceil($asset->size/1024).'k', // k
+            'size' => $asset->size,
             'width' => $asset->width,
             'height' => $asset->height,
             'duration' => $asset->duration,

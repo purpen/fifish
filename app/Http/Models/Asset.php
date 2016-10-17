@@ -61,14 +61,6 @@ class Asset extends Model
     }
     
     /**
-     * 转换为KB
-     */
-    public function getSizeAttribute($size)
-    {
-        return ceil($size/1024).'KB';
-    }
-    
-    /**
      * 获取照片/视频截图访问file
      */
     public function getFileAttribute()
