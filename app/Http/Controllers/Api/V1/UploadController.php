@@ -67,6 +67,8 @@ class UploadController extends BaseController
             $body['size'] = (float)$body['vbyte'];
         }
         
+        Log::warning('body json:'.json_encode($body));
+        
         // save asset
         $asset = new Asset();
         $asset->fill($body);
