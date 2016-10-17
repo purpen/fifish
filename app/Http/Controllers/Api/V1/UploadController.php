@@ -58,7 +58,7 @@ class UploadController extends BaseController
         
         // 获取视频字节
         if ($body['kind'] == 2) {
-            $body['size'] = $body['vbyte'];
+            $body['size'] = (float)$body['vbyte'];
         }
         
         // save asset

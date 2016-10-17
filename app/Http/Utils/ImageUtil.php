@@ -83,7 +83,7 @@ class ImageUtil
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"persistentId":"$(persistentId)", "filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","vbyte":"$(avinfo.format.size)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
+            'callbackBody'  => '{"persistentId":"$(persistentId)", "filename":"$(fname)", "filepath":"$(key)", "size":$(fsize), "width":$(imageInfo.width), "height":$(imageInfo.height),"mime":"$(mimeType)","duration":$(avinfo.video.duration),"vbyte":$(avinfo.format.size),"hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
             'persistentNotifyUrl' => $config['persistent_url'],
         );
