@@ -71,7 +71,7 @@ class ImageUtil
                 Log::warning('saveas:'.$bucket.':'.$file_path.'$(ext)!wm');
                 
                 $saveas = self::urlsafe_base64_encode($bucket.':'.$file_path.'$(ext)!wm');
-                $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas.';vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67';
+                $persistentOps = 'vframe/jpg/offset/1/w/480/h/270;vframe/jpg/offset/1/w/120/h/67;avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas;
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
