@@ -81,6 +81,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('upload/qiniuback', [
         'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
     ]);
+        
+    // 七牛上传异步通知
+    $api->post('upload/qiniuNotify', [
+        'as' => 'upload.qiniuNotify', 'uses' => 'UploadController@qiniuNotify'
+    ]);
     
     /**
      * 分享相关路由
