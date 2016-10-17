@@ -68,12 +68,15 @@ class ImageUtil
                 Log::warning('Request upload video!!!');
                 // http://www.qysea.com/img/logo_fifish.png
                 $water_image = 'aHR0cDovL3d3dy5xeXNlYS5jb20vaW1nL2xvZ29fZmlmaXNoLnBuZw==';
+                Log::warning('saveas:'.$file_path.'-wm');
                 $saveas = self::urlsafe_base64_encode($file_path.'-wm');
                 $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas; //|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
         }
+        
+        Log::warning('persistentOps:'.$persistentOps);
         
         $policy = array(
             'deadline'      => time() + 36000,
