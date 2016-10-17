@@ -76,6 +76,13 @@ class UploadController extends BaseController
     public function qiniuNotify(Request $request)
     {
         Log::warning('Qiniu Notify!!!');
+        
+        $param = file_get_contents('php://input');
+        
+        Log::warning($param);
+        
+        $body = json_decode($param, true);
+        
     }
     
     /**
