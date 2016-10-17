@@ -54,6 +54,12 @@ class UploadController extends BaseController
             if (in_array($key, array('filepath','mime'))) {
                 $body[$key] = urldecode($value);
             }
+            if (in_array($key, array('width', 'height'))) {
+                $body[$key] = (int)$value;
+            }
+            if (in_array($key, array('size', 'vbyte', 'duration'))) {
+                $body[$key] = (float)$value;
+            }
         }
         
         // 获取视频字节
