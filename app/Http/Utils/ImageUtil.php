@@ -65,12 +65,13 @@ class ImageUtil
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
             if ($save_dir == 'video') {
-                Log::warning('Request upload video!!!');
                 // http://www.qysea.com/img/logo_fifish.png
                 $water_image = 'aHR0cDovL3d3dy5xeXNlYS5jb20vaW1nL2xvZ29fZmlmaXNoLnBuZw==';
-                Log::warning('saveas:'.$bucket.':'.$file_path.'-wm');
-                $saveas = self::urlsafe_base64_encode($bucket.':'.$file_path.'-wm');
-                $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas; //|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67
+                
+                Log::warning('saveas:'.$bucket.':'.$file_path.'$(ext)!wm');
+                
+                $saveas = self::urlsafe_base64_encode($bucket.':'.$file_path.'$(ext)!wm');
+                $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas.';|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67';
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
