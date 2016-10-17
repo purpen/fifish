@@ -19,6 +19,8 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
     Route::get('/home', 'HomeController@index');
 
     Route::get('/job', 'HomeController@job');
+    
+    Route::post('/promo', 'HomeController@promo');
 
     Route::get('/avatar', 'HomeController@avatar');
 

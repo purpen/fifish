@@ -15,7 +15,6 @@ class AssetTransformer extends TransformerAbstract
         return [
             'id' => $asset->id,
             'size' => $asset->size,
-            'vbyte' => $asset->vbyte,
             'width' => $asset->width,
             'height' => $asset->height,
             'duration' => $asset->duration,

@@ -15,6 +15,8 @@ use App\Http\Utils\ImageUtil;
 use App\Http\Models\User;
 use App\Jobs\SendReminderEmail;
 
+use App\Http\Models\Asset;
+
 class HomeController extends Controller
 {
     /**
@@ -42,7 +44,27 @@ class HomeController extends Controller
      */
     public function promo()
     {
+        $body = array(
+            "filename" => "16-10-17+15%3A20%3A49%3A55249429.MOV",
+            "filepath" => "video\/161017\/d094eecb947ff5a8c567d0e5fa3649ba.MOV",
+            "size" => 2842564,
+            "width" => 0,
+            "height" => 0,
+            "mime" => "video\/quicktime",
+            "duration" => 27.916667,
+            "vbyte" => 2842564,
+            "desc" => "",
+            "assetable_id" => 0,
+            "assetable_type" => "Stuff",
+            "kind" => 2,
+            "user_id" => 1,
+        );        
+        // save asset
+        $asset = new Asset();
+        $asset->fill($body);
+        $res = $asset->save();
         
+        //print_r($res);
     }
     
     /**
