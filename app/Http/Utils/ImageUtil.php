@@ -68,8 +68,8 @@ class ImageUtil
                 Log::warning('Request upload video!!!');
                 // http://www.qysea.com/img/logo_fifish.png
                 $water_image = 'aHR0cDovL3d3dy5xeXNlYS5jb20vaW1nL2xvZ29fZmlmaXNoLnBuZw==';
-                Log::warning('saveas:'.$file_path.'-wm');
-                $saveas = self::urlsafe_base64_encode($file_path.'-wm');
+                Log::warning('saveas:'.$bucket.':'.$file_path.'-wm');
+                $saveas = self::urlsafe_base64_encode($bucket.':'.$file_path.'-wm');
                 $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas; //|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
@@ -82,7 +82,7 @@ class ImageUtil
             'deadline'      => time() + 36000,
             'saveKey'       => $saveKey,
             'callbackUrl'   => $config['notify_url'],
-            'callbackBody'  => '{"filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
+            'callbackBody'  => '{"persistentId":"$(persistentId)", "filename":"$(fname)", "filepath":"$(key)", "size":"$(fsize)", "width":"$(imageInfo.width)", "height":"$(imageInfo.height)","mime":"$(mimeType)","duration":"$(avinfo.video.duration)","hash":"$(etag)","desc":"$(x:desc)","assetable_id":'.$assetable_id.',"assetable_type":"'.$assetable_type.'", "kind":'.$kind.',"user_id":'.$user_id.'}',
             'persistentOps' => $persistentOps,
             'persistentNotifyUrl' => $config['persistent_url'],
         );
