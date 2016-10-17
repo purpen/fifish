@@ -6,6 +6,7 @@ use Config;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use Imageupload;
+use Log;
 
 class ImageUtil
 {
@@ -56,13 +57,19 @@ class ImageUtil
         $accessKey = $config['access_key'];
         $secretKey = $config['secret_key'];
         $bucket = $config['bucket'];
+        
+        $file_path = $save_dir.'/'.date('ymd').'/'.self::genUniKey();
                 
-        $saveKey = $save_dir.'/'.date('ymd').'/'.self::genUniKey().'$(ext)';
+        $saveKey = $file_path.'$(ext)';
         if ($assetable_type == 'User') {
             $persistentOps = 'imageView2/1/w/180/h/180/interlace/1/q/100|imageView2/1/w/50/h/50/interlace/1/q/100';
         } else {
             if ($save_dir == 'video') {
-                $persistentOps = 'avthumb/mp4/wmImage/aHR0cDovL3Rlc3QtMi5xaW5pdWRuLmNvbS9sb2dvLnBuZw==/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-20|saveas/dGVzdDpzYW1wbGVfdGFyZ2V0Lm1wNA=='; //|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67
+                Log::warning('Request upload video!!!');
+                // http://www.qysea.com/img/logo_fifish.png
+                $water_image = 'aHR0cDovL3d3dy5xeXNlYS5jb20vaW1nL2xvZ29fZmlmaXNoLnBuZw==';
+                $saveas = self::urlsafe_base64_encode($file_path.'-wm');
+                $persistentOps = 'avthumb/mp4/wmImage/'.$water_image.'/wmGravity/SouthWest/wmOffsetX/20/wmOffsetY/-50|saveas/'.$saveas; //|vframe/jpg/offset/1/w/480/h/270|vframe/jpg/offset/1/w/120/h/67
             } else {
                 $persistentOps = 'imageView2/1/w/480/h/270/interlace/1/q/90|imageView2/1/w/120/h/67/interlace/1/q/100';
             }
@@ -88,6 +95,17 @@ class ImageUtil
         } else {
             return $auth->uploadToken($bucket);
         }
+    }
+    
+    /**
+     * 对字符串urlsafe base64编码
+     */
+    static public function urlsafe_base64_encode($str)
+    {
+        $find = array('+', '/');
+        $replace = array('-', '_');
+        
+        return str_replace($find, $replace, base64_encode($str));
     }
     
 	/**

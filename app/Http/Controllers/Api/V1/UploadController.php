@@ -71,6 +71,14 @@ class UploadController extends BaseController
     }
     
     /**
+     * 异步处理通知
+     */
+    public function qiniuNotify(Request $request)
+    {
+        Log::warning('Qiniu Notify!!!');
+    }
+    
+    /**
      * @api {get} /upload/photoToken 获取上传照片Token
      * @apiVersion 1.0.0
      * @apiName upload photo

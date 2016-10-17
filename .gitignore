@@ -4,6 +4,10 @@ Homestead.json
 /vendor
 /node_modules
 /public/uploads
+/public/build
+/public/css
+/public/js
+/public/build
 .env
 *.swp
 .DS_Store
