@@ -3,7 +3,8 @@
 @section('content')
 <div class="content-header">
     <h1>
-        标签管理
+        栏目位置管理
+        <small>照片、视频</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -12,7 +13,7 @@
                 控制台
             </a>
         </li>
-        <li class="active">标签管理</li>
+        <li class="active">栏目位置管理</li>
     </ol>
 </div>
 
@@ -23,7 +24,7 @@
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
                     <div class="box-tools">
-                        <a href="{{ url('/admin/tags/create') }}" class="btn btn-link">+新增</a>
+                        <a href="{{ url('/admin/columnspaces/create') }}" class="btn btn-default">新增</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -63,38 +64,41 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>名称</th>
-                                            <th>数量</th>
+                                            <th>标识</th>
+                                            <th>说明</th>
+                                            <th>类型</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tags as $tag)
+                                        @foreach ($spaces as $space)
                                         <tr>
                                             <td>
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="ids[]" value="{{ $tag->id }}" aria-label="...">
+                                                        <input type="checkbox" name="ids[]" value="{{ $space->id }}" aria-label="...">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $tag->name }} @if ($tag->display_name)[{{ $tag->display_name }}]@endif
+                                                {{ $space->name }}
                                             </td>
                                             <td>
-                                                {{ $tag->total_count }}
+                                                {{ $space->summary }}
                                             </td>
                                             <td>
-                                                @if ($tag->sticked)
-                                                    <span class="label label-success">推荐</span>
-                                                @endif
+                                                {{ $space->type_label }}
                                             </td>
                                             <td>
-                                                <form action="/admin/tags/{{ $tag->id }}" method="POST">
+                                                {{ $space->status_label }}
+                                            </td>
+                                            <td>
+                                                
+                                                <form action="/admin/columnspaces/{{ $space->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-
+                                                    <a href="/admin/columnspaces/{{ $space->id}}/edit" class="btn btn-sm btn-default">编辑</a>
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>
@@ -109,12 +113,12 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div id="datatable_info" class="dataTables_info" role="status" aria-live="polite">
-                                    显示 {{ $tags->firstItem() }} 至 {{ $tags->lastItem() }} 条，共 {{ $tags->total() }} 条记录
+                                    显示 {{ $spaces->firstItem() }} 至 {{ $spaces->lastItem() }} 条，共 {{ $spaces->total() }} 条记录
                                 </div>
                             </div>
                             <div class="col-sm-7">
                                 <div id="datatable_paginate" class="dataTables_paginate paging_simple_numbers">
-                                    {!! $tags->links() !!}
+                                    {!! $spaces->links() !!}
                                 </div>
                             </div>
                         </div>

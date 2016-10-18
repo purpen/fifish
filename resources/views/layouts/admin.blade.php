@@ -179,6 +179,11 @@
                         <i class="fa fa-photo" aria-hidden="true"></i> <span>分享管理</span>
                     </a>
                 </li>
+                <li class="{{ $sitebar_menu_columns or '' }}">
+                    <a href="/admin/columns">
+                        <i class="fa fa-cubes" aria-hidden="true"></i> <span>栏目管理</span>
+                    </a>
+                </li>
                 <li class="{{ $sitebar_menu_comments or '' }}">
                     <a href="/admin/comments">
                         <i class="fa fa-comments" aria-hidden="true"></i> <span>评论管理</span>
@@ -189,9 +194,9 @@
                         <i class="fa fa-tags" aria-hidden="true"></i> <span>标签管理</span>
                     </a>
                 </li>
-                <li class="{{ $sitebar_menu_assets or '' }}">
-                    <a href="/admin/assets">
-                        <i class="fa fa-file-image-o" aria-hidden="true"></i> <span>附件管理</span>
+                <li class="{{ $sitebar_menu_columnspaces or '' }}">
+                    <a href="/admin/columnspaces">
+                        <i class="fa fa-square" aria-hidden="true"></i> <span>栏目位管理</span>
                     </a>
                 </li>
                 <li class="treeview {{ $sitebar_menu_users or '' }}">
@@ -203,11 +208,17 @@
                         <li><a href="/admin/users?type=administer" class="{{ $sitebar_subnav_administer or '' }}">管理员</a></li>
                     </ul>
                 </li>
+                <li class="{{ $sitebar_menu_assets or '' }}">
+                    <a href="/admin/assets">
+                        <i class="fa fa-file-image-o" aria-hidden="true"></i> <span>附件管理</span>
+                    </a>
+                </li>
                 <li class="treeview {{ $sitebar_menu_system or '' }}">
                     <a href="/admin/settings">
                         <i class="fa fa-circle-o" aria-hidden="true"></i> <span>系统管理</span>
                     </a>
                     <ul class="treeview-menu">
+                        
                         <li><a href="#">数据统计</a></li>
                         <li><a href="#">缓存管理</a></li>
                     </ul>

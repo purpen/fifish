@@ -3,7 +3,8 @@
 @section('content')
 <div class="content-header">
     <h1>
-        标签管理
+        栏目管理
+        <small>照片、视频</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -12,7 +13,7 @@
                 控制台
             </a>
         </li>
-        <li class="active">标签管理</li>
+        <li class="active">栏目推荐管理</li>
     </ol>
 </div>
 
@@ -23,7 +24,7 @@
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
                     <div class="box-tools">
-                        <a href="{{ url('/admin/tags/create') }}" class="btn btn-link">+新增</a>
+                        <a href="{{ url('/admin/columns/create') }}" class="btn btn-default">新增</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -63,35 +64,35 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>名称</th>
-                                            <th>数量</th>
+                                            <th>照片</th>
+                                            <th>标题</th>
+                                            <th class="sorting_asc">发布时间</th>
                                             <th>状态</th>
+                                            <th>所属位置</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tags as $tag)
+                                        @foreach ($columns as $column)
                                         <tr>
                                             <td>
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="ids[]" value="{{ $tag->id }}" aria-label="...">
+                                                        <input type="checkbox" name="ids[]" value="{{ $column->id }}" aria-label="...">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $tag->name }} @if ($tag->display_name)[{{ $tag->display_name }}]@endif
+                                                <img src="{{ $column->cover ? $column->cover->file->small : '' }}" width="90px" >
                                             </td>
+                                            <td>{{ $column->title }}</td>
+                                            <td>{{ $column->created_at }}</td>
                                             <td>
-                                                {{ $tag->total_count }}
+                                                {{ $column->status_label }}
                                             </td>
+                                            <td>{{ $column->column_space->summary }}</td>
                                             <td>
-                                                @if ($tag->sticked)
-                                                    <span class="label label-success">推荐</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <form action="/admin/tags/{{ $tag->id }}" method="POST">
+                                                <form action="/admin/columns/{{ $column->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 
@@ -109,12 +110,12 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div id="datatable_info" class="dataTables_info" role="status" aria-live="polite">
-                                    显示 {{ $tags->firstItem() }} 至 {{ $tags->lastItem() }} 条，共 {{ $tags->total() }} 条记录
+                                    显示 {{ $columns->firstItem() }} 至 {{ $columns->lastItem() }} 条，共 {{ $columns->total() }} 条记录
                                 </div>
                             </div>
                             <div class="col-sm-7">
                                 <div id="datatable_paginate" class="dataTables_paginate paging_simple_numbers">
-                                    {!! $tags->links() !!}
+                                    {!! $columns->links() !!}
                                 </div>
                             </div>
                         </div>

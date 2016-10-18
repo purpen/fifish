@@ -8,7 +8,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="/">
+            <a href="/admin">
                 <i class="fa fa-dashboard"></i>
                 控制台
             </a>

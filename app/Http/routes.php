@@ -44,10 +44,12 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
         Route::get('/', 'OverviewController@index');
     
         Route::resource('stuffs', 'StuffController');
+        Route::resource('columns', 'ColumnController');
         Route::resource('comments', 'TagController');
         Route::resource('assets', 'AssetController');
         Route::resource('users', 'UserController');
         Route::resource('tags', 'TagController');
+        Route::resource('columnspaces', 'ColumnSpaceController');
     });
 });
 
@@ -78,12 +80,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
-        
+    
     // 七牛上传回调
     $api->post('upload/qiniuback', [
         'as' => 'upload.qiniuback', 'uses' => 'UploadController@qiniuback'
     ]);
-        
     // 七牛上传异步通知
     $api->post('upload/qiniuNotify', [
         'as' => 'upload.qiniuNotify', 'uses' => 'UploadController@qiniuNotify'
@@ -155,6 +156,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     ]);
 
     // 公共接口
+    
     // 栏目列表
     $api->get('gateway/columns', [
         'as' => 'gateway.columns', 'uses' => 'GatewayController@columnList'

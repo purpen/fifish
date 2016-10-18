@@ -13,7 +13,6 @@ use App\Http\Models\Asset;
 use App\Http\Models\Column;
 use App\Http\Models\ColumnSpace;
 use App\Http\Transformers\ColumnTransformer;
-use App\Http\Transformers\ColumnSpaceTransformer;
 
 use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
@@ -81,22 +80,20 @@ class GatewayController extends BaseController
         if(empty($name)){
             return $this->response->array(ApiHelper::error('缺少请求参数!', 401));
         }
-
+        
         $column_space = ColumnSpace::where('name', $name)->first();
         if(!$column_space){
             throw new ApiExceptions\NotFoundException(404, trans('栏目位不存在或已删除!'));
         }
-
-        $query = array();
-        $query['column_space_id'] = $column_space->id;
-        $query['status'] = 1;
+        
+        $query = array(
+            'column_space_id' => $column_space->id,
+            'status' => 1,
+        );
         
         $columns = Column::where($query)->orderBy('order', 'desc')->orderBy('created_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($columns, new ColumnTransformer())->setMeta(ApiHelper::meta());
     }
-    
-    
-
     
 }

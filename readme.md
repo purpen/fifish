@@ -90,4 +90,12 @@ apidoc -i app/Http/Controllers/Api/ -o public/apidoc
 ```
 Redis: predis/predis ~1.0
 ```
+######Mysql修改某字段
+alter table assets modify column size double(15,2);
+
+######Mysql删除某字段
+alter table assets drop column vbyte;
+
+######Mysql查看数据表结构
+desc assets;
 

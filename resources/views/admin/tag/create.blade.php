@@ -7,7 +7,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="/">
+            <a href="/admin">
                 <i class="fa fa-dashboard"></i>
                 控制台
             </a>
@@ -24,7 +24,7 @@
                     <h3 class="box-title">全部列表</h3>
                 </div>
                 <div class="box-body">
-                    <form action="/admin/tags" method="post" id="imgForm" class="form-horizontal" role="form">                          {{ csrf_field() }}
+                    <form action="/admin/tags" method="post" id="imgForm" class="form-horizontal" role="form">                                              {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标签名称</label>
                             <div class="col-sm-10">

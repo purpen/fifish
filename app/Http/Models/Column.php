@@ -18,12 +18,12 @@ class Column extends Model
      *      summary,
      *      content,
      *      url,
-     *      type,   //  位置：1.官网；2.APP；
+     *      type,   // 位置：1.官网；2.APP；
      *      evt,    // 转向(用于app)：1.url；2.stuff详情；3.个人主页；4.－－；
      *      cover_id,
      *      status,
      *      view_count,
-     *      order,
+     *      order,  // 排序
      *
      * @var string
      */
@@ -32,21 +32,21 @@ class Column extends Model
     /**
      * 添加不存在的属性
      */
-    protected $appends = ['cover'];
+    protected $appends = ['cover', 'status_label'];
     
     /**
      * 可以被批量赋值的属性.
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'cover_id', 'column_space_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order'];
+    protected $fillable = ['user_id', 'cover_id', 'column_space_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'order'];
     
     /**
      * 不能被批量赋值的属性
      *
      * @var array
      */
-    protected $guarded = ['view_count'];
+    protected $guarded = ['view_count', 'status'];
     
     /**
      * 在数组中显示的属性
@@ -54,13 +54,12 @@ class Column extends Model
      * @var array
      */
     protected $visible = ['id', 'user_id', 'column_space_id', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
-
-
+    
     /**
      * 类型转换
      */
     protected $casts = [  
-        'view_count' => 'integer'
+        'view_count'  =>  'integer'
     ];
     
     /**
@@ -82,7 +81,7 @@ class Column extends Model
      */
     public function column_space()
     {
-        return $this->belongsTo('App\Http\Models\ColumnSpace');
+        return $this->belongsTo('\App\Http\Models\ColumnSpace');
     }
     
     /**
@@ -91,9 +90,9 @@ class Column extends Model
     public function getCoverAttribute ()
     {
         if ($this->assets()->first()) {
-            return $this->assets()->first();
+            return $this->assets()->orderBy('created_at', 'desc')->first();
         }
-        return [];
+        return null;
     }
     
     /**
@@ -101,7 +100,15 @@ class Column extends Model
      */
     public function assets()
     {
-        return $this->morphMany('App\Http\Models\Asset', 'assetable');
+        return $this->morphMany('\App\Http\Models\Asset', 'assetable');
+    }
+    
+    /**
+     * 获取状态标签
+     */
+    public function getStatusLabelAttribute()
+    {
+        return ($this->status == 0) ? '关闭' : '显示';
     }
     
 }

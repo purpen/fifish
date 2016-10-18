@@ -12,7 +12,7 @@ class ColumnSpace extends Model
      *  Schema: column_spaces
      *      id,
      *      user_id,
-     *      name,
+     *      name,   // 标识 
      *      summary,
      *      type,   // 类型：1.官网；2.APP；
      *      status, // 状态：0.隐藏；1.显示；
@@ -23,6 +23,10 @@ class ColumnSpace extends Model
      */
     protected $table = 'column_spaces';
 
+    /**
+     * 添加不存在的属性
+     */
+    protected $appends = ['type_label', 'status_label'];
     
     /**
      * 可以被批量赋值的属性.
@@ -49,9 +53,9 @@ class ColumnSpace extends Model
      * 类型转换
      */
     protected $casts = [  
-        'type' => 'integer',
+        'type'   => 'integer',
         'status' => 'integer',
-        'count' => 'count',
+        'count'  => 'count',
     ];
     
     /**
@@ -75,6 +79,30 @@ class ColumnSpace extends Model
     {
         return $this->hasMany('App\Http\Models\Column', 'column_space_id');
     }
-
+    
+    /**
+     * 获取类型标签
+     */
+    public function getTypeLabelAttribute()
+    {
+        return ($this->type == 1) ? '官网' : 'APP';
+    }
+    
+    /**
+     * 获取状态标签
+     */
+    public function getStatusLabelAttribute()
+    {
+        return ($this->status == 0) ? '关闭' : '显示';
+    }
+    
+    /**
+     * 范围：获取开放的列表
+     */
+    public function scopeOpened($query)
+    {
+        return $query->where('status', 1);
+    }
+    
     
 }
