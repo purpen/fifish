@@ -91,6 +91,19 @@ class TagController extends Controller
         ]);
     }
     
+    public function stick(Request $request, $id)
+    {
+        $ok = Tag::upStick($id, 1);
+        return redirect('/admin/tags');
+    }
+    
+    public function unstick(Request $request, $id)
+    {
+        $ok = Tag::upStick($id, 0);
+        return redirect('/admin/tags');
+    }
+    
+    
     /**
      * 标签更新
      */

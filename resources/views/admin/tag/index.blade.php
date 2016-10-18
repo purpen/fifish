@@ -88,7 +88,7 @@
                                             </td>
                                             <td>
                                                 @if ($tag->sticked)
-                                                    <span class="label label-success">推荐</span>
+                                                    <span class="label label-success">推荐</span> 
                                                 @endif
                                             </td>
                                             <td>
@@ -96,6 +96,11 @@
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <a href="/admin/tags/{{ $tag->id}}/edit" class="btn btn-sm btn-default">编辑</a>
+                                                    @if ($tag->sticked == 1)
+                                                    <a href="/admin/tags/{{ $tag->id}}/unstick" class="btn btn-sm btn-success">取消推荐</a>
+                                                    @else
+                                                    <a href="/admin/tags/{{ $tag->id}}/stick" class="btn btn-sm btn-success">推荐</a>
+                                                    @endif
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>

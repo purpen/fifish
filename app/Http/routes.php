@@ -50,6 +50,9 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
         Route::resource('users', 'UserController');
         Route::resource('tags', 'TagController');
         Route::resource('columnspaces', 'ColumnSpaceController');
+        
+        Route::resource('tags/{id}/stick', 'TagController@stick');
+        Route::resource('tags/{id}/unstick', 'TagController@unstick');
     });
 });
 
