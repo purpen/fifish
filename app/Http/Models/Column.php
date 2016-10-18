@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Log;
 
 class Column extends Model
 {    
@@ -53,7 +54,7 @@ class Column extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'user_id', 'column_space_id', 'cover_id', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
+    protected $visible = ['id', 'user_id', 'column_space_id', 'cover', 'content', 'type', 'title', 'sub_title', 'summary', 'url', 'evt', 'status', 'order', 'view_count'];
     
     /**
      * 类型转换
@@ -100,7 +101,7 @@ class Column extends Model
      */
     public function assets()
     {
-        return $this->morphMany('\App\Http\Models\Asset', 'assetable');
+        return $this->morphMany('App\Http\Models\Asset', 'assetable');
     }
     
     /**
