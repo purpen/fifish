@@ -81,6 +81,7 @@
                                             </td>
                                             <td>
                                                 {{ $tag->name }} @if ($tag->display_name)[{{ $tag->display_name }}]@endif
+                                                @if ($tag->cover)<i class="fa fa-photo"></i> @endif
                                             </td>
                                             <td>
                                                 {{ $tag->total_count }}
@@ -94,7 +95,7 @@
                                                 <form action="/admin/tags/{{ $tag->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-
+                                                    <a href="/admin/tags/{{ $tag->id}}/edit" class="btn btn-sm btn-default">编辑</a>
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>

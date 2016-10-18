@@ -22,6 +22,11 @@ class Tag extends Model
     protected $table = 'tags';
     
     /**
+     * 添加不存在的属性
+     */
+    protected $appends = ['cover'];
+    
+    /**
      * 可以被批量赋值的属性.
      *
      * @var array
@@ -40,7 +45,7 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'name', 'display_name', 'total_count'];
+    protected $visible = ['id', 'name', 'display_name', 'cover', 'total_count'];
     
     /**
      * 范围：获取推荐列表
@@ -59,6 +64,17 @@ class Tag extends Model
     public function stuffs()
     {
         return $this->morphedByMany('App\Http\Models\Stuff', 'taggable');
+    }
+    
+    /**
+     * 获取原文件及封面图
+     */
+    public function getCoverAttribute ()
+    {
+        if ($this->assets()->count()) {
+            return $this->assets()->orderBy('created_at', 'desc')->first();
+        }
+        return null;
     }
     
     /**

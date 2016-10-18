@@ -75,18 +75,20 @@
                 </div>
                 <div class="box-body">
                     @include('block/errors')
-                    <form action="/admin/tags" method="post" id="imgForm" class="form-horizontal" role="form">                             {{ csrf_field() }}
+                    <form action="{{ url('/admin/tags')}}/{{ $tag->id }}" method="post" id="imgForm" class="form-horizontal" role="form">                             
+                        {{ csrf_field() }}
                         <input type="hidden" name="asset_id" id="asset_id" >
+                        {{ method_field('PUT') }}
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标签名称</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="name">
+                                <input class="form-control" name="name" value="{{ $tag->name }}" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="display_name" class="col-sm-2 control-label">显示名称</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="display_name">
+                                <input class="form-control" name="display_name" value="{{ $tag->display_name }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,7 +104,7 @@
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">标签说明</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control" name="description">{{ $tag->description }}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
