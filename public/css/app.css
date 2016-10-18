@@ -1,1 +1,151 @@
-body{background-color:#f8f8f8}a{color:#333}a,a:hover{text-decoration:none}a.active,a:hover{color:#666}.header .color{color:#f36}.navbar-black{background-color:#000;margin-bottom:0}.navbar-black .navbar-nav a{color:#999;text-shadow:none}.navbar-black .navbar-nav a:hover{color:#fff;background:none}.navbar-black .navbar-nav a.active{color:#fff}.carousel-caption{background-color:rgba(0,0,0,.5);bottom:150px;left:auto;padding:20px;right:9%;text-align:left;width:265px}.focus{margin:20px auto}.focus .focus-item{background:transparent url(/img/f_tutorials.jpg) no-repeat scroll 50%;min-height:200px;overflow:hidden;position:relative;text-align:center}.focus .focus-item h4{color:#fff;position:absolute;bottom:0;z-index:10;width:100%;font-weight:400}.focus .focus-item .transparent{position:absolute;top:0;bottom:0;background-color:rgba(0,0,0,.15);width:100%;height:100%;transition:all .3s ease .1s;z-index:9}.focus .video{background-image:url(/img/f_video.jpg)}.focus .event{background-image:url(/img/f_event.jpg)}.insmenu{margin-top:10px}.insmenu .subnav a{margin-left:10px}.banner{min-height:320px;background:transparent url(/img/story_about.jpg) repeat scroll 50%}.banner h4{padding-top:260px;color:#fff}.banner-contact{background:transparent url(/img/story_contact.jpg) repeat scroll 50%}.aboutus p,.contact p{margin:20px auto 0;line-height:2}.footer{margin-top:20px;padding-top:20px;padding-bottom:20px;color:gray;background-color:#000}.footer hr{color:rgba(0,0,0,.5)}.footer a.social{width:42px;height:42px;text-indent:-999px;overflow:hidden;display:inline-block}.footer .facebook{background:url(/img/icon_facebook.png) no-repeat}.footer .facebook:hover{background:url(/img/icon_facebook_hover.png) no-repeat}.footer .instgram{background:url(/img/icon_instgram.png) no-repeat}.footer .instgram:hover{background:url(/img/icon_instgram_hover.png) no-repeat}.footer .weixin{background:url(/img/icon_weixin.png) no-repeat}.footer .weixin:hover{background:url(/img/icon_weixin_hover.png) no-repeat}.text-list a{color:#fff;text-decoration:none;line-height:2}.text-list a:hover{color:#666}.text-list .item{display:block}.line{height:1px;background-color:hsla(0,0%,100%,.15);margin:15px auto}
+body {
+  background-color: #f8f8f8;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  color: #666;
+  text-decoration: none;
+}
+a.active {
+  color: #666;
+}
+.header .color {
+  color: #ff3366;
+}
+.navbar-black {
+  background-color: #000000;
+  margin-bottom: 0px;
+}
+.navbar-black .navbar-nav a {
+  color: #999;
+  text-shadow: none;
+}
+.navbar-black .navbar-nav a:hover {
+  color: #fff;
+  background: none;
+}
+.navbar-black .navbar-nav a.active {
+  color: #fff;
+}
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 150px;
+  left: auto;
+  padding: 20px;
+  right: 9%;
+  text-align: left;
+  width: 265px;
+}
+.focus {
+  margin: 20px auto;
+}
+.focus .focus-item {
+  background: rgba(0, 0, 0, 0) url("/img/f_tutorials.jpg") no-repeat scroll center center;
+  min-height: 200px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+.focus .focus-item h4 {
+  color: #fff;
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+  width: 100%;
+  font-weight: 400;
+}
+.focus .focus-item .transparent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease 0.1s;
+  z-index: 9;
+}
+.focus .video {
+  background-image: url("/img/f_video.jpg");
+}
+.focus .event {
+  background-image: url("/img/f_event.jpg");
+}
+.insmenu {
+  margin-top: 10px;
+}
+.insmenu .subnav a {
+  margin-left: 10px;
+}
+.banner {
+  min-height: 320px;
+  background: rgba(0, 0, 0, 0) url("/img/story_about.jpg") repeat scroll center center;
+}
+.banner h4 {
+  padding-top: 260px;
+  color: #fff;
+}
+.banner-contact {
+  background: rgba(0, 0, 0, 0) url("/img/story_contact.jpg") repeat scroll center center;
+}
+.aboutus p {
+  margin: 20px auto 0;
+  line-height: 2;
+}
+.contact p {
+  margin: 20px auto 0;
+  line-height: 2;
+}
+.footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: gray;
+  background-color: #000000;
+}
+.footer hr {
+  color: rgba(0, 0, 0, 0.5);
+}
+.footer a.social {
+  width: 42px;
+  height: 42px;
+  text-indent: -999px;
+  overflow: hidden;
+  display: inline-block;
+}
+.footer .facebook {
+  background: url("/img/icon_facebook.png") no-repeat;
+}
+.footer .facebook:hover {
+  background: url("/img/icon_facebook_hover.png") no-repeat;
+}
+.footer .instgram {
+  background: url("/img/icon_instgram.png") no-repeat;
+}
+.footer .instgram:hover {
+  background: url("/img/icon_instgram_hover.png") no-repeat;
+}
+.footer .weixin {
+  background: url("/img/icon_weixin.png") no-repeat;
+}
+.footer .weixin:hover {
+  background: url("/img/icon_weixin_hover.png") no-repeat;
+}
+.text-list a {
+  color: #fff;
+  text-decoration: none;
+  line-height: 2;
+}
+.text-list a:hover {
+  color: #666;
+}
+.text-list .item {
+  display: block;
+}
+.line {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin: 15px auto;
+}
