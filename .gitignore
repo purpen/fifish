@@ -11,6 +11,7 @@ Homestead.json
 /public/uploads
 .env
 *.swp
+*.swo
 .DS_Store
 .idea/
 storage/*
