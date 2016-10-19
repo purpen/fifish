@@ -99,3 +99,7 @@ alter table assets drop column vbyte;
 ######Mysql查看数据表结构
 desc assets;
 
+###### 全文索引
+path: /opt/software/xunsearch
+start: /opt/software/xunsearch/bin/xs-ctl.sh restart -b inet start
+

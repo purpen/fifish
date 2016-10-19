@@ -10,6 +10,7 @@ Homestead.json
 /public/build
 .env
 *.swp
+*.swo
 .DS_Store
 .idea/
 storage/*
