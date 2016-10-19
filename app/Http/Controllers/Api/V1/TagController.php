@@ -25,8 +25,22 @@ class TagController extends BaseController
      *  "data": [
      *    {
      *         "id": 1,
-     *         "name": "科技2",
+     *        "name": "科技2",
      *         "display_name": "科技范"
+     *          "cover": {
+     *              "id": 145,
+     *              "filepath": "photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *              "size": 112537,
+     *              "width": 1248,
+     *              "height": 896,
+     *              "duration": 0,
+     *              "kind": 1,
+     *              "file": {
+     *                "srcfile": "http://clouddn.com/photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *                 "small": "http://clouddn.com/..../403eae0e33b4a97eb8412c0f.jpg!cvxsm",
+     *                "large": "http://bkt.clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!cvxlg",
+     *                 "thumb": "http://clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!psq"
+     *                }
      *     }
      *
      *  ],
@@ -67,6 +81,20 @@ class TagController extends BaseController
      *         "id": 1,
      *        "name": "科技2",
      *         "display_name": "科技范"
+     *          "cover": {
+     *              "id": 145,
+     *              "filepath": "photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *              "size": 112537,
+     *              "width": 1248,
+     *              "height": 896,
+     *              "duration": 0,
+     *              "kind": 1,
+     *              "file": {
+     *                "srcfile": "http://clouddn.com/photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *                 "small": "http://clouddn.com/..../403eae0e33b4a97eb8412c0f.jpg!cvxsm",
+     *                "large": "http://bkt.clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!cvxlg",
+     *                 "thumb": "http://clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!psq"
+     *                }
      *     }
      *
      *  ],
