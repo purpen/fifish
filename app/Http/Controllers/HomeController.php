@@ -58,7 +58,7 @@ class HomeController extends Controller
         // 为任务指定队列
         $job = (new SendReminderEmail($user))->onQueue('emails');
         
-        $this->dispatch(new SendReminderEmail($user));
+        $this->dispatch($job);
         
         return 'ok';
     }
