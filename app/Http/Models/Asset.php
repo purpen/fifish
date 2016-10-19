@@ -77,6 +77,7 @@ class Asset extends Model
                     'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
                     'small' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxsm'),
                     'large' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxlg'),
+                    'thumb' => ImageUtil::qiniuViewUrl($this->filepath, 'psq'),
                 ];
             } else {
                 // 视频、文档等无缩略图
