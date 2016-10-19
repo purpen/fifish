@@ -85,3 +85,7 @@ apidoc -i app/Http/Controllers/Api/ -o public/apidoc
 Redis: predis/predis ~1.0
 ```
 
+###### 全文索引
+path: /opt/software/xunsearch
+start: /opt/software/xunsearch/bin/xs-ctl.sh restart -b inet start
+
