@@ -98,6 +98,12 @@ Redis: predis/predis ~1.0
 php artisan queue:listen redis --queue=stats,emails
 ```
 
+#LARAVEL  REDIS 与 REDIS 扩展冲突.
+Laravel 的 redis 结果报了如下错误:
+>Non-static method Redis::xxx() cannot be called statically, assuming $this from incompatible context
+Laravel 自带的 Redis 可以是使用, 如下代码:
+>use Illuminate\Support\Facades\Redis as Redis;
+
 
 ######Mysql修改某字段
 alter table assets modify column size double(15,2);
