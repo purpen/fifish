@@ -12,7 +12,7 @@ class Tag extends Model
      *  Schema: tags
      *      id,
      *      name,index
-     *      display_name,description
+     *      display_name,same_words,description
      *      total_count,
      *      asset_id,
      *      sticked,sticked_at
@@ -24,14 +24,14 @@ class Tag extends Model
     /**
      * 添加不存在的属性
      */
-    protected $appends = ['cover'];
+    protected $appends = ['cover','related_words'];
     
     /**
      * 可以被批量赋值的属性.
      *
      * @var array
      */
-    protected $fillable = ['name', 'display_name', 'description', 'index', 'asset_id'];
+    protected $fillable = ['name', 'display_name', 'same_words', 'description', 'index', 'asset_id'];
     
     /**
      * 不能被批量赋值的属性
@@ -45,7 +45,7 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'name', 'display_name', 'cover', 'total_count'];
+    protected $visible = ['id', 'name', 'display_name', 'same_words', 'cover', 'total_count'];
     
     /**
      * 范围：获取推荐列表
@@ -64,6 +64,17 @@ class Tag extends Model
     public function stuffs()
     {
         return $this->morphedByMany('App\Http\Models\Stuff', 'taggable');
+    }
+    
+    /**
+     * 修改字符串成数组
+     */
+    public function getRelatedWordsAttribute ()
+    {
+        if (!empty($this->same_words)) {
+            return array_values(array_unique(preg_split('/[,，]+/u', $this->same_words)));
+        }
+        return null;
     }
     
     /**

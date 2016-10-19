@@ -51,12 +51,11 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'min:2', 'max:15'],
-            'display_name' => ['required', 'min:2', 'max:15']
+            'name' => ['required', 'min:2', 'max:15']
         ]);
         
         $somedata = $request->only([
-            'name', 'display_name', 'description'
+            'name', 'display_name', 'description', 'same_words'
         ]);
         
         $tag = new Tag();
@@ -110,7 +109,7 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         $somedata = $request->only([
-            'name', 'display_name', 'description'
+            'name', 'display_name', 'description', 'same_words'
         ]);
         
         $tag = Tag::findOrFail($id);

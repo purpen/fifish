@@ -236,6 +236,44 @@ class TagController extends BaseController
         return $this->response->array(ApiHelper::success());
     }
     
+    /**
+     * @api {get} /tags/{name} 获取标签信息
+     * @apiVersion 1.0.0
+     * @apiName tag show 
+     * @apiGroup Tag
+     *
+     * @apiParam {string} name 标签名称
+     *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "data": {
+     *       "id": 13,
+     *       "name": "海洋",
+     *       "display_name": "",
+     *       "cover": null,
+     *       "total_count": 0,
+     *       "related_words": [
+     *         "大海",
+     *         "海平面",
+     *         "海涛"
+     *       ]
+     *     },
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200
+     *     }
+     *   }
+     */
+    public function show(Request $request, $name)
+    {
+        $tag = Tag::where('name', $name)->first();
+        
+        if (!$tag) {
+            throw new ApiExceptions\NotFoundException(404, trans('common.notfound'));
+        }
+        
+        return $this->response->item($tag, new TagTransformer())->setMeta(ApiHelper::meta());
+    }
     
     /**
      * @api {post} /tags/:id/destory 删除标签

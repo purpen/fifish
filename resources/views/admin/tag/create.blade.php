@@ -100,6 +100,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="same_words" class="col-sm-2 control-label">相关标签</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="same_words">
+                                <span class="descirption">标签之间使用,隔开</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">标签说明</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" name="description"></textarea>

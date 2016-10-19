@@ -17,6 +17,8 @@ class TagTransformer extends TransformerAbstract
             'name' => $tag->name,
             'display_name' => $tag->display_name,
             'cover' => $tag->cover,
+            'total_count' => $tag->total_count,
+            'related_words' => $tag->related_words,
         ];
     }
 }

@@ -64,6 +64,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>名称</th>
+                                            <th>相关标签</th>
                                             <th>数量</th>
                                             <th>状态</th>
                                             <th>操作</th>
@@ -82,6 +83,9 @@
                                             <td>
                                                 {{ $tag->name }} @if ($tag->display_name)[{{ $tag->display_name }}]@endif
                                                 @if ($tag->cover)<i class="fa fa-photo"></i> @endif
+                                            </td>
+                                            <td>
+                                                {{ $tag->same_words }}
                                             </td>
                                             <td>
                                                 {{ $tag->total_count }}

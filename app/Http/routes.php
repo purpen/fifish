@@ -128,10 +128,13 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
      * 标签相关
      */
     $api->get('tags', [
-        'as' => 'tags', 'uses' => 'TagController@getList'
+        'as' => 'tags.list', 'uses' => 'TagController@getList'
     ]);
     $api->get('tags/sticks', [
-        'as' => 'tags', 'uses' => 'TagController@stickList'
+        'as' => 'tags.stick', 'uses' => 'TagController@stickList'
+    ]);
+    $api->get('tags/{name}', [
+        'as' => 'tags.show', 'uses' => 'TagController@show'
     ]);
     
     // 反馈意见列表
