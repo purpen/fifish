@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use Log;
+use DB;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

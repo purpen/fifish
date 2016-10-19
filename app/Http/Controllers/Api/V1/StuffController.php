@@ -18,6 +18,8 @@ use App\Http\Transformers\StuffTransformer;
 use App\Http\Transformers\CommentTransformer;
 use App\Http\Transformers\LikeTransformer;
 
+use App\Jobs\StatTagCount;
+
 use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
 use App\Exceptions as ApiExceptions;
@@ -298,6 +300,13 @@ class StuffController extends BaseController
             $tags_id = Tag::findTagsID($tags);
             
             $stuff->tags()->sync($tags_id, ['updated_at' => date('Y-m-d H:i:s')]);
+            
+            // 通过任务更新有变化标签的数量
+            for ($k=0; $k<count($tags_id); $k++) {
+                Log::debug('Dispatch task: tag '.$tags_id[$k]);
+                $job = (new StatTagCount($tags_id[$k]))->onQueue('stats');
+                $this->dispatch($job);
+            }
         }
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());

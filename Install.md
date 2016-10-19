@@ -79,7 +79,17 @@ command		     redis-benchmark #test_command
 		         redis-cli	#command line tool
 		         redis-server	#redis_service start daemon
 		         redis-stat	#redis_service check_status_tool
-                 
+
+###登陆有密码的Redis：
+在登录的时候的时候输入密码：
+```
+redis-cli  -h 10.104.153.89 -p 6379 -a fifish@2016#2016.2016
+```                 
+先登陆后验证：
+```
+redis 127.0.0.1:6379> auth fifish@2016#2016.2016
+```
+                    
 ***
 
 想要了解更多，请阅读[readme.md](http://www.qysea.com)文档。
