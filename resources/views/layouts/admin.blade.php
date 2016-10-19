@@ -12,9 +12,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/AdminLTE.min.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
     
     @yield('partial_css')
     
@@ -243,10 +243,10 @@
     <!-- JavaScripts -->
     <script src="{{ asset('js/jquery-3.0.0.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/AdminLTE.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plupload/plupload.full.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/AdminLTE.min.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/plupload/plupload.full.min.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function(){
             $(".select2").select2();

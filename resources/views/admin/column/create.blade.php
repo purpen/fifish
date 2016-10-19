@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label for="column_space_id" class="col-sm-2 control-label">所属位置*</label>
                             <div class="col-sm-4">
-                                <select name="column_space_id" class="form-control">
+                                <select name="column_space_id" class="form-control select2">
                                     <option value="0">选择所属位置</option>
                                     @foreach ($spaces as $space)
                                     <option value="{{ $space->id }}">{{ $space->summary }}</option>

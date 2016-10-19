@@ -15,7 +15,7 @@ class Tag extends Model
      *      display_name,description
      *      total_count,
      *      asset_id,
-     *      stick,sticked_at
+     *      sticked,sticked_at
      *
      * @var string
      */
@@ -38,7 +38,7 @@ class Tag extends Model
      *
      * @var array
      */
-    protected $guarded = ['total_count', 'stick', 'sticked_at'];
+    protected $guarded = ['total_count', 'sticked', 'sticked_at'];
     
     /**
      * 在数组中显示的属性
