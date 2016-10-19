@@ -44,14 +44,22 @@ class GatewayController extends BaseController
      *                 "content": "这是内容",
      *                 "evt": 1,
      *                 "url": "23",   // 链接或跳转ID(用于app)：1.url；2.stuff详情；3.个人主页；4.－－；
-     *                 "cover_id": 123,
      *                 "cover": {
-     *                   "id": 7,
-     *                   "size": "105k",
-     *                   "width": 1000,
-     *                   "height": 1000,
-     *                   "fileurl": "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
-     *                 },
+     *                     "id": 145,
+     *                     "filepath": "photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *                     "size": 112537,
+     *                     "width": 1248,
+     *                     "height": 896,
+     *                     "duration": 0,
+     *                     "kind": 1,
+     *                     "file": {
+     *                         "srcfile": "http://clouddn.com/photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
+     *                         "small": "http://clouddn.com/..../403eae0e33b4a97eb8412c0f.jpg!cvxsm",
+     *                         "large": "http://bkt.clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!cvxlg",
+     *                         "thumb": "http://clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!psq",
+     *                         "adpic": "http://clouddn.com/.../c9dc008d403eae0e33b4a97eb8412c0f.jpg!plg"
+     *                      }
+     *                  }
      *                 "status": 1, // 状态：0.不显示；1.显示； 
      *                 "order": 100, // 排序(从大到小)
      *               },

@@ -93,7 +93,8 @@ class TagController extends BaseController
      *                "srcfile": "http://clouddn.com/photo/161018/c9dc008d403eae0e33b4a97eb8412c0f.jpg",
      *                 "small": "http://clouddn.com/..../403eae0e33b4a97eb8412c0f.jpg!cvxsm",
      *                "large": "http://bkt.clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!cvxlg",
-     *                 "thumb": "http://clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!psq"
+     *                 "thumb": "http://clouddn.com/.../403eae0e33b4a97eb8412c0f.jpg!psq",
+     *                 "adpic": "http://clouddn.com/.../c9dc008d403eae0e33b4a97eb8412c0f.jpg!plg"
      *                }
      *     }
      *

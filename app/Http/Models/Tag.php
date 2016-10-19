@@ -105,7 +105,14 @@ class Tag extends Model
             $tags = array_values(array_unique(preg_split('/[,，;；\s]+/u', $tags))); 
         }
         
-        return self::whereIn('name', $tags)->select('id')->get();
+        $tids = [];
+        // 验证标签，获取标签ID
+        for($i=0; $i<count($tags); $i++) {
+            $tag = self::firstOrCreate(array('name' => $tags[$i]));
+            $tids[] = $tag->id;
+        }
+        
+        return $tids;
     }
     
 }

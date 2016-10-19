@@ -13,6 +13,7 @@ use App\Http\Models\Asset;
 use App\Http\Models\Stuff;
 use App\Http\Models\Comment;
 use App\Http\Models\Like;
+use App\Http\Models\Tag;
 use App\Http\Transformers\StuffTransformer;
 use App\Http\Transformers\CommentTransformer;
 use App\Http\Transformers\LikeTransformer;
