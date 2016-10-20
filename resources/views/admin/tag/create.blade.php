@@ -23,7 +23,7 @@
     	filters : {
     		max_file_size : '10mb',
     		mime_types: [
-    			{ title : "Image files", extensions : "jpg" }
+    			{ title : "Image files", extensions : "jpg,gif,png" }
     		],
             prevent_duplicates : true //不允许选取重复文件
     	},
