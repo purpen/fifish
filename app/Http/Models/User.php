@@ -19,6 +19,7 @@ class User extends Authenticatable implements JWTSubject
      *      role_id,
      *      follow_count,fans_count,stuff_count,like_count
      *      from_site,status
+     *      first_login,last_login
      *      remember_token
      *      created_at,updated_at
      *
@@ -52,7 +53,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $visible = ['id', 'username', 'summary', 'avatar'];
+    protected $visible = ['id', 'username', 'summary', 'avatar', 'first_login', 'last_login'];
         
     /**
      * The attributes that should be hidden for arrays.

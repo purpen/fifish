@@ -24,6 +24,7 @@ class UserTransformer extends TransformerAbstract
             'stuff_count' => $user->stuff_count,
             'like_count' => $user->like_count,
             'avatar' => $user->avatar,
+            'first_login' => (bool)$user->first_login,
         ];
     }
     

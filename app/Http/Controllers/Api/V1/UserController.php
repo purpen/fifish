@@ -99,7 +99,15 @@ class UserController extends BaseController
         
         // 更新用户信息
         if ($request->has('username')) {
-            $user->username = $request->username;
+            // 验证用户名是否唯一
+            if ($request->username != $user->username) {
+                $is_exist = User::where('username', $request->username)->first();
+                if ($is_exist) {
+                    return $this->response->array(ApiHelper::error('用户名被占用!', 403));
+                }
+                // 不存在则更新
+                $user->username = $request->username;
+            }
         }
         if ($request->has('job')) {
             $user->job = $request->job;

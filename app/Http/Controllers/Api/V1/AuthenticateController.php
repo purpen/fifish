@@ -82,7 +82,8 @@ class AuthenticateController extends BaseController
      *       "status_code": 200
      *     },
      *     "data": {
-     *       "token": "eyJ0eXAiOiiOiJIUzI1NiJ9.sIm5iZiI6MTzkifQ.piS_YZhOqsjAF4XbxELIs2y70cq8"
+     *       "token": "eyJ0eXAiOiiOiJIUzI1NiJ9.sIm5iZiI6MTzkifQ.piS_YZhOqsjAF4XbxELIs2y70cq8",
+     *       "first_login": 0, // 值为0时，表示第一次登录   
      *     }
      *   }
      */
@@ -91,6 +92,28 @@ class AuthenticateController extends BaseController
         $credentials = $request->only('account', 'password');
         
         try {
+            // 验证规则
+            $rules = [
+                'account' => ['required', 'email'],
+                'password' => ['required', 'min:6']
+            ];
+        
+            $payload = app('request')->only('account', 'password');
+            $validator = app('validator')->make($payload, $rules);
+        
+            // 验证格式
+            if ($validator->fails()) {
+                throw new ApiExceptions\ValidationException('新用户注册失败！', $validator->errors());
+            }
+            
+            // 验证是否首次登录
+            $user = User::where('account', $request->input('account'))->first();
+            if (empty($user)) {
+                return $this->response->array(ApiHelper::error('此账号不存在', 404));
+            }
+            // 首次登录
+            $first_login = $user->first_login;
+            
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
                 return $this->response->array(ApiHelper::error('invalid_credentials', 401));
@@ -99,8 +122,15 @@ class AuthenticateController extends BaseController
             return $this->response->array(ApiHelper::error('could_not_create_token', 500));
         }
         
+        // 更新用户登录状态
+        if (!$first_login) {
+            $user->first_login = true;
+            $user->last_login = date('Y-m-d H:i:s');
+            $user->save();
+        }
+        
         // return the token
-        return $this->response->array(ApiHelper::success('登录成功！', 200, compact('token')));
+        return $this->response->array(ApiHelper::success('登录成功！', 200, compact('token', 'first_login')));
     }
     
     /**
