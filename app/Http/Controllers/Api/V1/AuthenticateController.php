@@ -128,11 +128,12 @@ class AuthenticateController extends BaseController
     }
     
     /**
-     * @api {post} /auth/upToken 更新Token
+     * @api {post} /auth/upToken 更新或换取新Token
      * @apiVersion 1.0.0
      * @apiName user token
      * @apiGroup User
      *
+     * @apiParam {string} token
      * 
      * @apiSuccessExample 成功响应:
      * {

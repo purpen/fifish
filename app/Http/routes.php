@@ -172,6 +172,16 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
     // 第三方登录回调
     $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
+    
+    
+    // 搜索列表接口
+    $api->get('search/list', [
+        'as' => 'search.list', 'uses' => 'SearchController@getList'
+    ]);
+    // 搜索建议
+    $api->get('search/expanded', [
+        'as' => 'search.expanded', 'uses' => 'SearchController@getExpanded'
+    ]);
             
     // 验证API
     // 'jwt.refresh'
@@ -288,16 +298,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         // 获取个人信息
         $api->get('user/profile', [
             'as' => 'user.profile', 'uses' => 'UserController@profile'
-        ]);
-
-
-        // 搜索列表接口
-        $api->get('search/list', [
-            'as' => 'search.list', 'uses' => 'SearchController@getList'
-        ]);
-        // 搜索建议
-        $api->get('search/expanded', [
-            'as' => 'search.expanded', 'uses' => 'SearchController@getExpanded'
         ]);
         
     });
