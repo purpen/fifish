@@ -174,8 +174,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
             
     // 验证API
-    // 'jwt.api.auth', 'jwt.refresh'
-    $api->group(['middleware' => []], function($api) {
+    $api->group(['middleware' => ['jwt.api.auth', 'jwt.refresh']], function($api) {
         
         $api->post('auth/logout', [
             'as' => 'auth.logout', 'uses' => 'AuthenticateController@logout'

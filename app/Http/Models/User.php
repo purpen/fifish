@@ -4,8 +4,9 @@ namespace App\Http\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {    
     /**
      * 关联到模型的数据表
@@ -192,4 +193,14 @@ class User extends Authenticatable
         return $query->where('role_id', self::ROLE_PEOPLE);
     }
     
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
