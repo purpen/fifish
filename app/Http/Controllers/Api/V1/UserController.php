@@ -15,10 +15,58 @@ use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
+    
     /**
-     * @api {get} /user/profile 获取个人信息
+     * @api {get} /user/{id} 获取他人的信息
      * @apiVersion 1.0.0
      * @apiName user profile
+     * @apiGroup User
+     *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "data": {
+     *       "id": 1,
+     *       "account": "purpen.w@gmail.com",
+     *       "username": "purpen",
+     *       "job": "设计师",
+     *       "zone": "北京",
+     *       "avatar": {
+     *         "small": "",
+     *         "large": ""
+     *      }
+     *     },
+     *     "meta": {
+     *       "meta": {
+     *         "message": "request ok",
+     *         "status_code": 200
+     *       }
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function index(Request $request, $id)
+    {
+        $user = User::find($id);
+        
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        
+        return $this->response->item($user, new UserTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    
+    /**
+     * @api {get} /user/profile 获取自己的信息
+     * @apiVersion 1.0.0
+     * @apiName user info
      * @apiGroup User
      *
      * @apiSuccessExample 成功响应:

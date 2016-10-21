@@ -142,10 +142,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'feedback.getlist', 'uses' => 'FeedbackController@getList'
     ])->where(['state' => '[0-9]+']);
     
+    // 获取个人信息
     $api->get('user/{id}', [
-        'as' => 'user', 'uses' => 'UserController@profile'
+        'as' => 'user', 'uses' => 'UserController@index'
     ])->where(['id' => '[0-9]+']);
-        
     
     // 用户粉丝
     $api->get('user/{id}/fans', [
