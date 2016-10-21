@@ -17,6 +17,7 @@ class XSUtil
 
     /**
      * 添加文档
+     * 会出现重复添加(xunsearch不会验证重复性)，建议不用此方法
      */
     public static function add($data=array())
     {
@@ -29,7 +30,12 @@ class XSUtil
             $doc->setFields($data);
 
             // 添加到索引数据库中
-            $index->add($doc);
+            $ok = $index->add($doc);
+            if($ok){
+                return array('success'=>true, 'msg'=>'操作成功!');
+            }else{
+                return array('success'=>false, 'msg'=>'操作失败!');   
+            }
 
         }catch(XSException $e){
             //Doggy_Log_Helper::warn('add:'.$e->getTraceAsString(), 'search');
@@ -39,6 +45,20 @@ class XSUtil
 
   /**
    * 更新文档
+   * 如果文档不存在则创建，建议用此方法
+    $data = array(
+        'oid' => 3,     // 原文ID (用户或作品ID)
+        'pid' => 'stuff_3', // 索引自身ID eg: stuff_{id}, user_{id}
+        'kind' => 'Stuff',  // 类型：Stuff, User
+        'user_id' => 1,     // 创建者ID
+        'tid' => 1,     // 原文类型ID 例如是作品 1.图片；2.视频
+        'cid' => '',    // 原文分类ID
+        'tags' => '无效,无限,参与,test,city,baby,beijing',  // 标签，多个用","分隔
+        'title' => '这是测试标题',
+        'content' => '这是内容',
+        'created_on' => time(), // 时间截
+        'updated_on' => time(),
+    );
    */
     public static function update($data=array())
     {
@@ -176,7 +196,8 @@ class XSUtil
             $total_page = ceil($count/$size);
             $data = array();
 
-            foreach($docs as $k=>$v){
+            foreach($docs as $k=>$v)
+            {
                 $data[$k]['pid'] = $v['pid'];
                 $data[$k]['oid'] = $v['oid'];
                 $data[$k]['tid'] = $v['tid'];

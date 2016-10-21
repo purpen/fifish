@@ -46,17 +46,21 @@ class TestController extends Controller
     {
         //phpinfo();
         $data = array(
-            'oid' => 3,
-            'pid' => 'stuff_3',
-            'kind' => 'Stuff',
-            'user_id' => 1,
-            'tid' => 1,
-            'tags' => '无效,无限,参与,test,city,baby,beijing',
-            'title' => '这是测试内容3',
-            'created_on' => time(),
+            'oid' => 3,     // 原文ID (用户或作品ID)
+            'pid' => 'stuff_3', // 索引自身ID eg: stuff_{id}, user_{id}
+            'kind' => 'Stuff',  // 类型：Stuff, User
+            'user_id' => 1,     // 创建者ID
+            'tid' => 1,     // 原文类型ID 例如是作品 1.图片；2.视频
+            'cid' => '',    // 原文分类ID
+            'tags' => '无效,无限,参与,test,city,baby,beijing',  // 标签，多个用","分隔
+            'title' => '这是测试标题',
+            'content' => '这是内容',
+            'created_on' => time(), // 时间截
             'updated_on' => time(),
         );
-        return XSUtil::add($data);
+
+        // 无论创建或更新都用update 而不用add(防止数据重复)
+        return XSUtil::update($data);
     }
 
 
