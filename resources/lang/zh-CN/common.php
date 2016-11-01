@@ -16,5 +16,6 @@ return [
     'delate_ok' => '删除成功',
     'upload_ok' => '上传成功',
     'not_allow' => '不能删除',
-    
+    'error_password' => '密码不正确',
+    'confrim_password' => '两次密码输入不一致',
 ];

@@ -6,8 +6,11 @@ use App\Http\Models\User;
 use App\Http\Models\Asset;
 use App\Http\Models\Follow;
 use App\Http\ApiHelper;
+use App\Exceptions as ApiExceptions;
 
+use Hash;
 use Storage;
+use Validator;
 use Imageupload;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Transformers\FollowTransformer;
@@ -174,6 +177,79 @@ class UserController extends BaseController
         
         return $this->response->array(ApiHelper::success());
     }
+    
+    /**
+     * @api {post} /user/updatePassword 修改密码
+     * @apiVersion 1.0.0
+     * @apiName user updatePassword
+     * @apiGroup User
+     *
+     * @apiParam {string} old_password 旧密码
+     * @apiParam {string} new_password 新密码
+     * @apiParam {string} confrim_password 确认密码
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "meta": {
+     *       "message": "Success！",
+     *       "status_code": 200
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function updatePassword(Request $request)
+    {
+        // 验证规则
+        $rules = [
+            'old_password'  => ['required', 'min:6'],
+            'new_password'  => ['required', 'min:6'],
+            'confrim_password'  => ['required'],
+        ];
+        $messages = [
+            'old_password.required' => '旧密码不能为空',
+            'old_password.min' => '新密码不能小于6个字符',
+            'new_password.required' => '新密码不能为空',
+            'new_password.min' => '新密码不能小于6个字符',
+            'confrim_password.required' => '确认密码不能为空',
+        ];
+        $check = Validator::make($request->all(), $rules, $messages);
+        if ($check->fails()) {
+            throw new ApiExceptions\ValidationException(trans('common.validate'), $check->errors());
+        }
+        
+        $user = User::find($this->auth_user_id);
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        // 验证旧密码是否相同
+        if (!Hash::check($request->input('old_password'), $user->password)) {
+            return $this->response->array(ApiHelper::error(trans('common.error_password'), 412));
+        }
+        
+        // 验证新密码是否一致
+        if ($request->input('new_password') != $request->input('confrim_password')) {
+            return $this->response->array(ApiHelper::error(trans('common.confrim_password'), 501));
+        }
+        
+        // 更新密码
+        $user->password = bcrypt($request->input('new_password'));
+        
+        $res = $user->save();
+        if (!$res) {
+            return $this->response->array(ApiHelper::error(trans('common.failed'), 412));
+        }
+        
+        return $this->response->array(ApiHelper::success());
+    }
+    
+    
     
     /**
      * @api {post} /user/{id}/follow 关注某人
