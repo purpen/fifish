@@ -34,7 +34,7 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
-            'photo' => $stuff->cover,
+            'cover' => $stuff->cover,
             'created_at' => $stuff->created_at->format('Y-m-d'),
             'is_love' => $this->is_love($stuff),
             'is_follow' => $this->is_follow($stuff),
