@@ -74,9 +74,9 @@ class StuffController extends BaseController
      *                   "width": 1000,
      *                   "height": 1000,
      *                   "file": {
-     *                       "srcfile" => "http://static.fifish.me/uploads/images/a1b7e6b5a.jpg",
-     *                       "small" => "http://static.fifish.me/uploads/images/a1b7e6b5a.jpg",
-     *                       "large" => "http://static.fifish.me/uploads/images/a1bdb6b5a.jpg"
+     *                       "srcfile" => "http://fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "small" => "http://fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "large" => "http://fifish.me/uploads/images/a1bdb6b5a.jpg"
      *                    }              
      *                 },
      *                 "is_love": true, // 当前用户是否点赞此作品
@@ -662,6 +662,7 @@ class StuffController extends BaseController
             // 保存关联关系
             $res = $stuff->likes()->create([
                 'user_id' => $this->auth_user_id,
+                'kind' => $stuff->kind,
             ]);
             
             if ($res) {

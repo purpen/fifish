@@ -296,16 +296,20 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         ]);
           
         // 更新用户资料
-        $api->post('user/settings', [
-            'as' => 'user.settings', 'uses' => 'UserController@settings'
-        ])->where(['id' => '[0-9]+']);
+        $api->post('me/settings', [
+            'as' => 'me.settings', 'uses' => 'MeController@settings'
+        ]);
         // 更新密码
-        $api->post('user/updatePassword', [
-            'as' => 'user.updatePassword', 'uses' => 'UserController@updatePassword'
+        $api->post('me/updatePassword', [
+            'as' => 'me.updatePassword', 'uses' => 'MeController@updatePassword'
         ]);
         // 获取个人信息
-        $api->get('user/profile', [
-            'as' => 'user.profile', 'uses' => 'UserController@profile'
+        $api->get('me/profile', [
+            'as' => 'me.profile', 'uses' => 'MeController@profile'
+        ]);
+        // 获取个人赞过的作品
+        $api->get('me/likeStuffs', [
+            'as' => 'me.like.stuffs', 'uses' => 'MeController@likeStuffs'
         ]);
         
     });

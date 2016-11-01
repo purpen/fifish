@@ -36,9 +36,13 @@ class FollowTransformer extends TransformerAbstract
     protected function is_follow($follow)
     {
         $user_id = $this->current_user_id;
-        if(empty($user_id)) return false;
+        
+        if (empty($user_id)) return false;
+        
         $has_one = Follow::where(array('user_id'=>$user_id, 'follow_id'=>$follow->user_id))->first();
-        if(!empty($has_one)) return true;
+        
+        if (!empty($has_one)) return true;
+        
         return false;
     }
 
