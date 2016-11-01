@@ -10,7 +10,11 @@ use App\Http\Requests;
 use App\Http\Models\User;
 use App\Http\Models\Like;
 
+use Log;
+use Hash;
+use Validator;
 use App\Http\ApiHelper;
+use App\Http\Transformers\UserTransformer;
 use App\Http\Transformers\LikeTransformer;
 use App\Exceptions as ApiExceptions;
 
