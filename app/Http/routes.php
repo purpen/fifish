@@ -83,6 +83,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
+        
+    // 关于我们
+    $api->get('h5/about', [
+        'as' => 'h5.about', 'uses' => 'H5Controller@about'
+    ]);
     
     // 七牛上传回调
     $api->post('upload/qiniuback', [
