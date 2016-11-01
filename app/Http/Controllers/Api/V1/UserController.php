@@ -117,7 +117,8 @@ class UserController extends BaseController
      *
      * @apiParam {string} username 用户姓名
      * @apiParam {string} job 职业
-     * @apiParam {string} zone 城市/地区 
+     * @apiParam {string} zone 城市/地区
+     * @apiParam {intger} sex 性别 （默认值：0；男：1；女：2)
      * 
      * @apiSuccessExample 成功响应:
      *   {
@@ -137,7 +138,7 @@ class UserController extends BaseController
      */
     public function settings(Request $request)
     {
-        $payload = app('request')->only('username', 'job', 'zone');
+        $payload = app('request')->only('username', 'job', 'zone', 'sex');
         
         $user = User::find($this->auth_user_id);
         
@@ -162,6 +163,9 @@ class UserController extends BaseController
         }
         if ($request->has('zone')) {
             $user->zone = $request->zone;
+        }
+        if ($request->has('sex')) {
+            $user->sex = $request->sex;
         }
         
         $res = $user->save();

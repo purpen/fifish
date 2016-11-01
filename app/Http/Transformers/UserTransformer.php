@@ -17,6 +17,7 @@ class UserTransformer extends TransformerAbstract
             'account' => $user->account,
             'username' => $user->username,
             'job' => $user->job,
+            'sex' => $user->sex,
             'zone' => $user->zone,
             'summary' => $user->summary,
             'follow_count' => $user->follow_count,
