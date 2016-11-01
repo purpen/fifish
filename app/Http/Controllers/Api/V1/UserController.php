@@ -137,9 +137,7 @@ class UserController extends BaseController
      *   }
      */
     public function settings(Request $request)
-    {
-        $payload = app('request')->only('username', 'job', 'zone', 'sex');
-        
+    {        
         $user = User::find($this->auth_user_id);
         
         if (!$user) {
