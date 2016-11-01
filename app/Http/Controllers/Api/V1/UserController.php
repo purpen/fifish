@@ -8,6 +8,7 @@ use App\Http\Models\Follow;
 use App\Http\ApiHelper;
 use App\Exceptions as ApiExceptions;
 
+use Log;
 use Hash;
 use Storage;
 use Validator;
@@ -150,15 +151,19 @@ class UserController extends BaseController
         // 更新用户信息
         if ($request->has('username')) {
             // 验证用户名是否唯一
-            if ($request->username != $user->username) {
-                $is_exist = User::where('username', $request->username)->first();
+            $username = $request->input('username');
+            if ($username != $user->username) {
+                $is_exist = User::where('username', $username)->first();
                 if ($is_exist) {
                     return $this->response->array(ApiHelper::error('用户名被占用!', 403));
                 }
                 // 不存在则更新
-                $user->username = $request->username;
+                $user->username = $username;
+                
+                Log::warning('Update user name: '.$username);
             }
         }
+        
         if ($request->has('job')) {
             $user->job = $request->job;
         }
@@ -170,6 +175,8 @@ class UserController extends BaseController
         }
         
         $res = $user->save();
+        
+        Log::warning('Update user name result: '.$res);
         
         if (!$res) {
             return $this->response->array(ApiHelper::error('failed!', 412));
