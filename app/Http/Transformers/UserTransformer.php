@@ -10,7 +10,14 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-    public function transform(User $user, $follow_id=0)
+    protected $auth_user_id;
+    
+    public function __construct($options=array())
+    {
+        $this->auth_user_id = isset($options['user_id']) ? (int)$options['user_id'] : 0;
+    }
+    
+    public function transform(User $user)
     {
         return [
             'id' => $user->id,
@@ -26,20 +33,20 @@ class UserTransformer extends TransformerAbstract
             'like_count' => $user->like_count,
             'avatar' => $user->avatar,
             'first_login' => (bool)$user->first_login,
-            'following' => $this->following($user, $follow_id),
+            'following' => $this->following($user),
         ];
     }
     
     /**
      * 是否关注某人
      */
-    protected function following(User $user, $follow_id=0)
+    protected function following(User $user)
     {
         $following = false;
-        if (!$follow_id) {
+        if (!$this->auth_user_id) {
             return $following;
         }
-        $res = $user->followers()->where('follow_id', $follow_id)->first();
+        $res = $user->followers()->where('follow_id', $this->auth_user_id)->first();
         if ($res) {
             $following = true;
         }

@@ -33,11 +33,14 @@ class UserController extends BaseController
      *       "account": "purpen.w@gmail.com",
      *       "username": "purpen",
      *       "job": "设计师",
+     *       "sex": 0,
      *       "zone": "北京",
      *       "avatar": {
      *         "small": "",
      *         "large": ""
-     *      }
+     *       },
+     *       "first_login": false,
+     *       "following": true,
      *     },
      *     "meta": {
      *       "meta": {
@@ -63,9 +66,8 @@ class UserController extends BaseController
             return $this->response->array(ApiHelper::error('Not Found!', 404));
         }
         
-        return $this->response->item($user, new UserTransformer(), ['follow_id' => $this->auth_user_id])->setMeta(ApiHelper::meta());
+        return $this->response->item($user, new UserTransformer(['user_id' => $this->auth_user_id]))->setMeta(ApiHelper::meta());
     }
-    
     
     /**
      * @api {get} /user/profile 获取自己的信息
