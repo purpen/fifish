@@ -64,7 +64,7 @@ return [
         
         'qiniu' => [
             'driver'  => 'qiniu',
-            'upload_url' => 'https://up.qbox.me',
+            'upload_url' => 'https://up-z2.qbox.me',
             'domains' => [
                 'default'   => 'oe5tkubcj.bkt.clouddn.com', // 你的七牛域名
                 'https'     => 'fs.qysea.com',         // 你的HTTPS域名
@@ -73,8 +73,8 @@ return [
             'access_key'=> 'x9Ys5weZ-B6-qKywyX2N34bhFIT3XQLpxz0g9vZU',  //AccessKey
             'secret_key'=> 'BqjfA2zx5JgxAS2N5NKH6kAvPsr3NnD4pY84j2Fm',  //SecretKey
             'bucket'    => 'fifish',  //Bucket名字
-            'notify_url'=> 'http://api.qysea.com/upload/qiniuback',  //持久化处理回调地址
-            'persistent_url' => 'http://api.qysea.com/upload/qiniuNotify',
+            'notify_url'=> 'https://api.qysea.com/upload/qiniuback',  //持久化处理回调地址
+            'persistent_url' => 'https://api.qysea.com/upload/qiniuNotify',
         ],
 
     ],
