@@ -215,9 +215,64 @@ class MeController extends BaseController
      * 
      * @apiSuccessExample 成功响应:
      *   {
+     *     "data": [
+     *       {
+     *         "id": 2,
+     *         "likeable": {
+     *           "id": 11,
+     *           "content": "一朵朵浪花拍打沙滩,发出轰轰的浪花声",
+     *           "sticked": 1,
+     *           "sticked_at": "2016-09-23 11:39:47",
+     *           "featured": 1,
+     *           "featured_at": "0000-00-00 00:00:00",
+     *           "view_count": 0,
+     *           "like_count": 0,
+     *           "comment_count": 0,
+     *           "created_at": "2016-09-23 11:39:47",
+     *           "kind": 1,
+     *           "address": null,
+     *           "city": null,
+     *           "cover": {
+     *             "id": 16,
+     *             "filepath": "photo/160923/161f976f62b5284ac1a5fcfe3c529121",
+     *             "width": 750,
+     *             "height": 422,
+     *             "duration": 0,
+     *             "kind": 1,
+     *             "size": 0,
+     *             "file": {
+     *               "srcfile": "http://clouddn.com/photo/160923/161ffe3c529121",
+     *               "small": "http://clouddn.com/photo/160923/161f9763c529121!cvxsm",
+     *               "large": "http://clouddn.com/photo/160923/161f9cfe3c529121!cvxlg",
+     *               "thumb": "http://clouddn.com/photo/160923/161f976cfe3c529121!psq",
+     *               "adpic": "http://clouddn.com/photo/160923/161f976fe3c529121!plg"
+     *             }
+     *           }
+     *         },
+     *         "user": {
+     *           "id": 6,
+     *           "username": "xiaobengsex",
+     *           "summary": null,
+     *           "first_login": 1,
+     *           "last_login": "2016-11-01 09:06:15",
+     *           "avatar": {
+     *             "small": "http://s3.qysea.com/img/avatar!smx50.png",
+     *             "large": "http://s3.qysea.com/img/avatar!lgx180.png"
+     *           }
+     *         }
+     *       }
+     *     ],
      *     "meta": {
-     *       "message": "Success！",
-     *       "status_code": 200
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *       "pagination": {
+     *         "total": 1,
+     *         "count": 1,
+     *         "per_page": 10,
+     *         "current_page": 1,
+     *         "total_pages": 1,
+     *         "links": []
+     *       }
      *     }
      *   }
      *
