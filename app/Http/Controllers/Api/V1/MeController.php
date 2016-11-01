@@ -302,4 +302,100 @@ class MeController extends BaseController
         return $this->response->paginator($likes, new LikeTransformer())->setMeta(ApiHelper::meta());
     }
     
+    /**
+     * @api {get} /me/alertCount 消息的数量
+     * @apiVersion 1.0.0
+     * @apiName me alertCount
+     * @apiGroup Me
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "data": {
+     *       "alert_fans_count": 0,
+     *       "alert_like_count": 0,
+     *       "alert_comment_count": 0
+     *     },    
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function alertCount(Request $request)
+    {
+        $user = User::find($this->auth_user_id);
+        
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        // 提醒数量
+        $counter = [
+          'alert_fans_count' => $user->alert_fans_count,
+          'alert_like_count' => $user->alert_like_count,
+          'alert_comment_count' => $user->alert_comment_count  
+        ];
+        
+        return $this->response->array(ApiHelper::success(trans('common.success'), 200, $counter));
+    }
+    
+    /**
+     * @api {post} /me/resetCount 重置消息的数量
+     * @apiVersion 1.0.0
+     * @apiName me resetCount
+     * @apiGroup Me
+     *
+     * @apiParam {string} key 默认值：fans,like,comment
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {   
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function resetCount(Request $request)
+    {        
+        $key = $request->input('key');
+        
+        $user = User::find($this->auth_user_id);
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        
+        Log::debug('Reset alert count: '.$key);
+        
+        switch ($key) {
+            case 'fans':
+                $user->alert_fans_count = 0;
+                break;
+            case 'like':
+                $user->alert_like_count = 0;
+                break;
+            case 'comment':
+                $user->alert_comment_count = 0;
+                break;
+        }
+        
+        $res = $user->save();
+        
+        return $this->response->array(ApiHelper::success());
+    }
+    
 }

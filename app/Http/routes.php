@@ -311,7 +311,14 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->get('me/likeStuffs', [
             'as' => 'me.like.stuffs', 'uses' => 'MeController@likeStuffs'
         ]);
-        
+        // 获取消息的数量
+        $api->get('me/alertCount', [
+            'as' => 'me.alert.count', 'uses' => 'MeController@alertCount'
+        ]);
+        // 获取消息的数量
+        $api->post('me/resetCount', [
+            'as' => 'me.reset.count', 'uses' => 'MeController@resetCount'
+        ]);
     });
     
     

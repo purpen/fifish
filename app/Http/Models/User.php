@@ -46,7 +46,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * 添加不存在的属性
      */
-    protected $appends = ['avatar'];
+    protected $appends = ['avatar', 'alert_total_count'];
     
     /**
      * 在数组中显示的属性
@@ -110,6 +110,14 @@ class User extends Authenticatable implements JWTSubject
     public function assets()
     {
         return $this->morphMany('App\Http\Models\Asset', 'assetable');
+    }
+    
+    /**
+     * 获取提醒总数量
+     */
+    public function getAlertTotalCountAttribute()
+    {
+        return $this->alert_comment_count + $this->alert_like_count + $this->alert_fans_count;
     }
     
     /**

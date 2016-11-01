@@ -31,6 +31,7 @@ class UserTransformer extends TransformerAbstract
             'fans_count' => $user->fans_count,
             'stuff_count' => $user->stuff_count,
             'like_count' => $user->like_count,
+            'alert_total_count' => $user->alert_total_count,
             'avatar' => $user->avatar,
             'first_login' => (bool)$user->first_login,
             'following' => $this->following($user),

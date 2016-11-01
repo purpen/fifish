@@ -503,6 +503,9 @@ class StuffController extends BaseController
             throw new ApiExceptions\StoreFailedException(501, trans('common.failed'));
         }
         
+        // 更新提醒的数量
+        User::findOrFail($this->auth_user_id)->increment('alert_comment_count');
+        
         return $this->response->item($comment, new CommentTransformer())->setMeta(ApiHelper::meta());
     }
     
@@ -668,6 +671,9 @@ class StuffController extends BaseController
             if ($res) {
                 // 喜欢数+1
                 $stuff->increment('like_count');
+                
+                // 更新提醒的数量
+                User::findOrFail($this->auth_user_id)->increment('alert_like_count');
             }
             
         } catch (QueryException $e) {

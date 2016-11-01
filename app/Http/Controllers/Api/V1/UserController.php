@@ -43,6 +43,7 @@ class UserController extends BaseController
      *       },
      *       "first_login": false,
      *       "following": true,
+     *       "alert_total_count": 1,
      *     },
      *     "meta": {
      *       "meta": {
@@ -109,6 +110,9 @@ class UserController extends BaseController
         if (!$res) {
             return $this->response->array(ApiHelper::error('failed!', 412));
         }
+        
+        // 更新提醒的数量
+        User::findOrFail($id)->increment('alert_fans_count');
         
         return $this->response->array(ApiHelper::success());
     }
@@ -209,7 +213,7 @@ class UserController extends BaseController
         
         $follows = Follow::with('user', 'follower')->OfFans($id)->orderBy('id', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($follows, new FollowTransformer(['user_id' => $this->auth_user_id])))->setMeta(ApiHelper::meta());
+        return $this->response->paginator($follows, new FollowTransformer(['user_id' => $this->auth_user_id]))->setMeta(ApiHelper::meta());
     }
     
     /**
