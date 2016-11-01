@@ -16,13 +16,7 @@ class H5Controller extends BaseController
      *
      * @apiSuccessExample 成功响应:
      *   {
-     *       "data": [
-     *
-     *       ],
-     *       "meta": {
-     *           "message": "Success.",
-     *           "status_code": 200
-     *       }
+     *      page view
      *   }
      */
     public function about(Request $request)
