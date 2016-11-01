@@ -64,7 +64,7 @@ return [
         
         'qiniu' => [
             'driver'  => 'qiniu',
-            'upload_url' => 'http://up-z2.qiniu.com',
+            'upload_url' => 'https://up.qbox.me',
             'domains' => [
                 'default'   => 'oe5tkubcj.bkt.clouddn.com', // 你的七牛域名
                 'https'     => 'fs.qysea.com',         // 你的HTTPS域名
