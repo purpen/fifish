@@ -74,8 +74,9 @@ class StuffController extends BaseController
      *                   "width": 1000,
      *                   "height": 1000,
      *                   "file": {
-     *                       "small" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg",
-     *                       "large" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
+     *                       "srcfile" => "http://static.fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "small" => "http://static.fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "large" => "http://static.fifish.me/uploads/images/a1bdb6b5a.jpg"
      *                    }              
      *                 },
      *                 "is_love": true, // 当前用户是否点赞此作品
