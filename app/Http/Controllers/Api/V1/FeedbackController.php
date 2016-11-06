@@ -95,6 +95,7 @@ class FeedbackController extends BaseController
     public function submited (Request $request)
     {
         $check = Validator::make($request->all(), [
+            'contact' => ['required'],
             'content' => ['required', 'min:2', 'max:1500']
         ]);
         if ($check->fails()) {
