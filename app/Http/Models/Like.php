@@ -45,4 +45,12 @@ class Like extends Model
         return $this->belongsTo('App\Http\Models\User');
     }
     
+    /**
+     * 获取点赞关联提醒
+     */
+    public function reminds()
+    {
+        return $this->morphMany('App\Http\Models\Remind', 'remindable');
+    }
+    
 }

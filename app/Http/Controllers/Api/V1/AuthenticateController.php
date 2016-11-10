@@ -103,7 +103,7 @@ class AuthenticateController extends BaseController
         
             // 验证格式
             if ($validator->fails()) {
-                throw new ApiExceptions\ValidationException('新用户注册失败！', $validator->errors());
+                throw new ApiExceptions\ValidationException('请求参数格式不对！', $validator->errors());
             }
             
             // 验证是否首次登录

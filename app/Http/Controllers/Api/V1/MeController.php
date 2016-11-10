@@ -9,6 +9,7 @@ use App\Http\Requests;
 
 use App\Http\Models\User;
 use App\Http\Models\Like;
+use App\Http\Models\Remind;
 
 use Log;
 use Hash;
@@ -16,6 +17,8 @@ use Validator;
 use App\Http\ApiHelper;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Transformers\LikeTransformer;
+use App\Http\Transformers\RemindTransformer;
+
 use App\Exceptions as ApiExceptions;
 
 class MeController extends BaseController
@@ -396,6 +399,154 @@ class MeController extends BaseController
         $res = $user->save();
         
         return $this->response->array(ApiHelper::success());
+    }
+    
+    /**
+     * @api {post} /me/gotComment 收到的评论列表
+     * @apiVersion 1.0.0
+     * @apiName me gotComment
+     * @apiGroup Me
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {   
+     *   "data": [
+     *       {
+     *         "id": 5,
+     *         "evt": "评论了",
+     *         "content": null,
+     *         "remindable": {
+     *           "id": 26,
+     *           "user_id": 6,
+     *           "target_id": 28,
+     *           "content": "zheshiyigeping",
+     *           "reply_user_id": 0,
+     *           "like_count": 0,
+     *           "type": 1,
+     *           "created_at": "2016-11-10 15:03:23",
+     *           "updated_at": "2016-11-10 15:03:23",
+     *           "parent_id": 0
+     *         },
+     *         "sender": {
+     *           "id": 6,
+     *           "username": "haha",
+     *           "summary": null,
+     *           "first_login": 1,
+     *           "last_login": "2016-11-01 09:06:15",
+     *           "avatar": {
+     *             "small": "http://s3.qysea.com/img/avatar!smx50.png",
+     *             "large": "http://s3.qysea.com/img/avatar!lgx180.png"
+     *           }
+     *         },
+     *         "created_at": {
+     *           "date": "2016-11-10 15:03:23.000000",
+     *           "timezone_type": 3,
+     *           "timezone": "Asia/Shanghai"
+     *         }
+     *       },
+     *     ],
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *        "pagination": {
+     *             "total": 5,
+     *             "count": 5,
+     *             "per_page": 10,
+     *             "current_page": 1,
+     *             "total_pages": 1,
+     *             "links": []
+     *           }
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function gotComment(Request $request)
+    {
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $reminds = Remind::where(['user_id' => 1, 'evt' => config('const.events.comment')])->orderBy('created_at', 'desc')->paginate($per_page);
+        
+        return $this->response->paginator($reminds, new RemindTransformer())->setMeta(ApiHelper::meta());
+    }
+    
+    /**
+     * @api {post} /me/gotLikes 收到的点赞列表
+     * @apiVersion 1.0.0
+     * @apiName me gotLikes
+     * @apiGroup Me
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {   
+     *   "data": [
+     *       {
+     *         "id": 5,
+     *         "evt": "赞了",
+     *         "content": null,
+     *         "remindable": {
+     *           "id": 26,
+     *           "user_id": 6,
+     *           "target_id": 28,
+     *           "content": "zheshiyigeping",
+     *           "reply_user_id": 0,
+     *           "like_count": 0,
+     *           "type": 1,
+     *           "created_at": "2016-11-10 15:03:23",
+     *           "updated_at": "2016-11-10 15:03:23",
+     *           "parent_id": 0
+     *         },
+     *         "sender": {
+     *           "id": 6,
+     *           "username": "haha",
+     *           "summary": null,
+     *           "first_login": 1,
+     *           "last_login": "2016-11-01 09:06:15",
+     *           "avatar": {
+     *             "small": "http://s3.qysea.com/img/avatar!smx50.png",
+     *             "large": "http://s3.qysea.com/img/avatar!lgx180.png"
+     *           }
+     *         },
+     *         "created_at": {
+     *           "date": "2016-11-10 15:03:23.000000",
+     *           "timezone_type": 3,
+     *           "timezone": "Asia/Shanghai"
+     *         }
+     *       },
+     *     ],
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200,
+     *        "pagination": {
+     *             "total": 5,
+     *             "count": 5,
+     *             "per_page": 10,
+     *             "current_page": 1,
+     *             "total_pages": 1,
+     *             "links": []
+     *           }
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function gotLikes(Request $request)
+    {
+        $per_page = $request->input('per_page', $this->per_page);
+        
+        $reminds = Remind::where(['user_id' => $this->auth_user_id, 'evt' => config('const.events.like')])->orderBy('created_at', 'desc')->paginate($per_page);
+        
+        return $this->response->paginator($reminds, new RemindTransformer())->setMeta(ApiHelper::meta());
     }
     
 }

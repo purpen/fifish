@@ -333,6 +333,14 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->post('me/resetCount', [
             'as' => 'me.reset.count', 'uses' => 'MeController@resetCount'
         ]);
+        // 获取收到的评论列表
+        $api->get('me/gotComment', [
+            'as' => 'me.got.comment', 'uses' => 'MeController@gotComment'
+        ]);
+        // 获取收到的点赞列表
+        $api->get('me/gotLikes', [
+            'as' => 'me.got.likes', 'uses' => 'MeController@gotLikes'
+        ]);
     });
     
     

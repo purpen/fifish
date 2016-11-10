@@ -45,8 +45,8 @@ class OAuthController extends BaseController
      * @apiParam {string} uid
      * @apiParam {string} accessToken
      * @apiParam {string} name
-     * @apiParam {string} icon
-     * @apiParam {string} gender
+     * @apiParam {string} icon （可选）
+     * @apiParam {string} gender （可选）
      * 
      * @apiSuccessExample 成功响应:
      *   { 
@@ -83,8 +83,8 @@ class OAuthController extends BaseController
      * @apiParam {string} uid
      * @apiParam {string} accessToken
      * @apiParam {string} name
-     * @apiParam {string} icon
-     * @apiParam {string} gender
+     * @apiParam {string} icon（可选）
+     * @apiParam {string} gender（可选）
      * 
      * @apiSuccessExample 成功响应:
      *   { 
@@ -121,8 +121,8 @@ class OAuthController extends BaseController
      * @apiParam {string} uid
      * @apiParam {string} accessToken
      * @apiParam {string} name
-     * @apiParam {string} icon
-     * @apiParam {string} gender
+     * @apiParam {string} icon（可选）
+     * @apiParam {string} gender（可选）
      * 
      * @apiSuccessExample 成功响应:
      *   { 
