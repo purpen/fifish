@@ -84,6 +84,17 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
         
+    // 用户第三方登录验证并返回Token
+    $api->post('oauth/wechat', [
+        'as' => 'oauth.wechat', 'uses' => 'OAuthController@wechat'
+    ]);
+    $api->post('oauth/facebook', [
+        'as' => 'oauth.facebook', 'uses' => 'OAuthController@facebook'
+    ]);
+    $api->post('oauth/instagram', [
+        'as' => 'oauth.instagram', 'uses' => 'OAuthController@instagram'
+    ]);
+        
     // 关于我们
     $api->get('h5/about', [
         'as' => 'h5.about', 'uses' => 'H5Controller@about'
@@ -97,6 +108,14 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('upload/qiniuNotify', [
         'as' => 'upload.qiniuNotify', 'uses' => 'UploadController@qiniuNotify'
     ]);
+       
+    // 第三方 
+    $api->group(['middleware' => ['web']], function($api) {
+        // 第三方登录跳转 
+        $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
+        // 第三方登录回调
+        $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
+    });
     
     /**
      * 分享相关路由
@@ -172,11 +191,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('gateway/columns', [
         'as' => 'gateway.columns', 'uses' => 'GatewayController@columnList'
     ]);
-    
-    // 第三方登录跳转 
-    $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
-    // 第三方登录回调
-    $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
     
     
     // 搜索列表接口

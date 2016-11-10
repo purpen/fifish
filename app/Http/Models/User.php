@@ -202,6 +202,22 @@ class User extends Authenticatable implements JWTSubject
         return $query->where('role_id', self::ROLE_PEOPLE);
     }
     
+    /**
+     * 范围：获取第三方登录用户
+     */
+    public function scopeOfSocialite($query, $type, $uid)
+    {
+        switch ($type) {
+            case 'wechat':
+                return $query->where('wechat_openid', $uid);
+            case 'facebook':
+                return $query->where('facebook_openid', $uid);
+            case 'instagram':
+                return $query->where('instagram_openid', $uid);
+            default:
+                return $query->where('account', $uid);
+        }
+    }
     
     public function getJWTIdentifier()
     {

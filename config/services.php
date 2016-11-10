@@ -40,21 +40,21 @@ return [
     ],
     
     'facebook' => [
-        'client_id' => 'your-github-app-id',
+        'client_id' => '163101587483903',
         'client_secret' => 'your-github-app-secret',
-        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/facebook',
+        'redirect' => env('APP_URL', 'https://api.qysea.com').'/oauth/callback/facebook',
     ],
     
     'wechat' => [
-        'client_id' => 'your-github-app-id',
-        'client_secret' => 'your-github-app-secret',
-        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/wechat',
+        'client_id' => 'wx5d74f772a28a33a4',
+        'client_secret' => 'f3fdb3d58250d0444924076b168ba492',
+        'redirect' => env('APP_URL', 'https://api.qysea.com').'/oauth/callback/wechat',
     ],
     
     'instagram' => [
-        'client_id' => 'your-github-app-id',
-        'client_secret' => 'your-github-app-secret',
-        'redirect' => env('APP_URL', 'http://fish.taihuoniao.com').'/oauth/callback/instagram',
+        'client_id' => '1c54a1a8da6b4b5e939501d1cfdb3a93',
+        'client_secret' => 'ce739bb3302c4261a39e29d623428317',
+        'redirect' => env('APP_URL', 'https://api.qysea.com').'/oauth/callback/instagram',
     ],
     
     
