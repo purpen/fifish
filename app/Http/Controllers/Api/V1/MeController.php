@@ -487,7 +487,7 @@ class MeController extends BaseController
     {
         $per_page = $request->input('per_page', $this->per_page);
         
-        $reminds = Remind::where(['user_id' => 1, 'evt' => config('const.events.comment')])->orderBy('created_at', 'desc')->paginate($per_page);
+        $reminds = Remind::where(['user_id' => $this->auth_user_id, 'evt' => config('const.events.comment')])->orderBy('created_at', 'desc')->paginate($per_page);
         
         return $this->response->paginator($reminds, new RemindTransformer())->setMeta(ApiHelper::meta());
     }
