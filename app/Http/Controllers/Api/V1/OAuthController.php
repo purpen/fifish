@@ -37,7 +37,7 @@ class OAuthController extends BaseController
     }
     
     /**
-     * @api {get} /oauth/wechat 微信登录接口
+     * @api {post} /oauth/wechat 微信登录接口
      * @apiVersion 1.0.0
      * @apiName oauth wechat
      * @apiGroup Oauth
@@ -75,7 +75,7 @@ class OAuthController extends BaseController
     }
     
     /**
-     * @api {get} /oauth/facebook Facebook登录接口
+     * @api {post} /oauth/facebook Facebook登录接口
      * @apiVersion 1.0.0
      * @apiName oauth facebook
      * @apiGroup Oauth
@@ -113,7 +113,7 @@ class OAuthController extends BaseController
     }
     
     /**
-     * @api {get} /oauth/instagram Instagram登录接口
+     * @api {post} /oauth/instagram Instagram登录接口
      * @apiVersion 1.0.0
      * @apiName oauth instagram
      * @apiGroup Oauth

@@ -402,7 +402,7 @@ class MeController extends BaseController
     }
     
     /**
-     * @api {post} /me/gotComment 收到的评论列表
+     * @api {get} /me/gotComment 收到的评论列表
      * @apiVersion 1.0.0
      * @apiName me gotComment
      * @apiGroup Me
@@ -476,7 +476,7 @@ class MeController extends BaseController
     }
     
     /**
-     * @api {post} /me/gotLikes 收到的点赞列表
+     * @api {get} /me/gotLikes 收到的点赞列表
      * @apiVersion 1.0.0
      * @apiName me gotLikes
      * @apiGroup Me
