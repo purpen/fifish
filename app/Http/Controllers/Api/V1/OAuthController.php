@@ -172,8 +172,8 @@ class OAuthController extends BaseController
         }
         
         // 1、查询是否存在某个用户；
-        $user = User::OfSocialite($type, $somedata['uid'])->first()->get();
-        dd($user);
+        $user = User::OfSocialite($type, $somedata['uid'])->first();
+        
         // 2、如不存在则自动注册新用户
         if (!$user) {
             $newdata = [

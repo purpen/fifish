@@ -1,7 +1,10 @@
 <?php
-    
+/**
+ * 全文检索
+ */
 namespace App\Http\Utils;
 
+use Log;
 use Config;
 
 class XSUtil
@@ -21,7 +24,7 @@ class XSUtil
     public static function add($data=array())
     {
         $db = Config::get('xunSearch.name');
-        try{
+        try {
             $xs = new \XS($db);
             $index = $xs->index; // 获取 索引对象
             // 创建文档对象
@@ -31,63 +34,60 @@ class XSUtil
             // 添加到索引数据库中
             $index->add($doc);
 
-        }catch(XSException $e){
-            //Doggy_Log_Helper::warn('add:'.$e->getTraceAsString(), 'search');
+        } catch (XSException $e) {
+            Log::warning('add:'.$e->getTraceAsString(), 'search');
         }
-
     }
 
-  /**
-   * 更新文档
-   */
+    /**
+     * 更新文档
+     */
     public static function update($data=array())
     {
         $db = Config::get('xunSearch.name');
-        try{
+        try {
             $xs = new \XS($db);
             $index = $xs->index; // 获取 索引对象
+            
             // 创建文档对象
             $doc = new XSDocument;
             $doc->setFields($data);
 
             // 更新到索引数据库中
             $ok = $index->update($doc);
-            if($ok){
+            if ($ok) {
                 return array('success'=>true, 'msg'=>'操作成功!');
-            }else{
+            } else {
                 return array('success'=>false, 'msg'=>'操作失败!');   
             }
-        }catch(XSException $e){
-            //Doggy_Log_Helper::warn('update:'.$e->getTraceAsString(), 'search');
+        } catch (XSException $e) {
+            Log::warning('update:'.$e->getTraceAsString(), 'search');
             return array('success'=>false, 'msg'=>'操作失败: '.$e->getTraceAsString());
         }
-
     }
 
     /**
      * 删除文档
      * ID可为数组
-    */
+     */
     public static function delIds($ids)
     {
         $db = Config::get('xunSearch.name');
-        try{
+        try {
             $xs = new \XS($db);
             $index = $xs->index; // 获取 索引对象
        
             // 删除
             $ok = $index->del($ids);
-            if($ok){
+            if ($ok) {
                 return array('success'=>true, 'msg'=>'操作成功!');
-            }else{
+            } else {
                 return array('success'=>false, 'msg'=>'删除失败!');       
             }
-
-        }catch(XSException $e){
-            //Doggy_Log_Helper::warn('delete:'.$e->getTraceAsString(), 'search');
+        } catch (XSException $e) {
+            Log::warning('delete:'.$e->getTraceAsString(), 'search');
             return array('success'=>false, 'msg'=>'删除失败!'.$e->getTraceAsString());    
         }
-
     }
 
     /**
@@ -96,10 +96,10 @@ class XSUtil
     public static function search($str, $options=array())
     {
         $db = Config::get('xunSearch.name');
-        if(empty($str)){
+        if (empty($str)) {
             return array('success'=>false, 'msg'=>'搜索内容为空!');
         }
-
+        
         $page = isset($options['page'])?(int)$options['page']:1;
         $size = isset($options['size'])?(int)$options['size']:8;
         $sort = isset($options['sort'])?(int)$options['sort']:0;
@@ -112,71 +112,72 @@ class XSUtil
         $ingore_id = isset($options['ingore_id'])?(int)$options['ingore_id']:0;
 
         // 过滤xss攻击
-        if($evt=='content'){
+        if ($evt == 'content') {
             $str = self::remove_xss($str);
         }
         $str_f = $str;
 
-        try{
+        try {
             $xs = new \XS($db); // 建立 XS 对象，项目名称为：demo
             $search = $xs->search; // 获取 搜索对象
+            
             $condition = '';
-            //类型
+            // 类型
             switch($type){
-            case 1:
-                if(!empty($tid)){
-                    $condition .= sprintf('kind:Stuff tid:%s ', $tid);
-                }else{
-                    $condition .= 'kind:Stuff ';
-                }
-                $str_f = sprintf('%s%s', $condition, $str);
-                break;
-            case 2:
-                $condition .= 'kind:User ';
-                $str_f = sprintf('%s%s', $condition, $str);
-                break;
+                case 1:
+                    if (!empty($tid)) {
+                        $condition .= sprintf('kind:Stuff tid:%s ', $tid);
+                    } else {
+                        $condition .= 'kind:Stuff ';
+                    }
+                    $str_f = sprintf('%s%s', $condition, $str);
+                    break;
+                case 2:
+                    $condition .= 'kind:User ';
+                    $str_f = sprintf('%s%s', $condition, $str);
+                    break;
             }
-
-
-            //用于相关搜索,过滤当前结果
-            if($ingore_id){
+            
+            // 用于相关搜索,过滤当前结果
+            if ($ingore_id) {
                 $condition .= sprintf("-oid:%s ", $ingore_id);
             }
 
-            //是否搜索标签
-            if($evt=='tag'){
+            // 是否搜索标签
+            if ($evt == 'tag') {
                 $tag_arr = explode(',', $str);
                 $x_tag_arr = array();
-                foreach($tag_arr as $v){
+                foreach ($tag_arr as $v) {
                     array_push($x_tag_arr, sprintf("tags:%s", $v));
                 }
                 $x_tag_str = implode(' OR ', $x_tag_arr);
                 $str_f = sprintf('%s(%s)', $condition, $x_tag_str);
-            }else{
+            } else {
                 $search->addWeight('title', $str); // 增加附加条件：提升标题中包含 关键字 的记录的权重       
             }
-
+            
             $search->setQuery($str_f); // 设置搜索语句
 
-            //排序
-            if(!empty($sort)){
-                if($sort==1){
+            // 排序
+            if (!empty($sort)) {
+                if ($sort == 1) {
                     $search->setSort('created_on', $asc); // 最新
-                }elseif($sort==2){
+                } elseif ($sort == 2) {
                     $search->setSort('updated_on', $asc); // 更新
                 }
             }
-
+            
             $current_per = ($page-1)*$size;
             $search->setLimit($size, $current_per); // 设置返回结果最多为 5 条，并跳过前 10 条
    
             $docs = $search->search(); // 执行搜索，将搜索结果文档保存在 $docs 数组中
             $count = $search->count(); // 获取搜索结果的匹配总数估算值 /放在search()之后,优化查询
-            //页码数
+            // 页码数
             $total_page = ceil($count/$size);
+            
             $data = array();
 
-            foreach($docs as $k=>$v){
+            foreach ($docs as $k=>$v) {
                 $data[$k]['pid'] = $v['pid'];
                 $data[$k]['oid'] = $v['oid'];
                 $data[$k]['tid'] = $v['tid'];
@@ -189,16 +190,25 @@ class XSUtil
                 $data[$k]['tags'] = !empty($v['tags'])?explode(',', $v['tags']):array();
                 $data[$k]['created_on'] = $v['created_on'];
                 $data[$k]['updated_on'] = $v['updated_on'];
-                $data[$k]['high_title'] = $search->highlight($v->title); // 高亮处理 title 字段
-                $data[$k]['high_content'] = htmlspecialchars_decode($search->highlight($v->content)); // 高亮处理 content 字段
+                // 高亮处理 title 字段
+                $data[$k]['high_title'] = $search->highlight($v->title);
+                // 高亮处理 content 字段
+                $data[$k]['high_content'] = htmlspecialchars_decode($search->highlight($v->content));
             }
-
-            $result = array('success'=>true, 'data'=>$data, 'total_count'=>$count, 'total_page'=>$total_page, 'msg'=>'success');
-            return $result;
-        }catch(XSException $e){
-            //Doggy_Log_Helper::warn('search:'.$e->getTraceAsString(), 'search');
+            
+            $result = array(
+                'success' => true, 
+                'data' => $data, 
+                'total_count' => $count, 
+                'total_page' => $total_page, 
+                'msg' => 'success'
+            );
+        } catch (XSException $e) {
+            Log::warning('search:'.$e->getTraceAsString(), 'search');
             return array('success'=>false, 'msg'=>'搜索异常!');
         }
+        
+        return $result;
     }
 
     /**
@@ -206,34 +216,39 @@ class XSUtil
     */
     public static function expanded($q, $limit=10)
     {
-        if(empty($q)){
+        if (empty($q)) {
             return array('success'=>false, 'msg'=>'搜索内容为空!');       
         }
 
         $q = self::remove_xss($q);
 
         $db = Config::get('xunSearch.name');
-        try{
+        try {
             $xs = new \XS($db);
             $search = $xs->search; // 获取 搜索对象
 
             // 查询
             $doc = $search->getExpandedQuery($q, $limit);
-            $result = array('success'=>true, 'data'=>array('swords'=>$doc), 'total_count'=>$limit, 'total_page'=>1, 'msg'=>'success'); 
-
-            return $result;
-
-        }catch(XSException $e){
-            //Doggy_Log_Helper::warn('delete:'.$e->getTraceAsString(), 'search');
+            
+            $result = array(
+                'success' => true, 
+                'data' => array('swords'=>$doc), 
+                'total_count' => $limit, 
+                'total_page' => 1,
+                'msg' => 'success'
+            );
+        } catch (XSException $e) {
+            Log::warning('delete:'.$e->getTraceAsString(), 'search');
             return array('success'=>false, 'msg'=>'查询失败!'.$e->getTraceAsString());
         }
-
+        
+        return $result;
     }
-
-
+    
     /**
      * @from Think php extend.php
      * 过滤xss攻击
+     *
      * @param str $val
      * @return mixed
     */
@@ -299,10 +314,8 @@ class XSUtil
             }
           }
         }
+        
         return $val;
     }
-
-
     
 }
-
