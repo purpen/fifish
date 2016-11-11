@@ -549,4 +549,104 @@ class MeController extends BaseController
         return $this->response->paginator($reminds, new RemindTransformer())->setMeta(ApiHelper::meta());
     }
     
+    /**
+     * @api {get} /me/editSign 编辑个性签名
+     * @apiVersion 1.0.0
+     * @apiName me editSign
+     * @apiGroup Me
+     * 
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "meta": {
+     *       "message": "success",
+     *       "status_code": 200
+     *     },
+     *     "data": {
+     *       "idtags": [
+     *         "肌肉男",
+     *         "路人甲",
+     *         "老炮儿",
+     *       ],
+     *       "tags": [
+     *         "肌肉男",
+     *         "路人甲"
+     *       ],
+     *       "summary": "天道酬勤"
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function editSign(Request $request)
+    {
+        $idtags = config('const.idtags');
+        
+        $user = User::find($this->auth_user_id);
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        
+        return $this->response->array(ApiHelper::success('success', 200, [
+            'idtags' => $idtags,
+            'tags' => $user->tags_label,
+            'summary' => $user->summary,
+        ]));
+    }
+    
+    /**
+     * @api {post} /me/updateSign 更新个性签名
+     * @apiVersion 1.0.0
+     * @apiName me updateSign
+     * @apiGroup Me
+     * 
+     * @apiParam {string} tags 标签之间逗号隔开
+     * @apiParam {string} summary 
+     *
+     * @apiSuccessExample 成功响应:
+     *   {
+     *     "meta": {
+     *       "message": "Success.",
+     *       "status_code": 200
+     *     }
+     *   }
+     *
+     * @apiErrorExample 错误响应:
+     *   {
+     *     "meta": {
+     *       "message": "Not Found！",
+     *       "status_code": 404
+     *     }
+     *   }
+     */
+    public function updateSign(Request $request)
+    {
+        $user = User::find($this->auth_user_id);
+        if (!$user) {
+            return $this->response->array(ApiHelper::error('Not Found!', 404));
+        }
+        
+        if ($request->has('tags')) {
+            $user->tags = $request->tags;
+        }
+        if ($request->has('summary')) {
+            $user->summary = $request->summary;
+        }
+        
+        $res = $user->save();
+        
+        Log::warning('Update user sign result: '.$res);
+        
+        if (!$res) {
+            return $this->response->array(ApiHelper::error('failed!', 412));
+        }
+        
+        return $this->response->array(ApiHelper::success());
+    }
+    
 }

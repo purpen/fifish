@@ -341,6 +341,17 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         $api->get('me/gotLikes', [
             'as' => 'me.got.likes', 'uses' => 'MeController@gotLikes'
         ]);
+            
+        // 编辑个性签名
+        $api->get('me/editSign', [
+            'as' => 'me.edit.sign', 'uses' => 'MeController@editSign'
+        ]);
+        // 更新个性签名
+        $api->post('me/updateSign', [
+            'as' => 'me.update.sign', 'uses' => 'MeController@updateSign'
+        ]);
+        
+        
     });
     
     

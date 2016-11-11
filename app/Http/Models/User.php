@@ -22,6 +22,10 @@ class User extends Authenticatable implements JWTSubject
      *      first_login,last_login
      *      remember_token
      *      created_at,updated_at
+     *      alert_fans_count,alert_like_count,alert_comment_count
+     *      wechat_openid,wechat_access_token,wechat_unionid
+     *      facebook_openid,facebook_access_token
+     *      instagram_openid,instagram_access_token
      *
      * @var string
      */
@@ -139,6 +143,14 @@ class User extends Authenticatable implements JWTSubject
         }
         
         return (object)$avatar;
+    }
+    
+    /**
+     * 修正个性标签显示（转换化为数组）
+     */
+    public function getTagsLabelAttribute()
+    {
+        return array_values(array_unique(preg_split('/[,，;；\s]+/u', $this->tags)));
     }
     
     /**
