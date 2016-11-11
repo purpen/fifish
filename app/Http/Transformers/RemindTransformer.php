@@ -19,7 +19,7 @@ class RemindTransformer extends TransformerAbstract
         $stuff = [
             'id' => $related->id,
             'kind' => $related->kind,
-            'photo' => $related->photo,
+            'cover' => $related->cover,
         ];
         
         return [
