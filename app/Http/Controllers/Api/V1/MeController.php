@@ -437,6 +437,23 @@ class MeController extends BaseController
      *             "large": "http://s3.qysea.com/img/avatar!lgx180.png"
      *           }
      *         },
+     *         "stuff": {
+     *                   "id": 76,
+     *                   "kind": 1,
+     *                   "cover": {
+     *                     "id": 167,
+     *                      "filepath": "photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg",
+     *                      "duration": 0,
+     *                     "kind": 1,
+     *                     "file": {
+     *                       "srcfile": "http://bkt.clouddn.com/photo/161019/6cd0a9782a6.jpg",
+     *                       "small": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!cvxsm",
+     *                       "large": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!cvxlg",
+     *                       "thumb": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!psq",
+     *                       "adpic": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!plg"
+     *                     }
+     *                   }
+     *         },
      *         "created_at": {
      *           "date": "2016-11-10 15:03:23.000000",
      *           "timezone_type": 3,
@@ -510,6 +527,23 @@ class MeController extends BaseController
      *             "small": "http://s3.qysea.com/img/avatar!smx50.png",
      *             "large": "http://s3.qysea.com/img/avatar!lgx180.png"
      *           }
+     *         },
+     *         "stuff": {
+     *                   "id": 76,
+     *                   "kind": 1,
+     *                   "cover": {
+     *                     "id": 167,
+     *                      "filepath": "photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg",
+     *                      "duration": 0,
+     *                     "kind": 1,
+     *                     "file": {
+     *                       "srcfile": "http://bkt.clouddn.com/photo/161019/6cd0a9782a6.jpg",
+     *                       "small": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!cvxsm",
+     *                       "large": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!cvxlg",
+     *                       "thumb": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!psq",
+     *                       "adpic": "http://bkt.clouddn.com/photo/161019/6cdf9566cea99cbac67075760a9782a6.jpg!plg"
+     *                     }
+     *                   }
      *         },
      *         "created_at": {
      *           "date": "2016-11-10 15:03:23.000000",
