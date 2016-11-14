@@ -215,14 +215,14 @@ class OAuthController extends BaseController
                 return $this->response->array(ApiHelper::error('登录失败，请重试!', 412));
             }
             // 获取用户
-            $user = User::OfWechat($somedata['uid'])->first()->get();
+            $user = User::OfSocialite($type, $somedata['uid'])->first();
         }
         
         try {
             // 实现自助登录
             $credentials = array(
                 'account' => $user->account,
-                'password' => $user->password,  
+                'password' => config('const.'.$type.'.password'),
             );
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
