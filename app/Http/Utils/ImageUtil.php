@@ -62,8 +62,6 @@ class ImageUtil
         // 文件上传
         list($ret, $err) = $uploadManager->put($uptoken, $file_path, $content);
         
-        dd($ret);
-        
         return $ret;
     }
     
