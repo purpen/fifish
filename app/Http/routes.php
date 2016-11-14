@@ -27,6 +27,7 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
     /**
      * 测试
      */
+    Route::get('/test', 'TestController@index');
     Route::get('/test/search', 'TestController@search');
     Route::get('/test/del_search', 'TestController@delSearch');
 

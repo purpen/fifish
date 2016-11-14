@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
                 // 添加执行时间
                 $query .= ' '.$sql->time.'ms';
                 
-                Log::debug($query);
+                // Log::debug($query);
             }
         );
     }
