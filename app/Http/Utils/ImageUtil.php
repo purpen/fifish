@@ -43,6 +43,10 @@ class ImageUtil
         // 文件上传
         list($ret, $err) = $uploadManager->putFile($uptoken, null, $filepath);
         
+        if ($err !== null) {
+            var_dump($err);
+        }
+        
         return $ret;
     }
     
@@ -61,7 +65,7 @@ class ImageUtil
         list($ret, $err) = $uploadManager->put($uptoken, null, $content);
         
         if ($err !== null) {
-            Log::warning('Store user avatar error: '.$err);
+            var_dump($err);
         }
         
         return $ret;
