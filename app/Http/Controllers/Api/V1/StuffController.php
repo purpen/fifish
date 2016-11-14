@@ -289,7 +289,7 @@ class StuffController extends BaseController
         // 保存照片或视频
         $file = $request->file('file');
         if ($file) {                
-            $upRet = ImageUtil::storeQiniuCloud($file, 'photo', $stuff->id, 'Stuff', $this->auth_user_id);
+            $upRet = ImageUtil::storeFileQiniu($file, 'photo', $stuff->id, 'Stuff', $this->auth_user_id);
             if (!$upRet) {
                 throw new ApiExceptions\StoreFailedException(501, '照片保存失败.');
             }

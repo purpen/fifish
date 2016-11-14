@@ -9,9 +9,11 @@ use Log;
 use Socialite;
 use JWTAuth;
 use Validator;
+
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\ApiHelper;
 use App\Http\Models\User;
+use App\Http\Utils\ImageUtil;
 use App\Exceptions as ApiExceptions;
 
 class OAuthController extends BaseController
@@ -216,6 +218,15 @@ class OAuthController extends BaseController
             }
             // 获取用户
             $user = User::OfSocialite($type, $somedata['uid'])->first();
+            
+            // 自动存储用户头像
+            if (!empty($somedata['icon'])) {
+                $file_content = file_get_contents($somedata['icon'], FILE_USE_INCLUDE_PATH);
+                $upRet = ImageUtil::storeContentQiniu($file_content, 'avatar', $this->auth_user_id, 'User', $this->auth_user_id);
+                if (!$upRet) {
+                    throw new ApiExceptions\StoreFailedException(501, '头像保存失败.');
+                }
+            }
         }
         
         try {

@@ -32,7 +32,7 @@ class ImageUtil
     /**
      * 云存储 (服务端上传)
      */
-    static public function storeQiniuCloud($filepath, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
+    static public function storeFileQiniu($filepath, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
     {
         // 生成上传Token
         $uptoken = self::qiniuToken(false, $save_dir, $assetable_id, $assetable_type, $user_id);
@@ -42,6 +42,23 @@ class ImageUtil
         
         // 文件上传
         list($ret, $err) = $uploadManager->putFile($uptoken, null, $filepath);
+        
+        return $ret;
+    }
+    
+    /**
+     * 存储内容到七牛云
+     */
+    static public function storeContentQiniu($content, $save_dir='photo', $assetable_id=0, $assetable_type='Stuff', $user_id=0)
+    {
+        // 生成上传Token
+        $uptoken = self::qiniuToken(false, $save_dir, $assetable_id, $assetable_type, $user_id);
+        
+        // 初始化UploadManager对象并进行文件的上传
+        $uploadManager = new UploadManager();
+        
+        // 文件上传
+        list($ret, $err) = $uploadManager->put($uptoken, null, $content);
         
         return $ret;
     }
