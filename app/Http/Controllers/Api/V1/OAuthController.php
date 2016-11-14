@@ -222,7 +222,7 @@ class OAuthController extends BaseController
             // 自动存储用户头像
             if (!empty($somedata['icon'])) {
                 $file_content = file_get_contents($somedata['icon'], FILE_USE_INCLUDE_PATH);
-                $upRet = ImageUtil::storeContentQiniu($file_content, 'avatar', $this->auth_user_id, 'User', $this->auth_user_id);
+                $upRet = ImageUtil::storeContentQiniu($file_content, 'avatar', $user->id, 'User', $user->id);
                 if (!$upRet) {
                     throw new ApiExceptions\StoreFailedException(501, '头像保存失败.');
                 }
