@@ -56,13 +56,13 @@ class ImageUtil
         
         // 初始化UploadManager对象并进行文件的上传
         $uploadManager = new UploadManager();
-        
-        $file_path = $save_dir.'/'.date('ymd').'/'.self::genUniKey();
-        
+                
         // 文件上传
-        list($ret, $err) = $uploadManager->put($uptoken, $file_path, $content);
+        list($ret, $err) = $uploadManager->put($uptoken, null, $content);
         
-        Log::warning('Store user avatar error: '.$err);
+        if ($err !== null) {
+            Log::warning('Store user avatar error: '.$err);
+        }
         
         return $ret;
     }
