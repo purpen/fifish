@@ -222,7 +222,8 @@ class OAuthController extends BaseController
             // 自动存储用户头像
             if (!empty($somedata['icon'])) {
                 Log::warning('Save user avatar: '.$somedata['icon'].', user_id:'.$user->id);
-                $upRet = ImageUtil::storeFileQiniu($somedata['icon'], 'avatar', $user->id, 'User', $user->id);
+                $file_content = file_get_contents($somedata['icon'], FILE_USE_INCLUDE_PATH);
+                $upRet = ImageUtil::storeContentQiniu($file_content, 'avatar', $user->id, 'User', $user->id);
                 if (!$upRet) {
                     throw new ApiExceptions\StoreFailedException(501, '头像同步失败.');
                 }
