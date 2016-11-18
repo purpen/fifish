@@ -36,7 +36,7 @@ class TestController extends Controller
     public function index()
     {
         $file_content = file_get_contents('http://wx.qlogo.cn/mmopen/PiajxSqBRaEKYAILvZPR8r5PbxTHtk4YQnX8U6fgiaib4RApGvkM5UVyuFDaeRVsgdKnzpEZrG7xabrDTmoQ3RmjA/0', FILE_USE_INCLUDE_PATH);
-        dd($file_content);
+        $upRet = ImageUtil::storeContentQiniu($file_content, 'avatar', 1, 'User', 1);
     }
     
 
