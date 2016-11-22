@@ -1,38 +1,138 @@
 @extends('layouts.app')
 
-@section('content')
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    </ol>
+@section('jquery')
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+        autoplay : 4500,
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+@endsection
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="/img/story_home.jpg">
-            
-            <div class="carousel-caption">
-                <h3>FIFISH P4</h3>
-                <p>亮相2016布尔诺国际机械<br>工业博览会</p>
+@section('content')
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide cover" style="background-image: url( {{ url('/img/top01.jpg') }} )">
+            <div class="container caption">
+                <img src="/img/ceslogo.png" class="ces-logo">
+                <h3>Fifish P4 <br>荣获CES 2017创新大奖</h3>
+                <a href="" class="btn btn-white">
+                    观看视频 <i class="icon-play-circle"></i>
+                </a>
+            </div>
+        </div>
+        <div class="swiper-slide cover" style="background-image: url( {{ url('/img/top02.jpg') }} )">
+            <div class="container caption-right">
+                <h3>Fifish P4 <br>亮相布尔诺国际机械工业博览会</h3>
             </div>
         </div>
     </div>
-
-    <!-- Controls -->
-    <!--
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    -->
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
 </div>
 
-<div class="container focus">
+<div class="block products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="block-title white">
+                    <span>{{ trans('menu.productshow') }}</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 item">
+                <img src="/img/1.jpg" class="photo">
+            </div>
+            <div class="col-md-6 item">
+                <img src="/img/2.jpg" class="photo">
+            </div>
+            <div class="col-md-6 item">
+                <img src="/img/3.jpg" class="photo">
+            </div>
+            <div class="col-md-6 item">
+                <img src="/img/4.jpg" class="photo">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="block news">
+    <div class="container">
+        <div class="row">
+            <h2 class="block-title text-center">
+                <span>{{ trans('menu.news') }}</span>
+            </h2>
+        </div>
+        <div class="row">
+            @foreach ($columns as $column)
+            <div class="col-md-4">
+                <div class="thumbnail card">
+                    <a href="{{ $column->url }}" target="_blank">
+                        <img src="{{ $column->cover ? $column->cover->file->small : '' }}" alt="{{ $column->title }}">
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="" target="_blank">{{ $column->title }}</a>
+                        </h3>
+                        <p>
+                            <span class="text-blue">{{ $column->sub_title }}</span>
+                            <span class="pull-right text-time">{{ $column->summary }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        <div class="row text-center">
+            <a href="{{ url('/news') }}" class="btn btn-blue btn-lg btn-more">查看更多</a>
+            <div class="mideas mt-2r">
+                <img src="/img/media/36kr.png" class="logo">
+                <img src="/img/media/technode.png" class="logo">
+                <img src="/img/media/geekpark.png" class="logo">
+                <img src="/img/media/net163.png" class="logo">
+                <img src="/img/media/sina.png" class="logo">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="block about white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h2 class="block-title white">
+                    <span>{{ trans('menu.aboutus') }}</span>
+                </h2>
+                <p>{{ trans('aboutme.info') }}</p>
+                <p>{{ trans('aboutme.info2') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="block contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="block-title">
+                    <span>{{ trans('menu.contactus') }}</span>
+                </h2>
+                <p>{{ trans('menu.email') }}: sales@qysea.com</p>
+                <p>{{ trans('menu.tel') }}：+86-0755-022662313</p>
+                <p>{{ trans('menu.address') }}：{{ trans('menu.addinfo') }}</p>
+            
+                <div class="social-buttons">
+                    <a href="" class="qq">QQ</a>
+                    <a href="" class="weibo">微博</a>
+                    <a href="" class="wechat">微信</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--div class="container focus">
     <div class="row">
         <div class="col-lg-4">
             <div class="focus-item tutorials">
@@ -53,5 +153,5 @@
             </div>
         </div>
     </div>
-</div>
+</div-->
 @endsection

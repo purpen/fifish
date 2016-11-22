@@ -68,7 +68,7 @@ class ColumnController extends Controller
         ], $messages);
         
         $somedata = $request->only([
-            'column_space_id', 'title', 'url', 'cover_id', 'summary'
+            'column_space_id', 'title', 'sub_title', 'url', 'cover_id', 'summary'
         ]);
         $somedata['user_id'] = \Auth::user()->id;
         

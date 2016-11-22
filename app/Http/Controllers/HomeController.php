@@ -17,6 +17,8 @@ use App\Jobs\SendReminderEmail;
 
 use Redis;
 use App\Http\Models\Asset;
+use App\Http\Models\Column;
+use App\Http\Models\ColumnSpace;
 
 class HomeController extends Controller
 {
@@ -27,7 +29,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        View()->share('lang', true);
     }
 
     /**
@@ -37,7 +39,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // 获取媒体报道
+        $space = ColumnSpace::where('name', 'page_media_news')->first();
+        if ($space) {
+            
+        }
+        $columns = $space->columns()->orderBy('created_at', 'desc')->paginate(3);
+        
+        return view('home', [
+            'columns' => $columns
+        ]);
     }
     
     /**

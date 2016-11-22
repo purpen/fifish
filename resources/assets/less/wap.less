@@ -1,0 +1,146 @@
+#wap-layout {
+    max-width: 750px;
+    margin: 0 auto;
+    
+    .container {
+        width: 720px;
+    }
+    
+    .mini-header {
+        background: #000;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        min-height: 44px;
+        
+        .back {
+            color: #fff;
+            font-size: 24px;
+            left: 0;
+            line-height: 44px;
+            padding: 0 15px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            z-index: 9;
+        }
+        
+        .title {
+            margin-top: 10px;
+        }
+    }
+    
+    .mini-footer {
+        background: #000;
+        color: #ddd;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    .swiper-slide {
+        &.cover {
+            background-position: center center;
+            background-size: cover;
+            height: 400px;
+        }
+    
+        .image {
+            width: 100%;
+        }
+    
+        .caption {
+            color: #fff;
+            left: 0px;
+            position: absolute;
+            top: 0px;
+            z-index: 10;
+            text-align: center;
+        
+            h3 {
+                line-height: 1.25;
+            }
+        
+            .ces-logo {
+                left: 30px;
+                position: absolute;
+                top: 30px;
+                z-index: 9;
+            }
+        }
+    
+        .caption-right {
+            color: #fff;
+            position: absolute;
+            right: 0;
+            top: 100px;
+            width: 420px;
+            z-index: 10;
+        }
+        
+    }
+    
+    .block-products {
+        background-color: #333;
+        padding-bottom: 30px;
+    }
+    
+    .swiper-products {
+        .swiper-slide {
+            width: 85%;
+        }
+    }
+
+    .block-about {
+        background: rgba(0, 0, 0, 0) url("/img/about-bg.png") repeat scroll center center;
+        line-height: 1.5;
+        padding: 10px 15px 30px;
+    
+        &.white {
+            color: #fff;
+        }
+    }
+
+    .block-contact {
+        background: rgba(0, 0, 0, 0) url("/img/contact-bg.png") repeat scroll center center;
+        padding: 10px 15px 30px;
+    }
+
+    .block-news {
+        overflow: hidden;
+        padding-bottom: 30px;
+        margin: 30px auto;
+        
+        .card {
+            margin: 0 0 30px;
+            width: 280px;
+            
+            .image {
+                display: inline-block;
+            }
+            
+            .info {
+                text-align: left;
+                padding: 5px 10px;
+        
+                h3 {
+                    font-size: 16px;
+                    line-height: 1.25;
+                    margin-top: 0;
+                    height: 40px;
+                }
+        
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    
+    .swiper-news {
+        .swiper-slide {
+            width: 40%;
+        } 
+    }
+    
+    
+}

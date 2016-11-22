@@ -24,6 +24,8 @@ use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
 use App\Exceptions as ApiExceptions;
 
+use App\Http\Utils\XSUtil;
+
 class StuffController extends BaseController
 {   
     /**
@@ -309,6 +311,26 @@ class StuffController extends BaseController
                 $this->dispatch($job);
             }
         }
+        
+        // 添加至全文索引
+        $data = array(
+          'pid' => $stuff->id,
+          'oid' => $stuff->id,
+          'kind' => 1,
+          'cid' => 0,
+          'tid' => 0,
+          'user_id' => $stuff->user_id,
+          'user_name' => $stuff->user->username,
+          'title' => $somedata['content'],
+          'content' => $somedata['content'],
+          'body' => $somedata['content'],
+          'tags' => '',
+          'cover_id' => 0,
+          'created_on' => 0,
+          'updated_on' => 0,
+        );
+        
+        XSUtil::add($data);
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
     }

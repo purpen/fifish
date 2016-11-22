@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fifish @yield('title')</title>
+    <title>FIFISH P4 @yield('title')</title>
 
     <!-- Fonts -->
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.plugins.min.css') }}" rel="stylesheet"> 
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     
     @yield('partial_css')
@@ -27,6 +29,18 @@
         }
         .page-tools {
             margin: 10px auto;
+        }
+        .dropdown button {
+            background-color: rgba(255, 255, 255, 0);
+           border: medium none;
+           margin: 0 !important;
+           padding: 0 !important;
+        }
+        .dropdown-menu {
+            min-width: 90px;
+        }
+        .dropdown-menu > li > a {
+            padding: 0 5px;
         }
         
         @yield('customize_css')
@@ -58,7 +72,7 @@
                     <li><a href="{{ url('/home') }}">首页</a></li>
                     <li><a href="{{ url('/home') }}">产品</a></li>
                     <li><a href="{{ url('/home') }}">服务与支持</a></li>
-                    <li><a href="{{ url('/home') }}">App下载</a></li>
+                    <li><a href="{{ url('/home') }}">APP下载</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -58,6 +58,15 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
 });
 
 /**
+ * 移动端路由
+ */
+Route::group(array('domain' => env('APP_MINI_DOMAIN')), function(){
+    Route::get('/', 'WapController@index');
+    Route::get('/index', 'WapController@index');
+    Route::get('/news', 'WapController@news');
+});
+
+/**
  * 注册自定义
  */
 app('Dingo\Api\Exception\Handler')->register(function (Exception $exception) {

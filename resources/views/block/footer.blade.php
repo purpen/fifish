@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="container">
+    <!--div class="container">
         <div class="row">
             <div class="col-lg-3">
                 <h5>关于Fifish</h5>
@@ -39,18 +39,30 @@
             </div>
         </div>
     </div>
-    <div class="line"></div>
+    <div class="line"></div-->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-8">
                 <p>
-                    Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd.
-                    <br>ICP备16057791号-1
+                    Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1
                 </p>
                 <p></p>
             </div>
-            <div class="col-lg-4">
-                <p></p>
+            <div class="col-md-4 text-right">
+                <span>语言：</span>
+                <div class="dropdown pull-right">
+                    <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/img/zh_cn.png"> 中文 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="?lang=zh_cn"><img src="/img/zh_cn.png"> 中文</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="?lang=en"><img src="/img/en.png"> English</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

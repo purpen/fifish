@@ -91,11 +91,11 @@ class SearchController extends BaseController
         if(empty($str)) return $this->response->array(ApiHelper::error('please input keywork!', 401));
 
         $type = $request->input('type', 1);
-        $str = $request->input('str', null);
         $cid = $request->input('cid', 0);
         $tid = $request->input('tid', 0);
         $evt = $request->input('evt', 1);
         $sort = $request->input('sort', 0);
+        
         $ignore_id = $request->input('ignore_id', 0);
 
         $options = array(
@@ -108,8 +108,9 @@ class SearchController extends BaseController
             'sort' => $sort,
             'ingore_id' => $ignore_id,
         );
-
+        
         $result = XSUtil::search($str, $options);
+        
         if (!$result['success']) {
             return $this->response->array(ApiHelper::error('search fail!', 402));
         }

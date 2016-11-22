@@ -24,13 +24,15 @@ class XSUtil
     public static function add($data=array())
     {
         $db = Config::get('xunSearch.name');
+        
         try {
             $xs = new \XS($db);
             $index = $xs->index; // 获取 索引对象
+            
             // 创建文档对象
             $doc = new \XSDocument;
             $doc->setFields($data);
-
+            
             // 添加到索引数据库中
             $index->add($doc);
 
@@ -171,6 +173,7 @@ class XSUtil
             $search->setLimit($size, $current_per); // 设置返回结果最多为 5 条，并跳过前 10 条
    
             $docs = $search->search(); // 执行搜索，将搜索结果文档保存在 $docs 数组中
+            
             $count = $search->count(); // 获取搜索结果的匹配总数估算值 /放在search()之后,优化查询
             // 页码数
             $total_page = ceil($count/$size);

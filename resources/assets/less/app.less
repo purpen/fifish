@@ -25,6 +25,24 @@ a {
     }
 }
 
+.text-blue {
+    color: #0487d1;
+}
+.text-time {
+    color: #a9a9a9;
+}
+.btn-blue {
+    border: 1px solid #0487d1;
+    color: #0487d1;
+}
+.btn-white {
+    color: @text-white-color;
+    
+    &:hover {
+        color: @text-white-color;
+    }
+}
+
 .header {
     .color {
         color: @text-color;
@@ -200,4 +218,181 @@ a {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.15);
     margin: 15px auto;
+}
+
+.swiper-slide {
+    &.cover {
+        background-position: center center;
+        background-size: cover;
+        height: 600px;
+    }
+    
+    .image {
+        width: 100%;
+    }
+    
+    .caption {
+        color: #fff;
+        left: 150px;
+        position: absolute;
+        top: 50px;
+        z-index: 10;
+        text-align: center;
+        
+        h3 {
+            line-height: 1.25;
+        }
+        
+        .ces-logo {
+            left: 0px;
+            position: absolute;
+            top: 0px;
+            z-index: 9;
+        }
+    }
+    
+    .caption-right {
+        color: #fff;
+        position: absolute;
+        right: 150px;
+        top: 150px;
+        width: 600px;
+        z-index: 10;
+    }
+}
+.swiper-pagination-bullet {
+    border-radius: 0;
+    width: 25px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.35) none repeat scroll 0 0;
+}
+.swiper-pagination-bullet-active {
+    background: rgba(255, 255, 255, 0.75) none repeat scroll 0 0;
+}
+
+.block-title {
+    padding: 10px 0 15px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 400;
+    
+    span {
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+    }
+    
+    &.white {
+        color: #fff;
+        
+        span {
+            border-color: #fff;
+        }
+    }
+    
+}
+.card {
+    border-radius: 0;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 0;
+    
+    .caption {
+        text-align: left;
+        
+        h3 {
+            font-size: 16px;
+            line-height: 1.25;
+            margin-top: 0;
+            height: 40px;
+        }
+        
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.block.news {
+    .btn-more {
+        padding: 10px 25px 6px;
+    }
+}
+
+.mideas {
+    margin-top: 30px;
+    .logo {
+        margin-bottom: 20px;
+        margin-right: 25px;
+    }
+}
+
+.block.products {
+    background-color: #333;
+    padding-bottom: 30px;
+    
+    .item {
+        margin-bottom: 6px;
+        padding-left: 3px;
+        padding-right: 3px;
+        
+        .photo {
+            width: 100%;
+        }
+    }
+}
+
+.block.about {
+    background: rgba(0, 0, 0, 0) url("/img/about-bg.png") repeat scroll center center;
+    line-height: 1.5;
+    padding: 20px 15px 50px;
+
+    &.white {
+        color: #fff;
+    }
+}
+
+.block.contact {
+    background: rgba(0, 0, 0, 0) url("/img/contact-bg.png") repeat scroll center center;
+    padding: 20px 15px 50px;
+}
+
+.social-buttons {
+    margin-top: 30px;
+    
+    a {
+        border-radius: 100px;
+        display: inline-block;
+        height: 42px;
+        text-indent: -1920px;
+        width: 42px;
+        overflow: hidden;
+        margin-right: 20px;
+        background: rgba(0, 0, 0, 0) url("/img/social/qq.png") no-repeat scroll center center;
+    }
+    
+    a.qq {
+        background-image: url("/img/social/qq.png");
+        
+        &:hover {
+            background-image: url("/img/social/qq_active.png");
+        }
+    }
+    
+    a.weibo {
+        background-image: url("/img/social/weibo.png");
+        
+        &:hover {
+            background-image: url("/img/social/weibo_active.png");
+        }
+    }
+    
+    a.wechat {
+        background-image: url("/img/social/wechat.png");
+        
+        &:hover {
+            background-image: url("/img/social/wechat_active.png");
+        }
+    }
+    
 }
