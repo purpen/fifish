@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="thumbnail card">
                 <a href="{{ $column->url }}" class="image" target="_blank">
-                    <img src="{{ $column->cover ? $column->cover->file->small : '' }}" alt="{{ $column->title }}">
+                    <img src="{{ $column->cover ? $column->cover->file->adpic : '' }}" alt="{{ $column->title }}">
                 </a>
                 <div class="info">
                     <h3>

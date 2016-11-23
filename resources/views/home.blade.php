@@ -69,7 +69,7 @@
             <div class="col-md-4">
                 <div class="thumbnail card">
                     <a href="{{ $column->url }}" target="_blank">
-                        <img src="{{ $column->cover ? $column->cover->file->small : '' }}" alt="{{ $column->title }}">
+                        <img src="{{ $column->cover ? $column->cover->file->adpic : '' }}" alt="{{ $column->title }}">
                     </a>
                     <div class="caption">
                         <h3>

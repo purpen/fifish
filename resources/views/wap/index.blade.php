@@ -76,7 +76,7 @@
                     <div class="swiper-slide">
                         <div class="thumbnail card">
                             <a href="{{ $column->url }}" class="image" target="_blank">
-                                <img src="{{ $column->cover ? $column->cover->file->small : '/img/news/feng.png' }}" alt="{{ $column->title }}">
+                                <img src="{{ $column->cover ? $column->cover->file->adpic : '/img/news/feng.png' }}" alt="{{ $column->title }}">
                             </a>
                             <div class="info">
                                 <h3>
