@@ -49,16 +49,16 @@
             <div class="swiper-container swiper-products">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img src="/img/m01.png">
+                        <img src="/img/m01.png" class="photo">
                     </div>
                     <div class="swiper-slide">
-                        <img src="/img/m02.png">
+                        <img src="/img/m02.png" class="photo">
                     </div>
                     <div class="swiper-slide">
-                        <img src="/img/m03.png">
+                        <img src="/img/m03.png" class="photo">
                     </div>
                     <div class="swiper-slide">
-                        <img src="/img/m04.png">
+                        <img src="/img/m04.png" class="photo">
                     </div>
                 </div>
             </div>

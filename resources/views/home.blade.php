@@ -3,7 +3,7 @@
 @section('jquery')
     var mySwiper = new Swiper('.swiper-container', {
         loop: true,
-        autoplay : 4500,
+
         pagination: '.swiper-pagination',
         paginationClickable: true
     });
@@ -15,7 +15,7 @@
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/top01.jpg') }} )">
             <div class="container caption">
                 <img src="/img/ceslogo.png" class="ces-logo">
-                <h3>Fifish P4 <br>荣获CES 2017创新大奖</h3>
+                <h3>Fifish P4 <br><span>荣获CES 2017创新大奖</span></h3>
                 <a href="" class="btn btn-white">
                     观看视频 <i class="icon-play-circle"></i>
                 </a>
@@ -23,7 +23,7 @@
         </div>
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/top02.jpg') }} )">
             <div class="container caption-right">
-                <h3>Fifish P4 <br>亮相布尔诺国际机械工业博览会</h3>
+                <h3>Fifish P4 <br><span>亮相布尔诺国际机械工业博览会</span></h3>
             </div>
         </div>
     </div>
@@ -104,6 +104,8 @@
                 <h2 class="block-title white">
                     <span>{{ trans('menu.aboutus') }}</span>
                 </h2>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
                 <p>{{ trans('aboutme.info') }}</p>
                 <p>{{ trans('aboutme.info2') }}</p>
             </div>

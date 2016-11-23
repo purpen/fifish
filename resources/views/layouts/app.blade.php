@@ -18,9 +18,6 @@
     @yield('partial_css')
     
     <style>
-        body {
-            font-family: 'Lato';
-        }
         .fa-btn {
             margin-right: 6px;
         }
@@ -62,7 +59,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/img/logo_fifish.png" />
+                    <img src="/img/fifish_logo.png" />
                 </a>
             </div>
 
@@ -76,8 +73,10 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
+                <!-- Authentication Links -->
+                <!--
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
+                    
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">登录</a></li>
                         <li><a href="{{ url('/register') }}">注册</a></li>
@@ -93,7 +92,7 @@
                             </ul>
                         </li>
                     @endif
-                </ul>
+                </ul-->
             </div>
         </div>
     </nav>

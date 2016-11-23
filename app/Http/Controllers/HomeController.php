@@ -39,9 +39,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        App::setLocale('en');
-        
+    {        
         // 获取媒体报道
         $space = ColumnSpace::where('name', 'page_media_news')->first();
         if ($space) {
