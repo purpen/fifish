@@ -73,7 +73,7 @@
                     </a>
                     <div class="caption">
                         <h3>
-                            <a href="" target="_blank">{{ $column->title }}</a>
+                            <a href="{{ $column->url }}" target="_blank">{{ $column->title }}</a>
                         </h3>
                         <p>
                             <span class="text-blue">{{ $column->sub_title }}</span>
