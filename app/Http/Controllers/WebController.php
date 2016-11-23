@@ -8,9 +8,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Models\Column;
+use App\Http\Models\ColumnSpace;
 
 class WebController extends Controller
 {
+    /**
+     * 媒体报道
+     */
+    public function news()
+    {
+        $columns = [];
+        
+        $space = ColumnSpace::where('name', 'page_media_news')->first();
+        if ($space) {
+            $columns = $space->columns()->orderBy('created_at', 'desc')->paginate(10);
+        }
+        
+        return view('web.news', [
+            'columns' => $columns
+        ]);
+    }
+    
     /**
      * 关于我们.
      *

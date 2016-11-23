@@ -56,10 +56,14 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="?lang=zh_cn"><img src="/img/zh_cn.png"> 中文</a>
+                            <a role="menuitem" tabindex="-1" href="/lang/zh_cn">
+                                <img src="/img/zh_cn.png"> 中文
+                            </a>
                         </li>
                         <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="?lang=en"><img src="/img/en.png"> English</a>
+                            <a role="menuitem" tabindex="-1" href="/lang/en">
+                                <img src="/img/en.png"> English
+                            </a>
                         </li>
                     </ul>
                 </div>

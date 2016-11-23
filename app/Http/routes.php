@@ -10,6 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+Route::get('/lang/{locale}', function ($locale) {
+    //App::setLocale($locale);
+    App::setLocale('en');
+    return redirect('/');
+});
+
 // 限定域名访问
 Route::group(array('domain' => env('APP_DOMAIN')), function(){
     Route::get('/', 'HomeController@index');
@@ -23,19 +30,20 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
     Route::post('/promo', 'HomeController@promo');
 
     Route::get('/avatar', 'HomeController@avatar');
-
+    
+    Route::get('/news', 'WebController@news');
+    /**
+     * 静态文件
+     */
+    Route::get('/aboutus', 'WebController@aboutUs');
+    Route::get('/contact', 'WebController@contact');
+    
     /**
      * 测试
      */
     Route::get('/test', 'TestController@index');
     Route::get('/test/search', 'TestController@search');
     Route::get('/test/del_search', 'TestController@delSearch');
-
-    /**
-     * 静态文件
-     */
-    Route::get('/aboutus', 'WebController@aboutUs');
-    Route::get('/contact', 'WebController@contact');
 
     /**
      * 后台管理的路由组

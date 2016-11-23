@@ -15,6 +15,7 @@ use App\Http\Utils\ImageUtil;
 use App\Http\Models\User;
 use App\Jobs\SendReminderEmail;
 
+use App;
 use Redis;
 use App\Http\Models\Asset;
 use App\Http\Models\Column;
@@ -39,6 +40,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        App::setLocale('en');
+        
         // 获取媒体报道
         $space = ColumnSpace::where('name', 'page_media_news')->first();
         if ($space) {
