@@ -68,8 +68,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">首页</a></li>
                     <li><a href="{{ url('/home') }}">产品</a></li>
-                    <li><a href="{{ url('/home') }}">服务与支持</a></li>
-                    <li><a href="{{ url('/home') }}">APP下载</a></li>
+                    <li><a href="{{ url('/aboutus') }}">关于我们</a></li>
+                    <li><a href="{{ url('/contact') }}">联系我们</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

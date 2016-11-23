@@ -1,9 +1,10 @@
 @extends('layouts.wap')
 
 @section('jquery')
+    var video = document.getElementById('fifish-v1');
     var mySwiper = new Swiper('.swiper-adv', {
         loop: true,
-
+        autoplay: 3000,
         pagination: '.swiper-pagination',
         paginationClickable: true
     });
@@ -15,6 +16,13 @@
         slidesPerView: 'auto',
         spaceBetween: 30
     });
+    
+    $('#video-box').on('hide.bs.modal', function(e){
+        mySwiper.startAutoplay();
+        video.pause();
+    }).on('show.bs.modal', function(e){
+        mySwiper.stopAutoplay();
+    });
 @endsection
 
 @section('content')
@@ -24,7 +32,7 @@
             <div class="container caption">
                 <img src="/img/ceslogo.png" class="ces-logo">
                 <h3>Fifish P4 <br><span>荣获CES 2017创新大奖</span></h3>
-                <a href="" class="btn btn-white">
+                <a href="javascript:void(0);" class="btn btn-white btn-play" data-toggle="modal" data-target="#video-box">
                     观看视频 <i class="icon-play-circle"></i>
                 </a>
             </div>
@@ -125,9 +133,27 @@
             <p>{{ trans('menu.address') }}：{{ trans('menu.addinfo') }}</p>
             
             <div class="social-buttons">
-                
+                <a href="" class="qq">QQ</a>
+                <a href="" class="weibo">微博</a>
+                <a href="" class="wechat">微信</a>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="video-box">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <video id="fifish-v1" controls="controls" webkit-playsinline>
+                <source src="http://oe5tkubcj.bkt.clouddn.com/Fifish_final_2000kbps_720p.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
 @endsection
