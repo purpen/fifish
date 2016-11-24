@@ -11,7 +11,7 @@
             </a>
             <div class="info">
                 <h3>
-                    <a href="{{ $column->url }}" target="_blank">{{ $column->title }}</a>
+                    <a href="{{ $column->url }}" target="_blank">{{ str_limit($column->title, 56) }}</a>
                 </h3>
                 <p>
                     <span class="text-blue">{{ $column->sub_title }}</span>
