@@ -10,7 +10,7 @@ return [
     */
     'home' => 'Home',
     'product' => 'Products',
-    'media' => 'Media coverage',
+    'media' => 'News',
     'productshow' => 'Products',
     'news' => 'News',
     'aboutus' => 'Who We Are',
