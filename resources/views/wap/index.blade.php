@@ -4,13 +4,13 @@
     var video = document.getElementById('fifish-v1');
     var mySwiper = new Swiper('.swiper-adv', {
         loop: true,
-        //autoplay: 3000,
+        autoplay: 3000,
         pagination: '.swiper-pagination',
         paginationClickable: true
     });
     var proSwiper = new Swiper('.swiper-products', {
         slidesPerView: 'auto',
-        spaceBetween: 50
+        spaceBetween: 30
     });
     var newSwiper = new Swiper('.swiper-news', {
         slidesPerView: 'auto',
