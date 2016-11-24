@@ -122,7 +122,8 @@
             $(".lang-choose").select2({
                 minimumResultsForSearch: Infinity,
                 templateResult: formatState,
-                templateSelection: formatState
+                templateSelection: formatState,
+                width: 110
             }).on('change', function (evt) {
                 var lang = $(this).val();
                 window.location.href = '/lang/'+lang;
