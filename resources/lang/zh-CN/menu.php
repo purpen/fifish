@@ -9,6 +9,8 @@ return [
     |
     */
     'home' => '首页',
+    'product' => '产品',
+    'media' => '媒体报道',
     'productshow' => '产品展示',
     'news' => '媒体报道',
     'aboutus' => '关于我们',

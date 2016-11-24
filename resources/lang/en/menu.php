@@ -9,6 +9,8 @@ return [
     |
     */
     'home' => 'Home',
+    'product' => 'Products',
+    'media' => 'Media coverage',
     'productshow' => 'Products',
     'news' => 'News',
     'aboutus' => 'Who We Are',

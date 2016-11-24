@@ -67,7 +67,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">{{ trans('menu.home') }}</a></li>
-                    <li><a href="{{ url('/home') }}">{{ trans('menu.productshow') }}</a></li>
+                    <li><a href="{{ url('/home') }}">{{ trans('menu.product') }}</a></li>
+                    <li><a href="{{ url('/news') }}">{{ trans('menu.media') }}</a></li>
                     <li><a href="{{ url('/aboutus') }}">{{ trans('menu.aboutus') }}</a></li>
                     <li><a href="{{ url('/contact') }}">{{ trans('menu.contactus') }}</a></li>
                 </ul>
