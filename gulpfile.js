@@ -52,6 +52,7 @@ elixir(function(mix) {
        'dataTables.bootstrap.css',
        'select2.css',
        'swiper-3.4.0.min.css',
+       'jquery.dropdown.css',
    ], 'public/css/bootstrap.plugins.min.css');
 });
 
@@ -66,7 +67,8 @@ elixir(function(mix) {
         'select2.full.js',
         'jquery.form.js',
         'jquery.fineuploader-3.5.0.js',
-        'swiper-3.4.0.jquery.min.js'
+        'swiper-3.4.0.jquery.min.js',
+        'jquery.dropdown.js',
     ], 'public/js/jquery.plugins.min.js');
     mix.scripts(['app.js'], 'public/js/app.js');
 });

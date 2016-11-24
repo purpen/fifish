@@ -31,15 +31,15 @@
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/topm01.png') }} )">
             <div class="container caption">
                 <img src="/img/ceslogo.png" class="ces-logo">
-                <h3>Fifish P4 <br><span>荣获CES 2017创新大奖</span></h3>
+                <h3>Fifish P4 <br><span>{{ trans('menu.event_ces') }}</span></h3>
                 <a href="javascript:void(0);" class="btn btn-white btn-play" data-toggle="modal" data-target="#video-box">
-                    观看视频 <i class="icon-play-circle"></i>
+                    {{ trans('menu.watch') }} <small><i class="glyphicon glyphicon-play-circle"></i></small>
                 </a>
             </div>
         </div>
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/topm02.png') }} )">
             <div class="container caption-right">
-                <h3>Fifish P4 <br><span>亮相布尔诺国际机械工业博览会</span></h3>
+                <h3>Fifish P4 <br><span>{{ trans('menu.event_fair') }}</span></h3>
             </div>
         </div>
     </div>

@@ -46,3 +46,4 @@ fifish.in_array = function(arr, val) {
     }
     return -1;
 }; // 返回-1表示没找到，返回其他值表示找到的索引
+

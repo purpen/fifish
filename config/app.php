@@ -88,8 +88,21 @@ return [
     |
     */
 
-    'locale' => 'zh-CN', //zh-CN
+    'locale' => getenv('locale') ?: 'en',
 
+	/*
+	|--------------------------------------------------------------------------
+	| Application available Languages
+	|--------------------------------------------------------------------------
+	|
+	| A list of available languages defined from their ISO Language Codes codes, see more: http://www.w3schools.com/tags/ref_language_codes.asp.
+	| If the code isn't in the list, HomeController@language is set from fallback_locale value.
+	! To set new language, pelase create a folder in /resources/lang/{ISO-CODE}, create a flag image in public/img/{ISO-CODE}-flang.png
+	! and at least, add the ISO code in languages array.
+	*/
+
+	'languages' => ['en', 'zh-CN'],	
+    
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -101,7 +114,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------

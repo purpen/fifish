@@ -66,10 +66,10 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">首页</a></li>
-                    <li><a href="{{ url('/home') }}">产品</a></li>
-                    <li><a href="{{ url('/aboutus') }}">关于我们</a></li>
-                    <li><a href="{{ url('/contact') }}">联系我们</a></li>
+                    <li><a href="{{ url('/home') }}">{{ trans('menu.home') }}</a></li>
+                    <li><a href="{{ url('/home') }}">{{ trans('menu.productshow') }}</a></li>
+                    <li><a href="{{ url('/aboutus') }}">{{ trans('menu.aboutus') }}</a></li>
+                    <li><a href="{{ url('/contact') }}">{{ trans('menu.contactus') }}</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -78,7 +78,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">登录</a></li>
+                        <li><a href="{{ url('/login') }}">登录</a></$('.selectpicker').selectpicker('selectAll');li>
                         <li><a href="{{ url('/register') }}">注册</a></li>
                     @else
                         <li class="dropdown">
@@ -109,6 +109,24 @@
     <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function(){
+            
+            function formatState (state) {
+              if (!state.id) { return state.text; }
+              var $state = $(
+                '<span><img src="/img/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+              );
+              return $state;
+            };
+
+            $(".lang-choose").select2({
+                minimumResultsForSearch: Infinity,
+                templateResult: formatState,
+                templateSelection: formatState
+            }).on('change', function (evt) {
+                var lang = $(this).val();
+                window.location.href = '/lang/'+lang;
+            });
+            
             @yield('jquery')
         });
     </script>

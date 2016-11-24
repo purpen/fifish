@@ -10,19 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/lang/{locale}', function ($locale) {
-    //App::setLocale($locale);
-    App::setLocale('en');
-    return redirect('/');
-});
-
 // 限定域名访问
-Route::group(array('domain' => env('APP_DOMAIN')), function(){
+Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(){
     Route::get('/', 'HomeController@index');
-
-    Route::auth();
-
+    // 设置语言
+    Route::get('lang/{lang}', 'HomeController@lang')->where('lang', '[A-Za-z_-]+');
+    
     Route::get('/home', 'HomeController@index');
 
     Route::get('/job', 'HomeController@job');
@@ -65,10 +58,12 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
     });
 });
 
+Route::auth();
+
 /**
  * 移动端路由
  */
-Route::group(array('domain' => env('APP_MINI_DOMAIN')), function(){
+Route::group(['middleware' => ['web'], 'domain' => env('APP_MINI_DOMAIN')], function(){
     Route::get('/', 'WapController@index');
     Route::get('/index', 'WapController@index');
     Route::get('/news', 'WapController@news');
