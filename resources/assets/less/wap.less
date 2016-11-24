@@ -35,13 +35,17 @@
         color: #ddd;
         text-align: center;
         padding: 10px 0;
+        
+        .lang {
+            line-height: 40px;
+        }
     }
     
     .swiper-slide {
         &.cover {
             background-position: center center;
             background-size: cover;
-            height: 400px;
+            height: 300px;
         }
     
         .image {
@@ -55,7 +59,8 @@
         
             h3 {
                 line-height: 1.25;
-                font-size: 32px;
+                font-size: 28px;
+                margin-top: 30px;
                 
                 span {
                     font-size: 36px;
@@ -67,24 +72,6 @@
                 position: absolute;
                 top: 20px;
                 z-index: 9;
-            }
-        }
-    
-        .caption-right {
-            color: #fff;
-            position: absolute;
-            right: 0;
-            top: 100px;
-            width: 420px;
-            z-index: 10;
-            
-            h3 {
-                line-height: 1.25;
-                font-size: 32px;
-                
-                span {
-                    font-size: 36px;
-                }
             }
         }
         
@@ -122,7 +109,7 @@
 
     .block-news {
         overflow: hidden;
-        margin: 30px auto;
+        margin: 0px auto 30px;
         
         .card {
             margin: 0 0 30px;

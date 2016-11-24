@@ -4,7 +4,7 @@
     var video = document.getElementById('fifish-v1');
     var mySwiper = new Swiper('.swiper-adv', {
         loop: true,
-        autoplay: 3000,
+        //autoplay: 3000,
         pagination: '.swiper-pagination',
         paginationClickable: true
     });
@@ -30,7 +30,7 @@
     <div class="swiper-wrapper">
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/topm01.png') }} )">
             <div class="container caption">
-                <img src="/img/ceslogo.png" class="ces-logo">
+                <img src="/img/ceslogox40.png" class="ces-logo">
                 <h3>Fifish P4 <br><span>{{ trans('menu.event_ces') }}</span></h3>
                 <a href="javascript:void(0);" class="btn btn-white btn-play" data-toggle="modal" data-target="#video-box">
                     {{ trans('menu.watch') }} <small><i class="glyphicon glyphicon-play-circle"></i></small>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/topm02.png') }} )">
-            <div class="container caption-right">
+            <div class="container caption">
                 <h3>Fifish P4 <br><span>{{ trans('menu.event_fair') }}</span></h3>
             </div>
         </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             
-            <a href="{{ url('/news') }}" class="btn btn-blue btn-more">查看更多</a>   
+            <a href="{{ url('/news') }}" class="btn btn-blue btn-more">{{ trans('menu.more') }}</a>   
             
             <div class="mideas mt-2r">
                 <img src="/img/media/36kr.png" class="logo">

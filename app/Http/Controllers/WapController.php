@@ -12,6 +12,8 @@ use App\Http\Requests;
 use App\Http\Models\Column;
 use App\Http\Models\ColumnSpace;
 
+use App\Jobs\ChangeLocale;
+
 class WapController extends Controller
 {
     /**
@@ -59,6 +61,20 @@ class WapController extends Controller
         return view('wap.news', [
             'columns' => $columns
         ]);
+    }
+    
+    /**
+     * 语言设置
+     */
+    public function lang($lang, ChangeLocale $changeLocale)
+    {
+		$lang = in_array($lang, config('app.languages')) ? $lang : config('app.fallback_locale');
+        
+		$changeLocale->lang = $lang;
+        
+		$this->dispatch($changeLocale);
+
+		return redirect()->back();
     }
     
 }

@@ -56,8 +56,11 @@ p {
 .navbar-black {
     background-color: rgba(0, 0, 0, 1.0);
     margin-bottom: 0px;
+    padding: 5px 0;
     
     .navbar-nav {
+        margin: 0 0 0 20px;
+        
         a {        
             color: #999;
             text-shadow: none;
@@ -138,8 +141,11 @@ p {
     background: rgba(0, 0, 0, 0) url("/img/story_about.jpg") repeat scroll center center;
     
     h4 {
-        padding-top: 260px;
+        padding-top: 220px;
         color: @text-white-color;
+        font-size: 36px;
+        font-weight: 100;
+        margin-bottom: 30px;
     }
 }
 
@@ -148,6 +154,8 @@ p {
 }
 
 .aboutus {
+    min-height: 300px;
+    
     p {
         margin: 20px auto 0;
         line-height: 2;
@@ -155,6 +163,8 @@ p {
 }
 
 .contact {
+    min-height: 300px;
+    
     p {
         margin: 20px auto 0;
         line-height: 2;
@@ -215,7 +225,7 @@ p {
     } 
 }
 
-.select2-container {
+.footer .select2-container {
     float: right;
 }
 .select2-dropdown {
@@ -279,7 +289,7 @@ p {
         .ces-logo {
             left: 15px;
             position: absolute;
-            top: 35px;
+            top: 45px;
             z-index: 9;
         }
     }

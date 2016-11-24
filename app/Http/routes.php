@@ -67,6 +67,9 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_MINI_DOMAIN')], func
     Route::get('/', 'WapController@index');
     Route::get('/index', 'WapController@index');
     Route::get('/news', 'WapController@news');
+    
+    // 设置语言
+    Route::get('lang/{lang}', 'WapController@lang')->where('lang', '[A-Za-z_-]+');
 });
 
 /**

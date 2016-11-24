@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Fifish</title>
+        <title>Fifish P4</title>
         <!-- Styles -->
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
@@ -29,6 +29,24 @@
         <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
         <script type="text/javascript">
             $(function(){
+                function formatState (state) {
+                  if (!state.id) { return state.text; }
+                  var $state = $(
+                    '<span><img src="/img/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+                  );
+                  return $state;
+                };
+
+                $(".lang-choose").select2({
+                    minimumResultsForSearch: Infinity,
+                    templateResult: formatState,
+                    templateSelection: formatState,
+                    width: 110
+                }).on('change', function (evt) {
+                    var lang = $(this).val();
+                    window.location.href = '/lang/'+lang;
+                });
+                
                 @yield('jquery')
             });
         </script>
