@@ -52,7 +52,7 @@ class XSUtil
             $index = $xs->index; // 获取 索引对象
             
             // 创建文档对象
-            $doc = new XSDocument;
+            $doc = new \XSDocument;
             $doc->setFields($data);
 
             // 更新到索引数据库中
@@ -158,7 +158,12 @@ class XSUtil
                 $search->addWeight('title', $str); // 增加附加条件：提升标题中包含 关键字 的记录的权重       
             }
             
+            print $str_f;
+            //dd($search->search('测试'));
+            
             $search->setQuery($str_f); // 设置搜索语句
+            
+            echo $search->getQuery();
 
             // 排序
             if (!empty($sort)) {

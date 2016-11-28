@@ -19,12 +19,11 @@ use App\Http\Transformers\CommentTransformer;
 use App\Http\Transformers\LikeTransformer;
 
 use App\Jobs\StatTagCount;
+use App\Jobs\XSBuildIndex;
 
 use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
 use App\Exceptions as ApiExceptions;
-
-use App\Http\Utils\XSUtil;
 
 class StuffController extends BaseController
 {   
@@ -313,24 +312,8 @@ class StuffController extends BaseController
         }
         
         // 添加至全文索引
-        $data = array(
-          'pid' => $stuff->id,
-          'oid' => $stuff->id,
-          'kind' => 1,
-          'cid' => 0,
-          'tid' => 0,
-          'user_id' => $stuff->user_id,
-          'user_name' => $stuff->user->username,
-          'title' => $somedata['content'],
-          'content' => $somedata['content'],
-          'body' => $somedata['content'],
-          'tags' => '',
-          'cover_id' => 0,
-          'created_on' => 0,
-          'updated_on' => 0,
-        );
-        
-        XSUtil::add($data);
+        $idx_job = (new XSBuildIndex($stuff->id, 'Stuff', 'Add'))->onQueue('indexes');
+        $this->dispatch($idx_job); 
         
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
     }
@@ -368,11 +351,15 @@ class StuffController extends BaseController
             return $this->response->array(ApiHelper::error('更新失败!', 501));
         }
         
+        // 更新全文索引
+        $idx_job = (new XSBuildIndex($id, 'Stuff', 'Update'))->onQueue('indexes');
+        $this->dispatch($idx_job);
+        
         return $this->response->array(ApiHelper::success());
     }
     
     /**
-     * @api {post} /stuffs/:id/destory 删除分享信息
+     * @api {post} /stuffs/:id/destroy 删除分享信息
      * @apiVersion 1.0.0
      * @apiName stuff destory 
      * @apiGroup Stuff
@@ -387,7 +374,7 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function destory($id)
+    public function destroy($id)
     {
         $stuff = Stuff::find($id);
         if (!$stuff) {
@@ -401,6 +388,10 @@ class StuffController extends BaseController
         
         // 执行删除操作
         $res = $stuff->delete();
+        
+        // 从全文索引里删除
+        $idx_job = (new XSBuildIndex($id, 'Stuff', 'Delete'))->onQueue('indexes');
+        $this->dispatch($idx_job);
         
         return $this->response->array(ApiHelper::success());
     }
