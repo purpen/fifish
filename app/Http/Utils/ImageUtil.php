@@ -145,7 +145,7 @@ class ImageUtil
     {
         // 获取配置参数
         $config = Config::get('filesystems.disks.qiniu'); 
-        $domain = $config['domains']['custom'];
+        $domain = $config['domains']['https'];
         
 		$asset_url = $domain.'/'.$key;
 		if (!is_null($style)){

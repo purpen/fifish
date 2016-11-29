@@ -66,9 +66,9 @@ return [
             'driver'  => 'qiniu',
             'upload_url' => 'https://up-z2.qbox.me',
             'domains' => [
-                'default'   => 'oe5tkubcj.bkt.clouddn.com', // 你的七牛域名
-                'https'     => 'fs.qysea.com',         // 你的HTTPS域名
-                'custom'    => 'http://oe5tkubcj.bkt.clouddn.com',         // 你的自定义域名
+                'default'   => 'http://oe5tkubcj.bkt.clouddn.com', // 你的七牛域名
+                'https'     => 'https://s3.qysea.com',         // 你的HTTPS域名
+                'custom'    => 'https://s3.qysea.com',         // 你的自定义域名
              ],
             'access_key'=> 'x9Ys5weZ-B6-qKywyX2N34bhFIT3XQLpxz0g9vZU',  //AccessKey
             'secret_key'=> 'BqjfA2zx5JgxAS2N5NKH6kAvPsr3NnD4pY84j2Fm',  //SecretKey
