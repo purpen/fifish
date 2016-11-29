@@ -19,7 +19,6 @@ use App\Http\Transformers\CommentTransformer;
 use App\Http\Transformers\LikeTransformer;
 
 use App\Jobs\StatTagCount;
-use App\Jobs\XSBuildIndex;
 
 use App\Http\ApiHelper;
 use App\Http\Utils\ImageUtil;
@@ -313,10 +312,6 @@ class StuffController extends BaseController
             }
         }
         
-        // 添加至全文索引
-        $idx_job = (new XSBuildIndex($stuff->id, 'Stuff', 'Add'))->onQueue('indexes');
-        $this->dispatch($idx_job); 
-        
         return $this->response->item($stuff, new StuffTransformer())->setMeta(ApiHelper::meta());
     }
     
@@ -353,10 +348,6 @@ class StuffController extends BaseController
             return $this->response->array(ApiHelper::error('更新失败!', 501));
         }
         
-        // 更新全文索引
-        $idx_job = (new XSBuildIndex($id, 'Stuff', 'Update'))->onQueue('indexes');
-        $this->dispatch($idx_job);
-        
         return $this->response->array(ApiHelper::success());
     }
     
@@ -390,10 +381,6 @@ class StuffController extends BaseController
         
         // 执行删除操作
         $res = $stuff->delete();
-        
-        // 从全文索引里删除
-        $idx_job = (new XSBuildIndex($id, 'Stuff', 'Delete'))->onQueue('indexes');
-        $this->dispatch($idx_job);
         
         return $this->response->array(ApiHelper::success());
     }

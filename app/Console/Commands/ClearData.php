@@ -8,6 +8,7 @@ namespace App\Console\Commands;
 
 use DB;
 use Illuminate\Console\Command;
+use App\Http\Utils\XSUtil;
 
 class ClearData extends Command
 {
@@ -53,10 +54,27 @@ class ClearData extends Command
             DB::table('follow')->delete();
             DB::table('likes')->delete();
             DB::table('reminds')->delete();
-            DB::table('stuffs')->delete();
             DB::table('taggables')->delete();
             DB::table('tags')->delete();
-            DB::table('users')->delete();
+            
+            // 清空分享作品
+            $stuffs = DB::table('stuffs')->lists('id')->get();
+            foreach ($stuffs as $stuff) {
+                // 同步删除全文索引
+                XSUtil::delIds('Stuff_'.$stuff->id);
+                
+                DB::table('stuffs')->where('id', $stuff->id)->delete();
+            }
+            
+            // 清空用户
+            $users = DB::table('users')->lists('id')->get();
+            foreach ($users as $user) {
+                // 同步删除全文索引
+                XSUtil::delIds('User_'.$user->id);
+                
+                DB::table('users')->where('id', $user->id)->delete();
+            }
+            
         });
         
         $this->info('Clear data is ok!!!');
