@@ -9,10 +9,6 @@
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
         <style type="text/css">
-            #app-layout {
-                max-width: 720px;
-                margin: 0 auto;
-            }
             #app-layout .container-fluid {
                 padding-right: 0;
                 padding-left: 0;
