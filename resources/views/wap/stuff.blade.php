@@ -84,13 +84,7 @@
     </div>
     <div class="row stuff-list">   
         <h4>大家都在玩</h4>
-        @foreach ($relate_stuffs as $stf)
-        <div class="col-xs-3 stuff">
-            <a href="{{ url('/stuff')}}/{{ $stf->id }}.html" >
-               <img src="{{ $stf->cover ? $stf->cover->file->thumb : '' }}" alt="{{ $stf->title }}"> 
-            </a>
-        </div>
-        @endforeach        
+          
     </div>
 </div>
 @endsection
