@@ -64,7 +64,7 @@
             
             <div class="box">
                 <div class="image">
-                    @if ($stuff->kind == 1)
+                    @if ($stuff->kind == 2)
                     <video id="FiVideo" controls="" preload="auto" autoplay="autoplay" src="{{ $stuff->cover ? $stuff->cover->file->srcfile : '' }}" poster="{{ $stuff->cover ? $stuff->cover->file->large : '' }}">
                     </video>
                     @else
