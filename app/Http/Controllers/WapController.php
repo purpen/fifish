@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Http\Models\Stuff;
 use App\Http\Models\Column;
 use App\Http\Models\ColumnSpace;
 
@@ -64,6 +65,23 @@ class WapController extends Controller
     }
     
     /**
+     * H5显示分享Url
+     */
+    public function stuff(Request $request, $id)
+    {
+        $stuff = Stuff::find($id);
+        
+        // 推荐相关的
+        $relate_stuffs = Stuff::featured()->orderBy(\DB::raw('RAND()'))->take(12)->get();
+        
+        return view('wap.stuff',[
+            'stuff' => $stuff,
+            'relate_stuffs' => $relate_stuffs,
+        ]);
+    }
+    
+    
+    /**
      * 语言设置
      */
     public function lang($lang, ChangeLocale $changeLocale)
@@ -76,5 +94,6 @@ class WapController extends Controller
 
 		return redirect()->back();
     }
+    
     
 }

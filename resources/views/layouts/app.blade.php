@@ -17,7 +17,7 @@
     
     @yield('partial_css')
     
-    <style>
+    <style type="text/css">
         .fa-btn {
             margin-right: 6px;
         }

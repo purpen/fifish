@@ -23,4 +23,6 @@ class H5Controller extends BaseController
     {
         return view('h5.about');
     }
+    
+    
 }

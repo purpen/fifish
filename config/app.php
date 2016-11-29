@@ -62,7 +62,7 @@ return [
     |
     */
 
-    'static_url' => env('APP_STATIC_URL', 'http://s3.qysea.com'),
+    'static_url' => env('APP_STATIC_URL', 'https://s3.qysea.com'),
     
     /*
     |--------------------------------------------------------------------------

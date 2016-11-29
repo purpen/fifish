@@ -11,7 +11,7 @@
         <link href="{{ asset('css/bootstrap.plugins.min.css') }}" rel="stylesheet"> 
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
         <link href="{{ elixir('css/wap.css') }}" rel="stylesheet">
-        <style>
+        <style type="text/css">
             @yield('customize_css')
         </style>
     </head>

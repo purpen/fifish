@@ -70,6 +70,10 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_MINI_DOMAIN')], func
     
     // 设置语言
     Route::get('lang/{lang}', 'WapController@lang')->where('lang', '[A-Za-z_-]+');
+    
+    // h5显示
+    Route::get('/stuff/{id}.html', 'WapController@stuff');
+    
 });
 
 /**

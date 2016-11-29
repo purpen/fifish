@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Stuff extends Model
 {    
@@ -115,6 +116,23 @@ class Stuff extends Model
         return Asset::find($value);
     }
     
+    /**
+     * 修改时间格式
+     *   **距离现在时间**      **显示格式**
+     *    < 1小时                xx分钟前
+     *    1小时-24小时            xx小时前 
+     *    1天-10天               xx天前
+     *    >7天                  直接显示日期
+     */
+    public function getCreatedAtAttribute($date)
+    {
+        if (Carbon::now() > Carbon::parse($date)->addDays(7)) {
+            return Carbon::parse($date);
+        }
+        
+        return Carbon::parse($date)->diffForHumans();
+    }
+        
     /**
      * 范围：获取精选列表
      */

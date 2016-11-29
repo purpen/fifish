@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Carbon\Carbon::setLocale('zh');
+        
         // 定义多态对照表
         Relation::morphMap([
             'Stuff' => \App\Http\Models\Stuff::class,
