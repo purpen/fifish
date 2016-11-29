@@ -35,7 +35,9 @@ class CommentObserver
      */
     public function deleted ($comment)
     {
-        return $comment->stuff()->decrement('comment_count');
+        if ($comment->stuff()->comment_count > 0) {
+            return $comment->stuff()->decrement('comment_count');
+        }
     }
     
 }

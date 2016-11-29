@@ -34,7 +34,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'content', 'kind', 'address', 'city', 'lat', 'lng'];
+    protected $fillable = ['user_id', 'content', 'kind', 'address', 'city', 'lat', 'lng', 'view_count'];
     
     /**
      * 不能被批量赋值的属性

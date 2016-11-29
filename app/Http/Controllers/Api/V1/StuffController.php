@@ -267,6 +267,8 @@ class StuffController extends BaseController
         // 完善数据
         $somedata = $request->all();
         $somedata['user_id'] = $this->auth_user_id;
+        // 添加默认值
+        $somedata['view_count'] = 1;
         
         // 保存数据
         $stuff = new Stuff();

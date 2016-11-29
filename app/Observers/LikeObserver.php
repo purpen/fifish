@@ -35,7 +35,9 @@ class LikeObserver
      */
     public function deleted ($like)
     {
-        return $like->likeable()->decrement('like_count');
+        if ($like->likeable()->like_count > 0) {
+            return $like->likeable()->decrement('like_count');
+        }
     }
     
 }

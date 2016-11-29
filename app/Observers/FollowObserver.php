@@ -18,8 +18,13 @@ class FollowObserver
      */
     public function deleted ($follow)
     {
-        $follow->user()->decrement('follow_count');
-        $follow->follower()->decrement('fans_count');
+        if ($follow->user()->follow_count > 0) {
+            $follow->user()->decrement('follow_count');
+        }
+        
+        if ($follow->follower()->fans_count > 0) {
+            $follow->follower()->decrement('fans_count');
+        }
     }
     
 }
