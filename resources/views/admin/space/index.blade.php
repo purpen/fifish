@@ -24,7 +24,7 @@
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
                     <div class="box-tools">
-                        <a href="{{ url('/admin/columnspaces/create') }}" class="btn btn-default">新增</a>
+                        <a href="{{ url('/admin/columnspaces/create') }}" class="btn btn-link">+新增</a>
                     </div>
                 </div>
                 <div class="box-body">

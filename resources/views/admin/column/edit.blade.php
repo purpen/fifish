@@ -11,7 +11,7 @@
 @endsection
 
 @section('jquery')
-    // 实例化一个plupload上传对象    
+    //实例化一个plupload上传对象    
     var uploader = new plupload.Uploader({
         browse_button : 'uploader', //触发文件选择对话框的按钮，为那个元素id
         url : '{{ $upload_url }}', //服务器端的上传页面地址
@@ -45,7 +45,7 @@
         console.info(resultObj.file.small);
         
         $('#uploader-result').html('<div class="asset"><img src="'+resultObj.file.small+'"></div>');
-        $('#asset_id').val(resultObj.id);
+        $('#cover_id').val(resultObj.id);
     });
     
 @endsection
@@ -53,7 +53,8 @@
 @section('content')
 <div class="content-header">
     <h1>
-        标签管理
+        栏目管理
+        <small>照片、视频</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -62,7 +63,7 @@
                 控制台
             </a>
         </li>
-        <li class="active">标签管理</li>
+        <li class="active">栏目推荐管理</li>
     </ol>
 </div>
 
@@ -71,24 +72,56 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">全部列表</h3>
+                    <h3 class="box-title">编辑栏目</h3>
                 </div>
                 <div class="box-body">
-                    @include('block/errors')
-                    <form action="{{ url('/admin/tags') }}" method="post" id="imgForm" class="form-horizontal" role="form">                             {{ csrf_field() }}
-                        <input type="hidden" name="asset_id" id="asset_id" >
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    
+                    <form action="{{ url('/admin/columns') }}/{{ $column->id }}" method="post" id="imgForm" class="form-horizontal" role="form">
+                        {{ csrf_field() }}     
+                        <input type="hidden" name="cover_id" id="cover_id" >
+                        {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">标签名称</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name="name">
+                            <label for="column_space_id" class="col-sm-2 control-label">所属位置*</label>
+                            <div class="col-sm-4">
+                                <select name="column_space_id" class="form-control select2">
+                                    @foreach ($spaces as $space)
+                                        @if ($space->id == $column->column_space_id)
+                                        <option value="{{ $space->id }}" selected>{{ $space->summary }}</option>
+                                        @else
+                                        <option value="{{ $space->id }}">{{ $space->summary }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="display_name" class="col-sm-2 control-label">显示名称</label>
+                            <label for="title" class="col-sm-2 control-label">标题*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="display_name">
+                                <input type="text" name="title" class="form-control" value="{{ $column->title }}">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="sub_title" class="col-sm-2 control-label">副标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="sub_title" class="form-control" value="{{ $column->sub_title }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="url" class="col-sm-2 control-label">目标链接*</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="url" class="form-control" value="{{ $column->url }}">
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label class="col-sm-2 control-label">选择图片*</label>
                             <div class="col-sm-10">
@@ -100,16 +133,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="same_words" class="col-sm-2 control-label">相关标签</label>
+                            <label for="summary" class="col-sm-2 control-label">栏目说明</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="same_words">
-                                <span class="descirption">标签之间使用,隔开</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">标签说明</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control" name="summary" value="{{  $column->summary }}">{!! $column->summary !!}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -125,4 +151,3 @@
     </div>
 </div>
 @endsection
-

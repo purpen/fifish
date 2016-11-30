@@ -100,6 +100,19 @@
                                                 <form action="/admin/stuffs/{{ $stuff->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
+                                                    <a href="/admin/stuffs/{{ $stuff->id}}/edit" class="btn btn-sm btn-default">编辑</a>
+
+                                                    @if ($stuff->sticked == 1)
+                                                        <a href="/admin/stuffs/{{ $stuff->id}}/unstick" class="btn btn-sm btn-success">取消推荐</a>
+                                                    @else
+                                                        <a href="/admin/stuffs/{{ $stuff->id}}/stick" class="btn btn-sm btn-success">推荐</a>
+                                                    @endif
+
+                                                    @if ($stuff->featured == 1)
+                                                        <a href="/admin/stuffs/{{ $stuff->id}}/unfeatur" class="btn btn-sm btn-primary">取消精选</a>
+                                                    @else
+                                                        <a href="/admin/stuffs/{{ $stuff->id}}/featur" class="btn btn-sm btn-primary">精选</a>
+                                                    @endif
 
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除

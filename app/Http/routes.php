@@ -55,6 +55,11 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
         
         Route::resource('tags/{id}/stick', 'TagController@stick');
         Route::resource('tags/{id}/unstick', 'TagController@unstick');
+
+        Route::resource('stuffs/{id}/stick', 'StuffController@stick');
+        Route::resource('stuffs/{id}/unstick', 'StuffController@unstick');
+        Route::resource('stuffs/{id}/featur', 'StuffController@featur');
+        Route::resource('stuffs/{id}/unfeatur', 'StuffController@unfeatur');
     });
 });
 

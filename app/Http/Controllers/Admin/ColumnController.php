@@ -88,23 +88,47 @@ class ColumnController extends Controller
     }
     
     /**
-     * 附件编辑
+     * 栏目编辑
      */
     public function edit(Request $request, $id)
     {
-        
+        $column = Column::findorfail($id);
+        $spaces = ColumnSpace::opened()->orderBy('created_at', 'desc')->get();
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Column', \Auth::user()->id);
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        return view('admin.column.edit', [
+            'column' => $column,
+            'spaces' => $spaces,
+            'token' => $token,
+            'upload_url' => $upload_url
+        ]);
     }
     
     /**
-     * 附件更新
+     * 栏目更新
      */
     public function update(Request $request, $id)
     {
-        
+        $somedata = $request->only([
+            'column_space_id', 'title', 'sub_title', 'url' , 'summary'
+        ]);
+
+        $column = Column::findOrFail($id);
+        $res = $column->update($somedata);
+
+        // 更新图片（支持图片先上传后保存资料）
+        $cover_id = $request->input('cover_id');
+        if ($cover_id) {
+            $asset = Asset::findOrFail((int)$cover_id);
+            $asset->assetable_id = $id;
+            $asset->save();
+        }
+
+        return redirect('/admin/columns');
     }
     
     /**
-     * 附件删除
+     * 栏目删除
      */
     public function destroy(Request $request, $id)
     {

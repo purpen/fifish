@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Models\Stuff;
+use App\Http\Models\Asset;
 use App\Http\Transformers\StuffTransformer;
 use App\Http\Utils\ImageUtil;
 
@@ -35,7 +36,8 @@ class StuffController extends Controller
      */
     public function create()
     {
-        $token = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
+//        $token = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
         return view('admin.stuff.create', [
@@ -43,7 +45,107 @@ class StuffController extends Controller
             'upload_url' => $upload_url
         ]);
     }
-    
+
+    /*
+     * 保存
+     */
+    public function store(Request $request)
+    {
+        $messages = [
+            'asset_id.required' => '请上传一张图片',
+        ];
+        $this->validate($request, [
+            'asset_id' => 'required',
+
+        ], $messages);
+
+        $somedata = $request->only([
+            'content'
+        ]);
+        $somedata['user_id'] = \Auth::user()->id;
+
+        $stuff = new Stuff();
+        $stuff->fill($somedata);
+        $res = $stuff->save();
+
+        // 更新图片（支持图片先上传后保存资料）
+        $asset_id = $request->input('asset_id');
+        if ($asset_id) {
+            $asset = Asset::findOrFail((int)$asset_id);
+            $asset->assetable_id = $stuff->id;
+            $asset->save();
+        }
+
+        return redirect('/admin/stuffs');
+    }
+
+    /**
+     * 编辑
+     */
+    public function edit(Request $request, $id)
+    {
+        $stuff = Stuff::findorfail($id);
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff', \Auth::user()->id);
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+
+        return view('admin.stuff.edit', [
+            'stuff' => $stuff,
+            'token' => $token,
+            'upload_url' => $upload_url
+        ]);
+    }
+
+    /**
+     * 标签更新
+     */
+    public function update(Request $request, $id)
+    {
+        $somedata = $request->only([
+            'content'
+        ]);
+        $stuff = Stuff::findOrFail($id);
+        $res = $stuff->update($somedata);
+
+        // 更新图片（支持图片先上传后保存资料）
+        $asset_id = $request->input('asset_id');
+        if ($asset_id) {
+            $asset = Asset::findOrFail((int)$asset_id);
+            $asset->assetable_id = $id;
+            $asset->save();
+        }
+
+        return redirect('/admin/stuffs');
+    }
+
+    /*
+     * 推荐
+     */
+    public function stick(Request $request, $id)
+    {
+        $ok = Stuff::upStick($id, 1);
+        return redirect('/admin/stuffs');
+    }
+
+    public function unstick(Request $request, $id)
+    {
+        $ok = Stuff::upStick($id, 0);
+        return redirect('/admin/stuffs');
+    }
+
+    /*
+     * 精选
+     */
+    public function featur(Request $request, $id)
+    {
+        $ok = Stuff::upFeatur($id, 1);
+        return redirect('/admin/stuffs');
+    }
+
+    public function unfeatur(Request $request, $id)
+    {
+        $ok = Stuff::upFeatur($id, 0);
+        return redirect('/admin/stuffs');
+    }
     
     /**
      * 删除

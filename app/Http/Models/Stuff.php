@@ -130,5 +130,26 @@ class Stuff extends Model
     {
         return $query->where('sticked', 1);
     }
-    
+
+    /**
+     * 更新推荐状态
+     */
+    static public function upStick($id, $sticked=1)
+    {
+        $stuff = self::findOrFail($id);
+        $stuff->sticked = $sticked;
+        $stuff->sticked_at = date('Y-m-d H:i:s');
+        return $stuff->save();
+    }
+
+    /**
+     * 更新精选状态
+     */
+    static public function upFeatur($id, $featured=1)
+    {
+        $stuff = self::findOrFail($id);
+        $stuff->featured = $featured;
+        $stuff->featured_at = date('Y-m-d H:i:s');
+        return $stuff->save();
+    }
 }
