@@ -127,7 +127,7 @@ class Stuff extends Model
     public function getCreatedAtAttribute($date)
     {
         if (Carbon::now() > Carbon::parse($date)->addDays(7)) {
-            return Carbon::parse($date);
+            return Carbon::parse($date)->format('Y-m-d H:i');
         }
         
         return Carbon::parse($date)->diffForHumans();
