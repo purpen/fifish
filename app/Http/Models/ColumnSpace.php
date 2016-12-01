@@ -88,13 +88,7 @@ class ColumnSpace extends Model
         return ($this->type == 1) ? '官网' : 'APP';
     }
     
-    /**
-     * 获取状态标签
-     */
-    public function getStatusLabelAttribute()
-    {
-        return ($this->status == 0) ? '关闭' : '显示';
-    }
+
     /**
      * 更新精选状态
      */
