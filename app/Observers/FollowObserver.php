@@ -16,13 +16,13 @@ class FollowObserver
     /**
      * 删除后, 更新所属对象的计数
      */
-    public function deleted ($follow)
+    public function deleting ($follow)
     {
-        if ($follow->user()->follow_count > 0) {
+        if ($follow->user()->first()->follow_count > 0) {
             $follow->user()->decrement('follow_count');
         }
         
-        if ($follow->follower()->fans_count > 0) {
+        if ($follow->follower()->first()->fans_count > 0) {
             $follow->follower()->decrement('fans_count');
         }
     }

@@ -36,7 +36,7 @@ class UserObserver
     /**
      * 更新后，更新所属对象事件
      */
-    public function updated ($stuff) {
+    public function updated ($user) {
         // 更新全文索引
         $idx_job = (new XSBuildIndex($user->id, 'User', 'Update'))->onQueue('indexes');
         $this->dispatch($idx_job);
@@ -45,7 +45,7 @@ class UserObserver
     /**
      * 更新后，更新所属对象事件
      */
-    public function saved ($stuff) {
+    public function saved ($user) {
         // 更新全文索引
         $idx_job = (new XSBuildIndex($user->id, 'User', 'Update'))->onQueue('indexes');
         $this->dispatch($idx_job);
