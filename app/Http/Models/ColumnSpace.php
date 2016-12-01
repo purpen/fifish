@@ -95,6 +95,15 @@ class ColumnSpace extends Model
     {
         return ($this->status == 0) ? '关闭' : '显示';
     }
+    /**
+     * 更新精选状态
+     */
+    static public function upStatus($id, $status=1)
+    {
+        $column_spaces = self::findOrFail($id);
+        $column_spaces->status = $status;
+        return $column_spaces->save();
+    }
     
     /**
      * 范围：获取开放的列表

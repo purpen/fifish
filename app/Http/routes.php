@@ -60,6 +60,13 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
         Route::resource('stuffs/{id}/unstick', 'StuffController@unstick');
         Route::resource('stuffs/{id}/featur', 'StuffController@featur');
         Route::resource('stuffs/{id}/unfeatur', 'StuffController@unfeatur');
+        //更新columns状态　１显示　０关闭
+        Route::resource('columns/{id}/unstatus', 'ColumnController@unstatus');
+        Route::resource('columns/{id}/status', 'ColumnController@status');
+
+        //更新columnspaces状态　１显示　０关闭
+        Route::resource('columnspaces/{id}/unstatus', 'ColumnSpaceController@unstatus');
+        Route::resource('columnspaces/{id}/status', 'ColumnSpaceController@status');
     });
 });
 

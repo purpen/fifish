@@ -88,7 +88,11 @@
                                             <td>{{ $column->title }}</td>
                                             <td>{{ $column->created_at }}</td>
                                             <td>
-                                                {{ $column->status_label }}
+                                                @if ($column->status == 1)
+                                                    <span class="label label-success">显示</span>
+                                                @else
+                                                    <span class="label label-danger">关闭</span>
+                                                @endif
                                             </td>
                                             <td>{{ $column->column_space->summary }}</td>
                                             <td>
@@ -96,6 +100,11 @@
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <a href="/admin/columns/{{ $column->id }}/edit" class="btn btn-sm btn-default">编辑</a>
+                                                    @if ($column->status == 1)
+                                                        <a href="/admin/columns/{{ $column->id}}/unstatus" class="btn btn-sm btn-danger">关闭</a>
+                                                    @else
+                                                        <a href="/admin/columns/{{ $column->id}}/status" class="btn btn-sm btn-success">显示</a>
+                                                    @endif
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>

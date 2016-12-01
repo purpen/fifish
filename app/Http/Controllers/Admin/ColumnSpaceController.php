@@ -93,5 +93,20 @@ class ColumnSpaceController extends Controller
         
         return redirect('/admin/columnspaces');
     }
+
+    /*
+    * 状态
+    */
+    public function status(Request $request, $id)
+    {
+        $ok = ColumnSpace::upStatus($id, 1);
+        return redirect('/admin/columnspaces');
+    }
+
+    public function unstatus(Request $request, $id)
+    {
+        $ok = ColumnSpace::upStatus($id, 0);
+        return redirect('/admin/columnspaces');
+    }
     
 }

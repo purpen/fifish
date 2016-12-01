@@ -136,4 +136,19 @@ class ColumnController extends Controller
         
         return redirect('/admin/columns');
     }
+
+    /*
+    * 状态
+    */
+    public function status(Request $request, $id)
+    {
+        $ok = Column::upStatus($id, 1);
+        return redirect('/admin/columns');
+    }
+
+    public function unstatus(Request $request, $id)
+    {
+        $ok = Column::upStatus($id, 0);
+        return redirect('/admin/columns');
+    }
 }
