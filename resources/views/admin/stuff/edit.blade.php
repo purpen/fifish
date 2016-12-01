@@ -51,7 +51,40 @@
         $('#uploader-result').html('<div class="asset"><img src="'+resultObj.file.small+'"></div>');
         $('#asset_id').val(resultObj.id);
     });
-    
+
+
+    //上传视频
+    var videoUploader = new plupload.Uploader({　
+        browse_button : 'video', //触发文件选择对话框的按钮，为那个元素id
+        url : '{{ $upload_url }}', //服务器端的上传页面地址
+        multipart: true,
+        multipart_params: {
+            token: "{{ $videoToken }}"
+        },
+        filters : {
+        max_file_size : '1gb',
+        mime_types: [
+                { title : "Image files", extensions: "mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv" }
+            ]
+        },
+        multi_selection: false,
+
+    });
+    //在实例对象上调用init()方法进行初始化
+    videoUploader.init();
+
+    // 绑定各种事件，并在事件监听函数中做你想做的事
+    videoUploader.bind('FilesAdded',function(uploader, files){
+        videoUploader.start();
+    });
+
+    videoUploader.bind('FileUploaded', function(videoUploader, file, result){
+
+        var resultObj = eval('(' + result.response + ')');
+        console.info(resultObj.file.small);
+
+        $('#video_id').val(resultObj.id);
+    });
 @endsection
 
 @section('content')
@@ -81,6 +114,7 @@
                 <div class="box-body">
                     <form action="{{ url('/admin/stuffs') }}/{{ $stuff->id }}" method="post" id="imgForm" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">
                         <input type="hidden" name="asset_id" id="asset_id" >
+                        <input type="hidden" name=video_id" id="video_id" >
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         {{--<div class="form-group">--}}

@@ -36,11 +36,12 @@ class StuffController extends Controller
      */
     public function create()
     {
-//        $token = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
+        $videoToken = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
         $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         
         return view('admin.stuff.create', [
+            'videoToken' => $videoToken,
             'token' => $token,
             'upload_url' => $upload_url
         ]);
@@ -76,6 +77,14 @@ class StuffController extends Controller
             $asset->save();
         }
 
+        //更新视频
+        $video_id = $request->input('video_id');
+        if($video_id) {
+            $video = Asset::findOrFail((int)$video_id );
+            $video->assetable_id = $stuff->id;
+            $video->save();
+        }
+
         return redirect('/admin/stuffs');
     }
 
@@ -85,12 +94,14 @@ class StuffController extends Controller
     public function edit(Request $request, $id)
     {
         $stuff = Stuff::findorfail($id);
+        $videoToken = ImageUtil::qiniuToken(false, 'video', 0, 'Stuff', \Auth::user()->id);
         $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Stuff', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
 
         return view('admin.stuff.edit', [
             'stuff' => $stuff,
             'token' => $token,
+            'videoToken' => $videoToken,
             'upload_url' => $upload_url
         ]);
     }
@@ -112,6 +123,14 @@ class StuffController extends Controller
             $asset = Asset::findOrFail((int)$asset_id);
             $asset->assetable_id = $id;
             $asset->save();
+        }
+
+        //更新视频
+        $video_id = $request->input('video_id');
+        if($video_id) {
+            $video = Asset::findOrFail((int)$video_id );
+            $video->assetable_id = $stuff->id;
+            $video->save();
         }
 
         return redirect('/admin/stuffs');
