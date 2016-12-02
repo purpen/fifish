@@ -58,7 +58,7 @@ class ClearData extends Command
             DB::table('tags')->delete();
             
             // 清空分享作品
-            $stuffs = DB::table('stuffs')->lists('id')->get();
+            $stuffs = DB::table('stuffs')->get();
             foreach ($stuffs as $stuff) {
                 // 同步删除全文索引
                 XSUtil::delIds('Stuff_'.$stuff->id);
@@ -67,7 +67,7 @@ class ClearData extends Command
             }
             
             // 清空用户
-            $users = DB::table('users')->lists('id')->get();
+            $users = DB::table('users')->get();
             foreach ($users as $user) {
                 // 同步删除全文索引
                 XSUtil::delIds('User_'.$user->id);
