@@ -129,7 +129,13 @@
                                     上传图片
                                 </div>
                                 
-                                <div id="uploader-result"></div>
+                                <div id="uploader-result">
+                                    @if ($column->cover)
+                                    <div class="asset">
+                                        <img src="{{ $column->cover->file->small }}">
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
