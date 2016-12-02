@@ -54,7 +54,7 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="http://s3.qysea.com/img/avatar!smx50.png" class="img-circle" alt="User Image">
+                                                <img src="https://s3.qysea.com/img/avatar!smx50.png" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 Sender Name<small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -235,7 +235,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; 2016-2017 <a href="http://qysea.com">QYsea</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2016-2017 <a href="https://www.qysea.com">QYsea</a>.</strong> All rights reserved.
     </footer>
     
     @yield('footer')
