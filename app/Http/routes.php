@@ -48,7 +48,6 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
         Route::resource('stuffs', 'StuffController');
         Route::resource('columns', 'ColumnController');
         Route::resource('comments', 'TagController');
-        Route::resource('assets', 'AssetController');
         Route::resource('users', 'UserController');
         Route::resource('tags', 'TagController');
         Route::resource('columnspaces', 'ColumnSpaceController');
@@ -67,6 +66,11 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
         //更新columnspaces状态　１显示　０关闭
         Route::resource('columnspaces/{id}/unstatus', 'ColumnSpaceController@unstatus');
         Route::resource('columnspaces/{id}/status', 'ColumnSpaceController@status');
+        
+        
+        Route::resource('assets', 'AssetController');
+        Route::resource('assets/{id}/ajaxDestroy', 'AssetController@ajaxDestroy');
+        
     });
 });
 

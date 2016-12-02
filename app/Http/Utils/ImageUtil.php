@@ -128,6 +128,35 @@ class ImageUtil
     }
     
     /**
+     * 删除七牛文件
+     */
+    static public function deleteQiniuFile($key)
+    {
+        // 获取配置参数
+        $config = Config::get('filesystems.disks.qiniu'); 
+          
+        $accessKey = $config['access_key'];
+        $secretKey = $config['secret_key'];
+        $bucket = $config['bucket'];
+        
+        // 初始化Auth状态
+        $auth = new Auth($accessKey, $secretKey);
+
+        // 初始化BucketManager
+        $bucketMgr = new BucketManager($auth);
+
+        // 删除$bucket 中的文件 $key
+        $err = $bucketMgr->delete($bucket, $key);
+        
+        if ($err !== null) {
+            Log::debug('delete $key ====> '.var_dump($err));
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /**
      * 对字符串urlsafe base64编码
      */
     static public function urlsafe_base64_encode($str)
