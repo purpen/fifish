@@ -250,11 +250,11 @@ class StuffController extends BaseController
     {
         // 验证规则
         $rules = [
-            'content'  => ['required', 'min:5'],
+            'content'  => ['required', 'min:1'],
         ];
         $messages = [
             'content.required' => '内容不能为空',
-            'content.min' => '内容长度不能小于5个字符',
+            'content.min' => '内容长度不能小于1个字符',
         ];
         
         $validator = app('validator')->make($request->only(['content']), $rules, $messages);
