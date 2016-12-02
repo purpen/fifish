@@ -327,7 +327,7 @@ class UserController extends BaseController
     public function hotUsers(Request $request)
     {
         $user_ids = array(
-            1,2,8,9,10,11,12,14,15,16,17,18,19,20
+            42,41
         );
         $per_page = $request->input('per_page', $this->per_page);
 
