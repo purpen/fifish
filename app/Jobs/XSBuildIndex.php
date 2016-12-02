@@ -112,7 +112,7 @@ class XSBuildIndex extends Job implements ShouldQueue
                 if (!empty($user)) {
                     $data = array(
                         'oid' => $user->id,
-                        'pid' => 'User_'.$stuff->id,
+                        'pid' => 'User_'.$user->id,
                         'kind' => 'User',
                         'cid' => 0,
                         'tid' => 0,
