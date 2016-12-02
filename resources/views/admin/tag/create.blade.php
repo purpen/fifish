@@ -1,13 +1,7 @@
 @extends('layouts.admin')
 
 @section('customize_css')
-#uploader-result {
-    padding: 20px 0 5px;
-}
-#uploader-result .asset {
-    display: inline-block;
-    width: 120px;
-}
+
 @endsection
 
 @section('jquery')

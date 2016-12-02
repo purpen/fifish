@@ -18,7 +18,28 @@
     
     @yield('partial_css')
     
-    <style>
+    <style type="text/css">
+        #uploader-result {
+            padding: 20px 0 5px;
+        }
+        #uploader-result .asset {
+            display: inline-block;
+            width: 120px;
+            position: relative;
+        }
+        #uploader-result .asset img {
+            max-width: 100%;
+        }
+        #uploader-result .asset i {
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 9;
+        }
+        
         @yield('customize_css')
     </style>
 </head>
