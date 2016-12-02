@@ -88,12 +88,15 @@ class ColumnSpace extends Model
         return ($this->type == 1) ? '官网' : 'APP';
     }
     
+
     /**
-     * 获取状态标签
+     * 更新精选状态
      */
-    public function getStatusLabelAttribute()
+    static public function upStatus($id, $status=1)
     {
-        return ($this->status == 0) ? '关闭' : '显示';
+        $column_spaces = self::findOrFail($id);
+        $column_spaces->status = $status;
+        return $column_spaces->save();
     }
     
     /**

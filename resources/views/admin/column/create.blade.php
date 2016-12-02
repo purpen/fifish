@@ -74,7 +74,7 @@
                 <div class="box-header">
                     <h3 class="box-title">新增栏目</h3>
                     <div class="box-tools">
-                        <a href="{{ url('/admin/columns/create') }}" class="btn btn-default">新增</a>
+                        <a href="{{ url('/admin/columns/create') }}" class="btn btn-link">+新增</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -88,7 +88,7 @@
                         </div>
                     @endif
                     
-                    <form action="{{ url('/admin/columns') }}" method="post" class="form-horizontal" role="form">  
+                    <form action="{{ url('/admin/columns') }}" method="post" id="imgForm" class="form-horizontal" role="form">
                         {{ csrf_field() }}     
                         <input type="hidden" name="cover_id" id="cover_id" >              
                         <div class="form-group">
