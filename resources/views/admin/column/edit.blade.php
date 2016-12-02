@@ -57,7 +57,7 @@
         var resultObj = eval('(' + result.response + ')');
         console.info(resultObj.file.small);
         
-        $('#uploader-result').html('<div class="asset" id="asset_'+resultObj.file.id+'"><img src="'+resultObj.file.small+'" ><i class="glyphicon glyphicon-trash delete" data-id="'+resultObj.file.id+'" title="确认删除？"></i></div>');
+        $('#uploader-result').html('<div class="asset" id="asset_'+resultObj.id+'"><img src="'+resultObj.file.small+'" ><i class="glyphicon glyphicon-trash delete" data-id="'+resultObj.id+'" title="确认删除？"></i></div>');
         $('#cover_id').val(resultObj.id);
     });
     
@@ -156,9 +156,9 @@
                                 
                                 <div id="uploader-result">
                                     @if ($column->cover)
-                                    <div class="asset" id="asset_{{ $column->cover->file->id }}">
+                                    <div class="asset" id="asset_{{ $column->cover->id }}">
                                         <img src="{{ $column->cover->file->small }}">
-                                        <i class="glyphicon glyphicon-trash delete" data-id="'+resultObj.file.id+'" title="确认删除？"></i>
+                                        <i class="glyphicon glyphicon-trash delete" data-id="{{ $column->cover->id }}" title="确认删除？"></i>
                                     </div>
                                     @endif
                                 </div>
