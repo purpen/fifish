@@ -151,7 +151,7 @@
                 <span class="sr-only">Close</span>
             </button>
             <video id="fifish-v1" controls="controls" webkit-playsinline>
-                <source src="http://oe5tkubcj.bkt.clouddn.com/Fifish_final_2000kbps_720p.mp4" type="video/mp4">
+                <source src="https://s3.qysea.com/Fifish_final_2000kbps_720p.mp4" type="video/mp4">
                     Your browser does not support the video tag.
             </video>
         </div>
