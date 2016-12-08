@@ -36,7 +36,7 @@ class SearchController extends BaseController
      * @apiParam {Integer} cid 分类ID
      * @apiParam {Integer} evt 搜索方式：1.内容；2.标签；
      * @apiParam {Integer} sort 排序：0.关联度；1.最新创建；2.最近更新；
-     * @apiParam {Integer}  ingore_id 忽略的ID(针对相关搜索，过滤当前内容)
+     * @apiParam {Integer} ingore_id 忽略的ID(针对相关搜索，过滤当前内容)
      *
      * @apiSuccessExample 成功响应:
      *   {
@@ -91,11 +91,11 @@ class SearchController extends BaseController
         if(empty($str)) return $this->response->array(ApiHelper::error('please input keywork!', 401));
 
         $type = $request->input('type', 1);
-        $str = $request->input('str', null);
         $cid = $request->input('cid', 0);
         $tid = $request->input('tid', 0);
         $evt = $request->input('evt', 1);
         $sort = $request->input('sort', 0);
+        
         $ignore_id = $request->input('ignore_id', 0);
 
         $options = array(
@@ -108,17 +108,18 @@ class SearchController extends BaseController
             'sort' => $sort,
             'ingore_id' => $ignore_id,
         );
-
+        
         $result = XSUtil::search($str, $options);
-        if(!$result['success']){
+        
+        if (!$result['success']) {
             return $this->response->array(ApiHelper::error('search fail!', 402));
         }
 
         $stuff_transformer = new StuffTransformer();
         $user_transformer = new UserTransformer();
 
-        foreach($result['data'] as $k=>$v){
-            //描述内容过滤
+        foreach ($result['data'] as $k=>$v) {
+            // 描述内容过滤
             $result['data'][$k]['content'] = strip_tags($v['high_content'], '<em>');
 
             $kind = $result['data'][$k]['kind'];
@@ -128,7 +129,7 @@ class SearchController extends BaseController
             $result['data'][$k]['stuff'] = null;
             $result['data'][$k]['user'] = null;
 
-            switch($kind){
+            switch ($kind) {
                 case "Stuff":
                     $stuff = Stuff::find($oid);
                     if(!empty($stuff)){
@@ -143,8 +144,6 @@ class SearchController extends BaseController
                         $result['data'][$k]['user'] = $user;
                     }
                     break;
-                default:
-
             }
         
         }   // endfor
@@ -159,9 +158,8 @@ class SearchController extends BaseController
                     'total_pages' => $result['total_page']
                 )
         );
+        
         return $this->response->array(ApiHelper::success('success', 200, $result['data'], $meta));
-        //print_r($result['data']);
-
     }
 
 
@@ -197,12 +195,11 @@ class SearchController extends BaseController
 
         $result = XSUtil::expanded($q, $size);
 
-        if($result['success']){
+        if ($result['success']) {
             return $this->response->array(ApiHelper::success('success', 200, $result['data']));
-        }else{
-            return $this->response->array(ApiHelper::error('search fail!', 402));
         }
-
+        
+        return $this->response->array(ApiHelper::error('search fail!', 402));
     }
     
     

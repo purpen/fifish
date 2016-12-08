@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Stuff extends Model
 {    
@@ -34,7 +35,7 @@ class Stuff extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'content', 'kind', 'address', 'city', 'lat', 'lng'];
+    protected $fillable = ['user_id', 'content', 'kind', 'address', 'city', 'lat', 'lng', 'view_count'];
     
     /**
      * 不能被批量赋值的属性
@@ -116,6 +117,23 @@ class Stuff extends Model
     }
     
     /**
+     * 修改时间格式
+     *   **距离现在时间**      **显示格式**
+     *    < 1小时                xx分钟前
+     *    1小时-24小时            xx小时前 
+     *    1天-10天               xx天前
+     *    >7天                  直接显示日期
+     */
+    public function getCreatedAtAttribute($date)
+    {
+        if (Carbon::now() > Carbon::parse($date)->addDays(7)) {
+            return Carbon::parse($date)->format('Y-m-d H:i');
+        }
+        
+        return Carbon::parse($date)->diffForHumans();
+    }
+        
+    /**
      * 范围：获取精选列表
      */
     public function scopeFeatured($query)
@@ -130,5 +148,26 @@ class Stuff extends Model
     {
         return $query->where('sticked', 1);
     }
-    
+
+    /**
+     * 更新推荐状态
+     */
+    static public function upStick($id, $sticked=1)
+    {
+        $stuff = self::findOrFail($id);
+        $stuff->sticked = $sticked;
+        $stuff->sticked_at = date('Y-m-d H:i:s');
+        return $stuff->save();
+    }
+
+    /**
+     * 更新精选状态
+     */
+    static public function upFeatur($id, $featured=1)
+    {
+        $stuff = self::findOrFail($id);
+        $stuff->featured = $featured;
+        $stuff->featured_at = date('Y-m-d H:i:s');
+        return $stuff->save();
+    }
 }

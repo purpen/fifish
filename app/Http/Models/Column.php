@@ -103,13 +103,15 @@ class Column extends Model
     {
         return $this->morphMany('App\Http\Models\Asset', 'assetable');
     }
-    
+
     /**
-     * 获取状态标签
+     * 更新精选状态
      */
-    public function getStatusLabelAttribute()
+    static public function upStatus($id, $status=1)
     {
-        return ($this->status == 0) ? '关闭' : '显示';
+        $column = self::findOrFail($id);
+        $column->status = $status;
+        return $column->save();
     }
     
 }

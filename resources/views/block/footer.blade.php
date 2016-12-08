@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="container">
+    <!--div class="container">
         <div class="row">
             <div class="col-lg-3">
                 <h5>关于Fifish</h5>
@@ -39,18 +39,20 @@
             </div>
         </div>
     </div>
-    <div class="line"></div>
+    <div class="line"></div-->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-8">
                 <p>
-                    Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd.
-                    <br>ICP备16057791号-1
+                    Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1
                 </p>
-                <p></p>
             </div>
-            <div class="col-lg-4">
-                <p></p>
+            <div class="col-md-4 text-right">
+                <label class="lang">语言：</label>
+                <select class="lang-choose">
+                    <option value="zh-CN" @if(App::getLocale() == 'zh-CN')selected="selected"@endif >CN中文</option>
+                    <option value="en" @if(App::getLocale() == 'en')selected="selected"@endif >English</option>
+                </select>
             </div>
         </div>
     </div>

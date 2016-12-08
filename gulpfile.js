@@ -29,6 +29,7 @@ elixir(function(mix) {
 elixir(function(mix) {
     mix.less(['app.less'], 'public/css/app.css');
     mix.less(['admin.less'], 'public/css/admin.css');
+    mix.less(['wap.less'], 'public/css/wap.css');
 });
 
 // 将原生CSS样式文件合并到一个文件
@@ -50,6 +51,8 @@ elixir(function(mix) {
    mix.styles([
        'dataTables.bootstrap.css',
        'select2.css',
+       'swiper-3.4.0.min.css',
+       'jquery.dropdown.css',
    ], 'public/css/bootstrap.plugins.min.css');
 });
 
@@ -63,7 +66,9 @@ elixir(function(mix) {
     mix.scripts([
         'select2.full.js',
         'jquery.form.js',
-        'jquery.fineuploader-3.5.0.js'
+        'jquery.fineuploader-3.5.0.js',
+        'swiper-3.4.0.jquery.min.js',
+        'jquery.dropdown.js',
     ], 'public/js/jquery.plugins.min.js');
     mix.scripts(['app.js'], 'public/js/app.js');
 });
@@ -79,6 +84,7 @@ elixir(function(mix) {
    mix.version([
       'css/app.css',
       'css/admin.css',
+      'css/wap.css',
       'css/bootstrap.plugins.min.css',
       'js/jquery.plugins.min.js',
       'js/app.js' 

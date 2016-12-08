@@ -41,6 +41,18 @@ return [
     
     'domain' => env('APP_DOMAIN', 'www.qysea.com'),
     
+    /*
+    |--------------------------------------------------------------------------
+    | 移动端域名设置
+    |--------------------------------------------------------------------------
+    */
+    'mini_domain' => env('APP_MINI_DOMAIN', 'm.qysea.com'),
+    
+    /*
+    |--------------------------------------------------------------------------
+    | PC访问URL
+    |--------------------------------------------------------------------------
+    */
     'url' => env('APP_URL', 'http://www.qysea.com'),
     
     /*
@@ -50,7 +62,7 @@ return [
     |
     */
 
-    'static_url' => env('APP_STATIC_URL', 'http://s3.qysea.com'),
+    'static_url' => env('APP_STATIC_URL', 'https://s3.qysea.com'),
     
     /*
     |--------------------------------------------------------------------------
@@ -76,8 +88,21 @@ return [
     |
     */
 
-    'locale' => 'zh-CN',
+    'locale' => getenv('locale') ?: 'en',
 
+	/*
+	|--------------------------------------------------------------------------
+	| Application available Languages
+	|--------------------------------------------------------------------------
+	|
+	| A list of available languages defined from their ISO Language Codes codes, see more: http://www.w3schools.com/tags/ref_language_codes.asp.
+	| If the code isn't in the list, HomeController@language is set from fallback_locale value.
+	! To set new language, pelase create a folder in /resources/lang/{ISO-CODE}, create a flag image in public/img/{ISO-CODE}-flang.png
+	! and at least, add the ISO code in languages array.
+	*/
+
+	'languages' => ['en', 'zh-CN'],	
+    
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -89,7 +114,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------

@@ -22,6 +22,10 @@ class User extends Authenticatable implements JWTSubject
      *      first_login,last_login
      *      remember_token
      *      created_at,updated_at
+     *      alert_fans_count,alert_like_count,alert_comment_count
+     *      wechat_openid,wechat_access_token,wechat_unionid
+     *      facebook_openid,facebook_access_token
+     *      instagram_openid,instagram_access_token
      *
      * @var string
      */
@@ -40,13 +44,13 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'account', 'username', 'password', 'email', 'phone', 'summary',
+        'account', 'username', 'password', 'email', 'phone', 'summary', 'wechat_openid', 'wechat_access_token', 'wechat_unionid', 'facebook_openid', 'facebook_access_token','instagram_openid', 'instagram_access_token', 'from_site'
     ];
     
     /**
      * 添加不存在的属性
      */
-    protected $appends = ['avatar'];
+    protected $appends = ['avatar', 'alert_total_count'];
     
     /**
      * 在数组中显示的属性
@@ -113,6 +117,14 @@ class User extends Authenticatable implements JWTSubject
     }
     
     /**
+     * 获取提醒总数量
+     */
+    public function getAlertTotalCountAttribute()
+    {
+        return $this->alert_comment_count + $this->alert_like_count + $this->alert_fans_count;
+    }
+    
+    /**
      * 获取用户头像
      */
     public function getAvatarAttribute()
@@ -131,6 +143,14 @@ class User extends Authenticatable implements JWTSubject
         }
         
         return (object)$avatar;
+    }
+    
+    /**
+     * 修正个性标签显示（转换化为数组）
+     */
+    public function getTagsLabelAttribute()
+    {
+        return array_values(array_unique(preg_split('/[,，;；\s]+/u', $this->tags)));
     }
     
     /**
@@ -194,6 +214,22 @@ class User extends Authenticatable implements JWTSubject
         return $query->where('role_id', self::ROLE_PEOPLE);
     }
     
+    /**
+     * 范围：获取第三方登录用户
+     */
+    public function scopeOfSocialite($query, $type, $uid)
+    {
+        switch ($type) {
+            case 'wechat':
+                return $query->where('wechat_openid', $uid);
+            case 'facebook':
+                return $query->where('facebook_openid', $uid);
+            case 'instagram':
+                return $query->where('instagram_openid', $uid);
+            default:
+                return $query->where('account', $uid);
+        }
+    }
     
     public function getJWTIdentifier()
     {

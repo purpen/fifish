@@ -1,13 +1,19 @@
 <?php
-
+/**
+ * 个人主页
+ */
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Models\User;
 use App\Http\Models\Asset;
 use App\Http\Models\Follow;
 use App\Http\ApiHelper;
+use App\Exceptions as ApiExceptions;
 
+use Log;
+use Hash;
 use Storage;
+use Validator;
 use Imageupload;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Transformers\FollowTransformer;
@@ -15,8 +21,9 @@ use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
+    
     /**
-     * @api {get} /user/profile 获取个人信息
+     * @api {get} /user/{id} 获取他人的信息
      * @apiVersion 1.0.0
      * @apiName user profile
      * @apiGroup User
@@ -28,11 +35,15 @@ class UserController extends BaseController
      *       "account": "purpen.w@gmail.com",
      *       "username": "purpen",
      *       "job": "设计师",
+     *       "sex": 0,
      *       "zone": "北京",
      *       "avatar": {
      *         "small": "",
      *         "large": ""
-     *      }
+     *       },
+     *       "first_login": false,
+     *       "following": true,
+     *       "alert_total_count": 1,
      *     },
      *     "meta": {
      *       "meta": {
@@ -50,79 +61,15 @@ class UserController extends BaseController
      *     }
      *   }
      */
-    public function profile()
+    public function index(Request $request, $id)
     {
-        $user = User::find($this->auth_user_id);
+        $user = User::find($id);
         
         if (!$user) {
             return $this->response->array(ApiHelper::error('Not Found!', 404));
         }
         
-        return $this->response->item($user, new UserTransformer())->setMeta(ApiHelper::meta());
-    }
-    
-    /**
-     * @api {post} /user/settings 设置个人资料
-     * @apiVersion 1.0.0
-     * @apiName user settings
-     * @apiGroup User
-     *
-     * @apiParam {string} username 用户姓名
-     * @apiParam {string} job 职业
-     * @apiParam {string} zone 城市/地区 
-     * 
-     * @apiSuccessExample 成功响应:
-     *   {
-     *     "meta": {
-     *       "message": "Success！",
-     *       "status_code": 200
-     *     }
-     *   }
-     *
-     * @apiErrorExample 错误响应:
-     *   {
-     *     "meta": {
-     *       "message": "Not Found！",
-     *       "status_code": 404
-     *     }
-     *   }
-     */
-    public function settings(Request $request)
-    {
-        $payload = app('request')->only('username', 'job', 'zone');
-        
-        $user = User::find($this->auth_user_id);
-        
-        if (!$user) {
-            return $this->response->array(ApiHelper::error('Not Found!', 404));
-        }
-        
-        // 更新用户信息
-        if ($request->has('username')) {
-            // 验证用户名是否唯一
-            if ($request->username != $user->username) {
-                $is_exist = User::where('username', $request->username)->first();
-                if ($is_exist) {
-                    return $this->response->array(ApiHelper::error('用户名被占用!', 403));
-                }
-                // 不存在则更新
-                $user->username = $request->username;
-            }
-        }
-        if ($request->has('job')) {
-            $user->job = $request->job;
-        }
-        if ($request->has('zone')) {
-            $user->zone = $request->zone;
-        }
-        
-        $res = $user->save();
-        
-        if (!$res) {
-            return $this->response->array(ApiHelper::error('failed!', 412));
-        }
-        
-        return $this->response->array(ApiHelper::success());
+        return $this->response->item($user, new UserTransformer(['user_id' => $this->auth_user_id]))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -163,6 +110,9 @@ class UserController extends BaseController
         if (!$res) {
             return $this->response->array(ApiHelper::error('failed!', 412));
         }
+        
+        // 更新提醒的数量
+        User::findOrFail($id)->increment('alert_fans_count');
         
         return $this->response->array(ApiHelper::success());
     }
@@ -263,7 +213,7 @@ class UserController extends BaseController
         
         $follows = Follow::with('user', 'follower')->OfFans($id)->orderBy('id', 'desc')->paginate($per_page);
         
-        return $this->response->paginator($follows, new FollowTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
+        return $this->response->paginator($follows, new FollowTransformer(['user_id' => $this->auth_user_id]))->setMeta(ApiHelper::meta());
     }
     
     /**
@@ -322,7 +272,7 @@ class UserController extends BaseController
         
         $follows = Follow::with('user', 'follower')->OfFollowers($id)->orderBy('id', 'desc')->paginate($per_page);
 
-        return $this->response->paginator($follows, new FollowTransformer(array('user_id'=>$this->auth_user_id)))->setMeta(ApiHelper::meta());
+        return $this->response->paginator($follows, new FollowTransformer(['user_id' => $this->auth_user_id]))->setMeta(ApiHelper::meta());
     }
 
 
@@ -377,7 +327,7 @@ class UserController extends BaseController
     public function hotUsers(Request $request)
     {
         $user_ids = array(
-            1,2,8,9,10,11,12,14,15,16,17,18,19,20
+            42,41
         );
         $per_page = $request->input('per_page', $this->per_page);
 
@@ -385,7 +335,5 @@ class UserController extends BaseController
         
         return $this->response->paginator($users, new UserTransformer())->setMeta(ApiHelper::meta());
     }
-    
-    
     
 }

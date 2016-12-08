@@ -11,11 +11,12 @@
         "tymon/jwt-auth": "1.0.x-dev",
         "matriphe/imageupload": "^5.0",
         "laravelcollective/html": "5.2.*",
-        "qiniu/php-sdk": "^7.0",
+        "qiniu/php-sdk": "v7.1.*",
         "predis/predis": "~1.0",
         "laravel/socialite": "2.0.*",
         "almasaeed2010/adminlte": "~2.0",
-        "hightman/xunsearch": "*@beta"
+        "hightman/xunsearch": "*@beta",
+        "doctrine/dbal": "v2.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

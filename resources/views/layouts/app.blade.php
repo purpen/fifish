@@ -5,20 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fifish @yield('title')</title>
+    <title>FIFISH P4 @yield('title')</title>
 
     <!-- Fonts -->
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.plugins.min.css') }}" rel="stylesheet"> 
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     
     @yield('partial_css')
     
-    <style>
-        body {
-            font-family: 'Lato';
-        }
+    <style type="text/css">
         .fa-btn {
             margin-right: 6px;
         }
@@ -27,6 +26,18 @@
         }
         .page-tools {
             margin: 10px auto;
+        }
+        .dropdown button {
+            background-color: rgba(255, 255, 255, 0);
+           border: medium none;
+           margin: 0 !important;
+           padding: 0 !important;
+        }
+        .dropdown-menu {
+            min-width: 90px;
+        }
+        .dropdown-menu > li > a {
+            padding: 0 5px;
         }
         
         @yield('customize_css')
@@ -48,24 +59,27 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/img/logo_fifish.png" />
+                    <img src="/img/fifish_logo.png" />
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">首页</a></li>
-                    <li><a href="{{ url('/home') }}">产品</a></li>
-                    <li><a href="{{ url('/home') }}">服务与支持</a></li>
-                    <li><a href="{{ url('/home') }}">App下载</a></li>
+                    <li><a href="{{ url('/home') }}">{{ trans('menu.home') }}</a></li>
+                    <li><a href="{{ url('/home') }}">{{ trans('menu.product') }}</a></li>
+                    <li><a href="{{ url('/news') }}">{{ trans('menu.media') }}</a></li>
+                    <li><a href="{{ url('/aboutus') }}">{{ trans('menu.aboutus') }}</a></li>
+                    <li><a href="{{ url('/contact') }}">{{ trans('menu.contactus') }}</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
+                <!-- Authentication Links -->
+                <!--
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
+                    
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">登录</a></li>
+                        <li><a href="{{ url('/login') }}">登录</a></$('.selectpicker').selectpicker('selectAll');li>
                         <li><a href="{{ url('/register') }}">注册</a></li>
                     @else
                         <li class="dropdown">
@@ -79,7 +93,7 @@
                             </ul>
                         </li>
                     @endif
-                </ul>
+                </ul-->
             </div>
         </div>
     </nav>
@@ -96,6 +110,25 @@
     <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function(){
+            
+            function formatState (state) {
+              if (!state.id) { return state.text; }
+              var $state = $(
+                '<span><img src="/img/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+              );
+              return $state;
+            };
+
+            $(".lang-choose").select2({
+                minimumResultsForSearch: Infinity,
+                templateResult: formatState,
+                templateSelection: formatState,
+                width: 110
+            }).on('change', function (evt) {
+                var lang = $(this).val();
+                window.location.href = '/lang/'+lang;
+            });
+            
             @yield('jquery')
         });
     </script>

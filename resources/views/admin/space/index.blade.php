@@ -24,7 +24,7 @@
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
                     <div class="box-tools">
-                        <a href="{{ url('/admin/columnspaces/create') }}" class="btn btn-default">新增</a>
+                        <a href="{{ url('/admin/columnspaces/create') }}" class="btn btn-link">+新增</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -91,7 +91,11 @@
                                                 {{ $space->type_label }}
                                             </td>
                                             <td>
-                                                {{ $space->status_label }}
+                                                @if ($space->status == 1)
+                                                    <span class="label label-success">显示</span>
+                                                @else
+                                                    <span class="label label-danger">关闭</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 
@@ -99,6 +103,11 @@
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <a href="/admin/columnspaces/{{ $space->id}}/edit" class="btn btn-sm btn-default">编辑</a>
+                                                    @if ($space->status == 1)
+                                                        <a href="/admin/columnspaces/{{ $space->id}}/unstatus" class="btn btn-sm btn-danger">关闭</a>
+                                                    @else
+                                                        <a href="/admin/columnspaces/{{ $space->id}}/status" class="btn btn-sm btn-success">显示</a>
+                                                    @endif
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>

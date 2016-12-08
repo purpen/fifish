@@ -1,0 +1,179 @@
+#wap-layout {
+    max-width: 750px;
+    margin: 0 auto;
+    
+    .container {
+        max-width: 720px;
+    }
+    
+    .mini-header {
+        background: #000;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        min-height: 44px;
+        
+        .back {
+            color: #fff;
+            font-size: 24px;
+            left: 0;
+            line-height: 44px;
+            padding: 0 15px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            z-index: 9;
+        }
+        
+        .title {
+            margin-top: 10px;
+        }
+    }
+    
+    .mini-footer {
+        background: #000;
+        color: #ddd;
+        text-align: center;
+        padding: 10px 0;
+        
+        .lang {
+            line-height: 40px;
+        }
+    }
+    
+    .swiper-slide {
+        &.cover {
+            background-position: center center;
+            background-size: cover;
+            height: 340px;
+        }
+    
+        .image {
+            width: 100%;
+        }
+    
+        .caption {
+            color: #fff;
+            text-align: center;
+            
+        
+            h3 {
+                line-height: 1.25;
+                font-size: 28px;
+                margin-top: 30px;
+                
+                span {
+                    font-size: 36px;
+                }
+            }
+        
+            .ces-logo {
+                left: 20px;
+                position: absolute;
+                top: 20px;
+                z-index: 9;
+            }
+        }
+        
+    }
+    
+    .block-title {
+        margin-top: 0;
+    }
+    
+    .block-products {
+        background-color: #333;
+        padding-bottom: 30px;
+    }
+    
+    .swiper-products {
+        .swiper-slide {
+            width: 85%;
+            
+            .photo {
+                width: 100%;
+            }
+        }
+    }
+
+    .block-about {
+        background: rgba(0, 0, 0, 0) url("/img/about-bg.png") repeat scroll center center;
+        line-height: 1.5;
+        padding: 10px 30px 40px;
+    
+        &.white {
+            color: #fff;
+        }
+    }
+
+    .block-contact {
+        background: rgba(0, 0, 0, 0) url("/img/contact-bg.png") repeat scroll center center;
+        padding: 10px 15px 30px;
+    }
+
+    .block-news {
+        overflow: hidden;
+        margin: 0px auto 30px;
+        
+        .card {
+            margin: 0 0 30px;
+            width: 280px;
+            
+            .image {
+                display: inline-block;
+            }
+            
+            .info {
+                text-align: left;
+                padding: 5px 10px;
+        
+                h3 {
+                    font-size: 16px;
+                    line-height: 1.25;
+                    margin-top: 0;
+                    height: 40px;
+                }
+        
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    
+    .mideas {
+        .logo {
+            margin-right: 15px;
+            margin-bottom: 0;
+            max-width: 15%;
+        }
+    }
+    
+    .swiper-news {
+        .swiper-slide {
+            width: 75%;
+        } 
+    }
+    
+    .container-wap-news {
+        margin: 30px auto;
+        
+        .card {
+            width: 45%;
+            display: border-box;
+            float: left;
+            margin-left: 10px;
+            margin-right: 10px;
+            
+            h3 {
+                font-size: 14px;
+                text-align: left;
+                margin: 10px 10px 0px;
+            }
+            .extra {
+                margin: 10px 10px 0px;
+            }
+        }
+    }
+    
+}

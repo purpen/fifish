@@ -6,11 +6,15 @@ use App\Http\Models\User;
 use App\Http\Models\Comment;
 use App\Http\Models\Feedback;
 use App\Http\Models\Follow;
+use App\Http\Models\Like;
+use App\Http\Models\Stuff;
 
 use App\Observers\UserObserver;
 use App\Observers\CommentObserver;
 use App\Observers\FeedbackObserver;
 use App\Observers\FollowObserver;
+use App\Observers\LikeObserver;
+use App\Observers\StuffObserver;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -41,6 +45,9 @@ class EventServiceProvider extends ServiceProvider
         // 添加用户观察者
         User::observe(new UserObserver);
         
+        // 添加分享观察者
+        Stuff::observe(new StuffObserver);
+        
         // 添加评论观察者
         Comment::observe(new CommentObserver);
         
@@ -49,5 +56,8 @@ class EventServiceProvider extends ServiceProvider
         
         // 添加关注观察者
         Follow::observe(new FollowObserver);
+        
+        // 添加点赞观察者
+        Like::observe(new LikeObserver);
     }
 }

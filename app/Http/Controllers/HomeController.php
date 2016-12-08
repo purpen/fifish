@@ -5,18 +5,19 @@
  */
 namespace App\Http\Controllers;
 
+use App;
 use Config;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
 use App\Http\ApiHelper;
-use App\Http\Utils\ImageUtil;
+
+use App\Jobs\ChangeLocale;
 
 use App\Http\Models\User;
-use App\Jobs\SendReminderEmail;
-
-use Redis;
 use App\Http\Models\Asset;
+use App\Http\Models\Column;
+use App\Http\Models\ColumnSpace;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        View()->share('lang', true);
     }
 
     /**
@@ -36,8 +37,32 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {        
+        // 获取媒体报道
+        $space = ColumnSpace::where('name', 'page_media_news')->first();
+        if ($space) {
+            
+        }
+        $columns = $space->columns()->orderBy('created_at', 'desc')->paginate(3);
+        
+        return view('home', [
+            'columns' => $columns
+        ]);
+    }
+    
+    
+    /**
+     * 语言设置
+     */
+    public function lang($lang, ChangeLocale $changeLocale)
     {
-        return view('home');
+		$lang = in_array($lang, config('app.languages')) ? $lang : config('app.fallback_locale');
+        
+		$changeLocale->lang = $lang;
+        
+		$this->dispatch($changeLocale);
+
+		return redirect()->back();
     }
     
     /**
@@ -46,31 +71,5 @@ class HomeController extends Controller
     public function promo()
     {
         
-    }
-    
-    /**
-     * 设置测试任务
-     */
-    public function job()
-    {           
-        $user = User::findOrFail(1);
-        
-        // 为任务指定队列
-        $job = (new SendReminderEmail($user))->onQueue('emails');
-        
-        $this->dispatch($job);
-        
-        return 'ok';
-    }
-    
-    public function avatar()
-    {        
-        $token = ImageUtil::qiniuToken(false, 'avatar', 1, 'User', 1);
-        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
-        
-        return view('avatar', [
-            'token' => $token,
-            'upload_url' => $upload_url
-        ]);
     }
 }

@@ -14,7 +14,7 @@ class Like extends Model
      *      user_id,
      *      likeable_id,
      *      likeable_type,
-     *
+     *      kind, // 类型：1.图片；2.视频；3.--
      * @var string
      */
     protected $table = 'likes';
@@ -43,6 +43,14 @@ class Like extends Model
     public function user()
     {
         return $this->belongsTo('App\Http\Models\User');
+    }
+    
+    /**
+     * 获取点赞关联提醒
+     */
+    public function reminds()
+    {
+        return $this->morphMany('App\Http\Models\Remind', 'remindable');
     }
     
 }

@@ -10,7 +10,7 @@ return [
     */
 
     'address' => env('XUN_SEARCH_ADDRESS', '127.0.0.1'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Xun Search Name
@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => env('XUN_SEARCH_NAME', 'fifish_dev'),
+    'name' => env('XUN_SEARCH_NAME', __DIR__.'/fifish.ini'),
 
 
 ];

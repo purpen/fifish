@@ -75,7 +75,7 @@
                 </div>
                 <div class="box-body">
                     @include('block/errors')
-                    <form action="/admin/tags" method="post" id="imgForm" class="form-horizontal" role="form">                             {{ csrf_field() }}
+                    <form action="{{ url('/admin/tags') }}" method="post" id="imgForm" class="form-horizontal" role="form">                             {{ csrf_field() }}
                         <input type="hidden" name="asset_id" id="asset_id" >
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标签名称</label>

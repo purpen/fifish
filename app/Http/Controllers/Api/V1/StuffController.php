@@ -74,8 +74,9 @@ class StuffController extends BaseController
      *                   "width": 1000,
      *                   "height": 1000,
      *                   "file": {
-     *                       "small" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg",
-     *                       "large" => "http://static.fifish.me/uploads/images/a1bdbee1ffd2c058d3a26b4a397e6b5a.jpg"
+     *                       "srcfile" => "http://fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "small" => "http://fifish.me/uploads/images/a1b7e6b5a.jpg",
+     *                       "large" => "http://fifish.me/uploads/images/a1bdb6b5a.jpg"
      *                    }              
      *                 },
      *                 "is_love": true, // 当前用户是否点赞此作品
@@ -265,6 +266,8 @@ class StuffController extends BaseController
         // 完善数据
         $somedata = $request->all();
         $somedata['user_id'] = $this->auth_user_id;
+        // 添加默认值
+        $somedata['view_count'] = 1;
         
         // 保存数据
         $stuff = new Stuff();
@@ -288,7 +291,7 @@ class StuffController extends BaseController
         // 保存照片或视频
         $file = $request->file('file');
         if ($file) {                
-            $upRet = ImageUtil::storeQiniuCloud($file, 'photo', $stuff->id, 'Stuff', $this->auth_user_id);
+            $upRet = ImageUtil::storeFileQiniu($file, 'photo', $stuff->id, 'Stuff', $this->auth_user_id);
             if (!$upRet) {
                 throw new ApiExceptions\StoreFailedException(501, '照片保存失败.');
             }
@@ -349,7 +352,7 @@ class StuffController extends BaseController
     }
     
     /**
-     * @api {post} /stuffs/:id/destory 删除分享信息
+     * @api {post} /stuffs/:id/destroy 删除分享信息
      * @apiVersion 1.0.0
      * @apiName stuff destory 
      * @apiGroup Stuff
@@ -364,7 +367,7 @@ class StuffController extends BaseController
      *  }
      * }
      */
-    public function destory($id)
+    public function destroy($id)
     {
         $stuff = Stuff::find($id);
         if (!$stuff) {
@@ -661,12 +664,8 @@ class StuffController extends BaseController
             // 保存关联关系
             $res = $stuff->likes()->create([
                 'user_id' => $this->auth_user_id,
+                'kind' => $stuff->kind,
             ]);
-            
-            if ($res) {
-                // 喜欢数+1
-                $stuff->increment('like_count');
-            }
             
         } catch (QueryException $e) {
             Log::warning('Save Like failed: '.$e->getMessage());

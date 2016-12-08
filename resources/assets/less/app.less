@@ -14,6 +14,7 @@ body {
 a {
     color: @link-black-color;
     text-decoration: none;
+    font-weight: 400;
     
     &:hover {
         color: @link-gray-color;
@@ -22,6 +23,27 @@ a {
     
     &.active {
         color: @link-gray-color;
+    }
+}
+p {
+    font-weight: 300;
+}
+
+.text-blue {
+    color: #0487d1;
+}
+.text-time {
+    color: #a9a9a9;
+}
+.btn-blue {
+    border: 1px solid #0487d1;
+    color: #0487d1;
+}
+.btn-white {
+    color: @text-white-color;
+    
+    &:hover {
+        color: @text-white-color;
     }
 }
 
@@ -34,8 +56,11 @@ a {
 .navbar-black {
     background-color: rgba(0, 0, 0, 1.0);
     margin-bottom: 0px;
+    padding: 5px 0;
     
     .navbar-nav {
+        margin: 0 0 0 20px;
+        
         a {        
             color: #999;
             text-shadow: none;
@@ -116,8 +141,11 @@ a {
     background: rgba(0, 0, 0, 0) url("/img/story_about.jpg") repeat scroll center center;
     
     h4 {
-        padding-top: 260px;
+        padding-top: 220px;
         color: @text-white-color;
+        font-size: 36px;
+        font-weight: 100;
+        margin-bottom: 30px;
     }
 }
 
@@ -126,6 +154,8 @@ a {
 }
 
 .aboutus {
+    min-height: 300px;
+    
     p {
         margin: 20px auto 0;
         line-height: 2;
@@ -133,6 +163,8 @@ a {
 }
 
 .contact {
+    min-height: 300px;
+    
     p {
         margin: 20px auto 0;
         line-height: 2;
@@ -145,6 +177,7 @@ a {
     padding-bottom: 20px;
     color: gray;
     background-color: rgba(0,0,0,1.0);
+    position: relative;
     
     hr {
         color: rgba(0,0,0,0.5);
@@ -179,6 +212,28 @@ a {
         }
     }
     
+    label.lang {
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .lang-choose {
+        padding: 5px 10px !important;
+    }
+    span {
+        outline: 0 none !important;
+    } 
+}
+
+.footer .select2-container {
+    float: right;
+}
+.select2-dropdown {
+    border: none !important;
+}
+.select2-container--default .select2-selection--single {
+    background: none !important;
+    border: none !important;
 }
 
 .text-list {
@@ -200,4 +255,237 @@ a {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.15);
     margin: 15px auto;
+}
+
+.swiper-slide {
+    &.cover {
+        background-position: center center;
+        background-size: cover;
+        height: 600px;
+    }
+    
+    .image {
+        width: 100%;
+    }
+    
+    .caption {
+        color: #fff;
+        position: relative;
+        text-align: center;
+        
+        h3 {
+            line-height: 1.1;
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 0;
+            margin-top: 40px;
+            
+            span {
+                font-size: 48px;
+                font-weight: 100;
+            }
+        }
+        
+        .ces-logo {
+            left: 15px;
+            position: absolute;
+            top: 45px;
+            z-index: 9;
+        }
+    }
+    
+    .caption-right {
+        color: #fff;
+        position: absolute;
+        right: 150px;
+        top: 150px;
+        width: 580px;
+        z-index: 10;
+        
+        h3 {
+            line-height: 1.1;
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 0;
+            margin-top: 0px;
+            
+            span {
+                font-size: 48px;
+                font-weight: 100;
+            }
+        }
+    }
+}
+.btn-play {
+    font-size: 18px;
+    font-weight: 100;
+}
+.swiper-pagination-bullet {
+    border-radius: 0;
+    width: 30px;
+    height: 4px;
+    margin: 0 3px !important;
+    background: rgba(255, 255, 255, 0.35) none repeat scroll 0 0;
+}
+.swiper-pagination-bullet-active {
+    background: rgba(255, 255, 255, 0.75) none repeat scroll 0 0;
+}
+
+.container.auth {
+    margin-top: 40px;
+    min-height: 550px;
+}
+
+.block-title {
+    padding: 20px;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: 100;
+    
+    span {
+        border-bottom: 1px solid #000;
+        padding-bottom: 10px;
+    }
+    
+    &.white {
+        color: #fff;
+        
+        span {
+            border-color: #fff;
+        }
+    }
+    
+}
+.card {
+    border-radius: 0;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 0;
+    
+    .caption {
+        text-align: left;
+        
+        h3 {
+            font-size: 16px;
+            line-height: 1.25;
+            margin-top: 0;
+            height: 40px;
+        }
+        
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.block.news {
+    .btn-more {
+        padding: 8px 35px;
+        margin: 20px auto;
+    }
+}
+
+.mideas {
+    margin-top: 30px;
+    .logo {
+        margin-bottom: 40px;
+        margin-right: 25px;
+    }
+}
+
+.block.products {
+    background-color: #333;
+    padding-bottom: 30px;
+    
+    .item {
+        margin-bottom: 6px;
+        padding-left: 3px;
+        padding-right: 3px;
+        
+        .photo {
+            width: 100%;
+        }
+    }
+}
+
+.block.about {
+    background: rgba(0, 0, 0, 0) url("/img/about-bg.png") repeat scroll center center;
+    line-height: 1.5;
+    padding: 20px 15px 50px;
+
+    &.white {
+        color: #fff;
+    }
+    
+    p {
+        font-weight: 100;
+        line-height: 2;
+    }
+}
+
+.block.contact {
+    background: rgba(0, 0, 0, 0) url("/img/contact-bg.png") repeat scroll center center;
+    padding: 20px 15px 50px;
+}
+
+.social-buttons {
+    margin-top: 30px;
+    
+    a {
+        border-radius: 100px;
+        display: inline-block;
+        height: 42px;
+        text-indent: -1920px;
+        width: 42px;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0) url("/img/social/qq.png") no-repeat scroll center center;
+    }
+    
+    a.qq {
+        background-image: url("/img/social/qq.png");
+        margin-right: 40px;
+        
+        &:hover {
+            background-image: url("/img/social/qq_active.png");
+        }
+    }
+    
+    a.weibo {
+        background-image: url("/img/social/weibo.png");
+        
+        &:hover {
+            background-image: url("/img/social/weibo_active.png");
+        }
+    }
+    
+    a.wechat {
+        background-image: url("/img/social/wechat.png");
+        margin-left: 40px;
+        
+        &:hover {
+            background-image: url("/img/social/wechat_active.png");
+        }
+    }
+    
+}
+
+.container-news {
+    margin: 30px auto;
+    min-height: 550px;
+}
+
+#video-box {
+    margin-top: 90px;
+    
+    .close {
+        position: absolute;
+        right: -20px;
+        top: 0px;
+        z-index: 99;
+    }
+    video {
+        width: 100%;
+        display: block;
+    }
 }

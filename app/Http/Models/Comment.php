@@ -67,6 +67,14 @@ class Comment extends Model
     }
     
     /**
+     * 获取评论关联提醒
+     */
+    public function reminds()
+    {
+        return $this->morphMany('App\Http\Models\Remind', 'remindable');
+    }
+    
+    /**
      * 获取回复给某人的信息
      */
     public function getReplyToUserAttribute()

@@ -11,11 +11,11 @@
 |
 */
 // 限定域名访问
-Route::group(array('domain' => env('APP_DOMAIN')), function(){
+Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(){
     Route::get('/', 'HomeController@index');
-
-    Route::auth();
-
+    // 设置语言
+    Route::get('lang/{lang}', 'HomeController@lang')->where('lang', '[A-Za-z_-]+');
+    
     Route::get('/home', 'HomeController@index');
 
     Route::get('/job', 'HomeController@job');
@@ -23,18 +23,20 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
     Route::post('/promo', 'HomeController@promo');
 
     Route::get('/avatar', 'HomeController@avatar');
-
-    /**
-     * 测试
-     */
-    Route::get('/test/search', 'TestController@search');
-    Route::get('/test/del_search', 'TestController@delSearch');
-
+    
+    Route::get('/news', 'WebController@news');
     /**
      * 静态文件
      */
     Route::get('/aboutus', 'WebController@aboutUs');
     Route::get('/contact', 'WebController@contact');
+    
+    /**
+     * 测试
+     */
+    Route::get('/test', 'TestController@index');
+    Route::get('/test/search', 'TestController@search');
+    Route::get('/test/del_search', 'TestController@delSearch');
 
     /**
      * 后台管理的路由组
@@ -53,7 +55,37 @@ Route::group(array('domain' => env('APP_DOMAIN')), function(){
         
         Route::resource('tags/{id}/stick', 'TagController@stick');
         Route::resource('tags/{id}/unstick', 'TagController@unstick');
+
+        Route::resource('stuffs/{id}/stick', 'StuffController@stick');
+        Route::resource('stuffs/{id}/unstick', 'StuffController@unstick');
+        Route::resource('stuffs/{id}/featur', 'StuffController@featur');
+        Route::resource('stuffs/{id}/unfeatur', 'StuffController@unfeatur');
+        //更新columns状态　１显示　０关闭
+        Route::resource('columns/{id}/unstatus', 'ColumnController@unstatus');
+        Route::resource('columns/{id}/status', 'ColumnController@status');
+
+        //更新columnspaces状态　１显示　０关闭
+        Route::resource('columnspaces/{id}/unstatus', 'ColumnSpaceController@unstatus');
+        Route::resource('columnspaces/{id}/status', 'ColumnSpaceController@status');
     });
+});
+
+Route::auth();
+
+/**
+ * 移动端路由
+ */
+Route::group(['middleware' => ['web'], 'domain' => env('APP_MINI_DOMAIN')], function(){
+    Route::get('/', 'WapController@index');
+    Route::get('/index', 'WapController@index');
+    Route::get('/news', 'WapController@news');
+    
+    // 设置语言
+    Route::get('lang/{lang}', 'WapController@lang')->where('lang', '[A-Za-z_-]+');
+    
+    // h5显示
+    Route::get('/stuff/{id}.html', 'WapController@stuff');
+    
 });
 
 /**
@@ -83,6 +115,22 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('auth/authenticate', [
         'as' => 'auth.authenticate', 'uses' => 'AuthenticateController@authenticate'
     ]);
+        
+    // 用户第三方登录验证并返回Token
+    $api->post('oauth/wechat', [
+        'as' => 'oauth.wechat', 'uses' => 'OAuthController@wechat'
+    ]);
+    $api->post('oauth/facebook', [
+        'as' => 'oauth.facebook', 'uses' => 'OAuthController@facebook'
+    ]);
+    $api->post('oauth/instagram', [
+        'as' => 'oauth.instagram', 'uses' => 'OAuthController@instagram'
+    ]);
+        
+    // 关于我们
+    $api->get('h5/about', [
+        'as' => 'h5.about', 'uses' => 'H5Controller@about'
+    ]);
     
     // 七牛上传回调
     $api->post('upload/qiniuback', [
@@ -92,6 +140,14 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->post('upload/qiniuNotify', [
         'as' => 'upload.qiniuNotify', 'uses' => 'UploadController@qiniuNotify'
     ]);
+       
+    // 第三方 
+    $api->group(['middleware' => ['web']], function($api) {
+        // 第三方登录跳转 
+        $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
+        // 第三方登录回调
+        $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
+    });
     
     /**
      * 分享相关路由
@@ -142,10 +198,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         'as' => 'feedback.getlist', 'uses' => 'FeedbackController@getList'
     ])->where(['state' => '[0-9]+']);
     
+    // 获取个人信息
     $api->get('user/{id}', [
-        'as' => 'user', 'uses' => 'UserController@profile'
+        'as' => 'user', 'uses' => 'UserController@index'
     ])->where(['id' => '[0-9]+']);
-        
     
     // 用户粉丝
     $api->get('user/{id}/fans', [
@@ -167,11 +223,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     $api->get('gateway/columns', [
         'as' => 'gateway.columns', 'uses' => 'GatewayController@columnList'
     ]);
-    
-    // 第三方登录跳转 
-    $api->get('oauth/redirect/{driver}', 'OAuthController@redirectToProvider');
-    // 第三方登录回调
-    $api->get('oauth/callback/{driver}', 'OAuthController@handleProviderCallback');
     
     
     // 搜索列表接口
@@ -291,14 +342,47 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
         ]);
           
         // 更新用户资料
-        $api->post('user/settings', [
-            'as' => 'user.settings', 'uses' => 'UserController@settings'
-        ])->where(['id' => '[0-9]+']);
-        
-        // 获取个人信息
-        $api->get('user/profile', [
-            'as' => 'user.profile', 'uses' => 'UserController@profile'
+        $api->post('me/settings', [
+            'as' => 'me.settings', 'uses' => 'MeController@settings'
         ]);
+        // 更新密码
+        $api->post('me/updatePassword', [
+            'as' => 'me.updatePassword', 'uses' => 'MeController@updatePassword'
+        ]);
+        // 获取个人信息
+        $api->get('me/profile', [
+            'as' => 'me.profile', 'uses' => 'MeController@profile'
+        ]);
+        // 获取个人赞过的作品
+        $api->get('me/likeStuffs', [
+            'as' => 'me.like.stuffs', 'uses' => 'MeController@likeStuffs'
+        ]);
+        // 获取消息的数量
+        $api->get('me/alertCount', [
+            'as' => 'me.alert.count', 'uses' => 'MeController@alertCount'
+        ]);
+        // 获取消息的数量
+        $api->post('me/resetCount', [
+            'as' => 'me.reset.count', 'uses' => 'MeController@resetCount'
+        ]);
+        // 获取收到的评论列表
+        $api->get('me/gotComment', [
+            'as' => 'me.got.comment', 'uses' => 'MeController@gotComment'
+        ]);
+        // 获取收到的点赞列表
+        $api->get('me/gotLikes', [
+            'as' => 'me.got.likes', 'uses' => 'MeController@gotLikes'
+        ]);
+            
+        // 编辑个性签名
+        $api->get('me/editSign', [
+            'as' => 'me.edit.sign', 'uses' => 'MeController@editSign'
+        ]);
+        // 更新个性签名
+        $api->post('me/updateSign', [
+            'as' => 'me.update.sign', 'uses' => 'MeController@updateSign'
+        ]);
+        
         
     });
     

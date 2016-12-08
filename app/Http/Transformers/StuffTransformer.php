@@ -7,7 +7,6 @@ use App\Http\Models\Like;
 use App\Http\Models\Follow;
 use Illuminate\Http\Request;
 use League\Fractal\TransformerAbstract;
-//use Carbon\Carbon;
 
 use App\Http\Models\Stuff;
 
@@ -35,8 +34,8 @@ class StuffTransformer extends TransformerAbstract
             'user_id' => $stuff->user_id,
             'user' => $stuff->user,
             'tags' => $stuff->tags,
-            'photo' => $stuff->cover,
-            'created_at' => $stuff->created_at->format('Y-m-d'),
+            'cover' => $stuff->cover,
+            'created_at' => $stuff->created_at,
             'is_love' => $this->is_love($stuff),
             'is_follow' => $this->is_follow($stuff),
         ];
@@ -48,9 +47,13 @@ class StuffTransformer extends TransformerAbstract
     protected function is_love($stuff)
     {
         $user_id = $this->current_user_id;
-        if(empty($user_id)) return false;
+        
+        if (empty($user_id)) return false;
+        
         $has_one = Like::where(array('user_id'=>$user_id, 'likeable_id'=>$stuff->id))->first();
-        if(!empty($has_one)) return true;
+        
+        if (!empty($has_one)) return true;
+        
         return false;
     }
 
@@ -60,9 +63,12 @@ class StuffTransformer extends TransformerAbstract
     protected function is_follow($stuff)
     {
         $user_id = $this->current_user_id;
-        if(empty($user_id)) return false;
+        if (empty($user_id)) return false;
+        
         $has_one = Follow::where(array('user_id'=>$user_id, 'follow_id'=>$stuff->user_id))->first();
-        if(!empty($has_one)) return true;
+        
+        if (!empty($has_one)) return true;
+        
         return false;
     }
 

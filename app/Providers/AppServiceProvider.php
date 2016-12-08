@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Carbon\Carbon::setLocale('zh');
+        
         // 定义多态对照表
         Relation::morphMap([
             'Stuff' => \App\Http\Models\Stuff::class,
@@ -56,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
                 // 添加执行时间
                 $query .= ' '.$sql->time.'ms';
                 
-                Log::debug($query);
+                // Log::debug($query);
             }
         );
     }
