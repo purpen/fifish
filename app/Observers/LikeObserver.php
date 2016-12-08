@@ -33,9 +33,9 @@ class LikeObserver
     /**
      * 删除后, 更新所属对象的计数
      */
-    public function deleted ($like)
+    public function deleting ($like)
     {
-        if ($like->likeable()->like_count > 0) {
+        if ($like->likeable()->first()->like_count > 0) {
             return $like->likeable()->decrement('like_count');
         }
     }

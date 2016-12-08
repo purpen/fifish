@@ -25,7 +25,7 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-user-plus"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">用户</span>
-                    <span class="info-box-number">9,139</span>
+                    <span class="info-box-number">{{ $user_total }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-files-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">分享</span>
-                    <span class="info-box-number">93,139</span>
+                    <span class="info-box-number">{{ $stuff_total }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -45,7 +45,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-up"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">点赞</span>
-                    <span class="info-box-number">93,139</span>
+                    <span class="info-box-number">{{ $like_total }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -55,7 +55,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-comments-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">回复</span>
-                    <span class="info-box-number">139</span>
+                    <span class="info-box-number">{{ $comment_total }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>

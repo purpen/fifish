@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Models\Asset;
+use App\Http\Utils\ImageUtil;
 
 class AssetController extends Controller
 {
@@ -52,10 +53,34 @@ class AssetController extends Controller
     }
     
     /**
+     * ajax附件删除
+     */
+    public function ajaxDestroy(Request $request, $id)
+    {
+        $asset = Asset::findOrFail($id);
+        
+        $store_path = $asset->filepath;
+        // 删除记录
+        $ok = $asset->delete();
+        if ($ok) {
+            // 从云存储里删除文件
+            $res = ImageUtil::deleteQiniuFile($store_path);
+        }
+        
+        return response()->json([
+            'id' => $id,
+            'status_code' => 200,
+            'status_message' => '删除附件成功！',
+        ]);
+    }
+    
+    /**
      * 附件删除
      */
     public function destroy()
     {
+        
+        
         
     }
 }

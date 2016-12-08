@@ -76,7 +76,7 @@ class Asset extends Model
                 return (object)[
                     'srcfile' => ImageUtil::qiniuViewUrl($this->filepath),
                     'small' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxsm'),
-                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'cvxlg'),
+                    'large' => ImageUtil::qiniuViewUrl($this->filepath, 'hd'),
                     'thumb' => ImageUtil::qiniuViewUrl($this->filepath, 'psq'),
                     'adpic' => ImageUtil::qiniuViewUrl($this->filepath, 'plg'),
                 ];

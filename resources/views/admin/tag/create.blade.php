@@ -1,13 +1,7 @@
 @extends('layouts.admin')
 
 @section('customize_css')
-#uploader-result {
-    padding: 20px 0 5px;
-}
-#uploader-result .asset {
-    display: inline-block;
-    width: 120px;
-}
+
 @endsection
 
 @section('jquery')
@@ -44,8 +38,21 @@
         var resultObj = eval('(' + result.response + ')');
         console.info(resultObj.file.small);
         
-        $('#uploader-result').html('<div class="asset"><img src="'+resultObj.file.small+'"></div>');
+        $('#uploader-result').html('<div class="asset" id="asset_'+resultObj.id+'"><img src="'+resultObj.file.small+'" ><i class="glyphicon glyphicon-trash delete" data-id="'+resultObj.id+'" title="确认删除？"></i></div>');
+        
         $('#asset_id').val(resultObj.id);
+    });
+    
+    // 删除附件
+    $('.asset i.delete').on('click', function(){
+       var id = $(this).data('id');
+       var csrf_token = $('input[name="_token"]').val();
+       
+       $.post('/admin/assets/'+id+'/ajaxDestroy', {_token: csrf_token}, function(res){
+           if (res.status_code == 200) {
+               $('#asset_'+res.id).remove();
+           }
+       });
     });
     
 @endsection

@@ -92,10 +92,13 @@ class ColumnController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $column = Column::findorfail($id);
         $spaces = ColumnSpace::opened()->orderBy('created_at', 'desc')->get();
+        
+        $column = Column::findorfail($id);
+        
         $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Column', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+        
         return view('admin.column.edit', [
             'column' => $column,
             'spaces' => $spaces,
