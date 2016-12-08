@@ -15,17 +15,29 @@ class User extends Authenticatable implements JWTSubject
      *      id,
      *      account,password
      *      username,email,phone,job,zone
-     *      sex,summary,tags
+     *      sex,summary,
+     *      tags,标签
      *      role_id,
-     *      follow_count,fans_count,stuff_count,like_count
-     *      from_site,status
-     *      first_login,last_login
+     *      follow_count,按照计数
+     *      fans_count,粉丝数
+     *      stuff_count,分享数
+     *      like_count，点赞数
+     *      from_site,来自那个网站
+     *      status
+     *      first_login,第一个
+     *      last_login　最后一个
      *      remember_token
      *      created_at,updated_at
-     *      alert_fans_count,alert_like_count,alert_comment_count
-     *      wechat_openid,wechat_access_token,wechat_unionid
-     *      facebook_openid,facebook_access_token
-     *      instagram_openid,instagram_access_token
+     *      alert_fans_count,返回的粉丝数
+     *      alert_like_count,返回的点赞数
+     *      alert_comment_count，返回的评论数
+     *      wechat_openid,微信id
+     *      wechat_access_token,微信令牌
+     *      wechat_unionid
+     *      facebook_openid,facebook_ID
+     *      facebook_access_token,facebook令牌
+     *      instagram_openid,instagram_ID
+     *      instagram_access_token,instagram令牌
      *
      * @var string
      */
@@ -44,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'account', 'username', 'password', 'email', 'phone', 'summary', 'wechat_openid', 'wechat_access_token', 'wechat_unionid', 'facebook_openid', 'facebook_access_token','instagram_openid', 'instagram_access_token', 'from_site'
+        'account', 'username', 'password', 'email', 'phone', 'sex' , 'summary', 'wechat_openid', 'wechat_access_token', 'wechat_unionid', 'facebook_openid', 'facebook_access_token','instagram_openid', 'instagram_access_token', 'from_site'
     ];
     
     /**
@@ -239,5 +251,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * 更新精选状态
+     */
+    static public function upStatus($id, $status=2)
+    {
+        $user = self::findOrFail($id);
+        $user->status = $status;
+        return $user->save();
     }
 }

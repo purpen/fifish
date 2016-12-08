@@ -32,7 +32,7 @@
                 </div>
                 <div class="box-body">
                     @include('block/errors')
-                    <form action="{{ url('/admin/columnspaces') }}" method="post" id="imgForm" enctype="multipart/form-data" class="form-horizontal" role="form">
+                    <form action="{{ url('/admin/columnspaces') }}" method="post" id="addColumnSpace" enctype="multipart/form-data" class="form-horizontal" role="form">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标识*</label>
@@ -71,4 +71,31 @@
         </div>
     </div>
 </div>
+@endsection
+@section('customize_js')
+    @parent
+    $('#addColumnSpace').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: '标识不能为空！'
+                    }
+                }
+            },
+            type: {
+                validators: {
+                    notEmpty: {
+                        message: '请选择类型！'
+                    }
+                }
+            }
+        }
+    });
 @endsection

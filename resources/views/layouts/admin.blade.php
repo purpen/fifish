@@ -247,12 +247,17 @@
     <script src="{{ asset('js/plupload/plupload.full.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ elixir('js/formValidation.js') }}"></script>
+    @yield('partial_js')
     <script type="text/javascript">
+        @yield('customize_js')
+
         $(function(){
             $(".select2").select2();
             
             @yield('jquery')
         });
+
     </script>
 </body>
 </html>

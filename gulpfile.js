@@ -63,6 +63,7 @@ elixir(function(mix) {
         'bootstrap.js'
     ], 'public/js/bootstrap.min.js');
     mix.scripts(['AdminLTE.js'], 'public/js/AdminLTE.min.js');
+    mix.scripts(['formValidation/*.js'], 'public/js/formValidation.js');
     mix.scripts([
         'select2.full.js',
         'jquery.form.js',
@@ -87,6 +88,7 @@ elixir(function(mix) {
       'css/wap.css',
       'css/bootstrap.plugins.min.css',
       'js/jquery.plugins.min.js',
-      'js/app.js' 
+      'js/app.js',
+      'js/formValidation.js'
    ]); 
 });

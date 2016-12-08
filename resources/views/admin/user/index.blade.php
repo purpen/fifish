@@ -22,7 +22,9 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">全部列表</h3>
-                    <div class="box-tools"></div>
+                    <div class="box-tools">
+                        <a href="{{ url('/admin/users/create') }}" class="btn btn-link">+新增</a>
+                    </div>
                 </div>
                 <div class="box-body">
                     <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -93,13 +95,22 @@
                                                 {{ $user->created_at }}
                                             </td>
                                             <td>
-                                                
+                                                @if ($user->status == 2)
+                                                    <span class="label label-success">已审核</span>
+                                                @else
+                                                    <span class="label label-danger">未审核</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <form action="/admin/users/{{ $user->id }}" method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-                                                    
+                                                    <a href="/admin/users/{{ $user->id}}/edit" class="btn btn-sm btn-default">编辑</a>
+                                                    @if ($user->status == 2)
+                                                        <a href="/admin/users/{{ $user->id}}/unstatus" class="btn btn-sm btn-danger">取消审核</a>
+                                                    @else
+                                                        <a href="/admin/users/{{ $user->id}}/status" class="btn btn-sm btn-success">审核</a>
+                                                    @endif
                                                     <button class="btn btn-sm bg-orange">
                                                         <span class="fa fa-trash" aria-hidden="true"></span> 删除
                                                     </button>

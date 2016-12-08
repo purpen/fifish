@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use Config;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Models\Asset;
 use App\Http\Models\User;
+use App\Http\Utils\ImageUtil;
 use App\Http\Transformers\UserTransformer;
 
 class UserController extends Controller
@@ -38,7 +40,87 @@ class UserController extends Controller
         
         return view('admin.user.index', ['users' => $users]);
     }
-    
+
+    /**
+     * 新增标签
+     */
+    public function create()
+    {
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'User', \Auth::user()->id);
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+
+        return view('admin.user.create', [
+            'token' => $token,
+            'upload_url' => $upload_url
+        ]);
+    }
+
+    /*
+     *保存
+     */
+    public function store(Request $request)
+    {
+        $somedata = $request->only([
+            'account', 'username', 'email', 'phone' , 'summary'
+        ]);
+        // 设置默认密码
+        $somedata['password'] = bcrypt('123456');
+        $user = new User();
+        $user->fill($somedata);
+        $res = $user->save();
+
+        // 更新图片（支持图片先上传后保存资料）
+        $asset_id = $request->input('asset_id');
+        if ($asset_id) {
+            $asset = Asset::findOrFail((int)$asset_id);
+            $asset->assetable_id = $user->id;
+            $asset->save();
+        }
+
+        return redirect('/admin/users');
+    }
+
+
+    /*
+     * 编辑
+     */
+    public function edit(Request $request, $id)
+    {
+        $user = User::findorfail($id);
+
+        $token = ImageUtil::qiniuToken(false, 'photo', 0, 'User', \Auth::user()->id);
+        $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
+
+        return view('admin.user.edit', [
+            'user' => $user,
+            'token' => $token,
+            'upload_url' => $upload_url
+        ]);
+    }
+
+    /**
+     * 用户更新
+     */
+    public function update(Request $request, $id)
+    {
+        $somedata = $request->only([
+            'account', 'username', 'email', 'phone' , 'summary' , 'sex'
+        ]);
+
+        $user = User::findOrFail($id);
+        $res = $user->update($somedata);
+
+        // 更新图片（支持图片先上传后保存资料）
+        $asset_id = $request->input('asset_id');
+        if ($asset_id) {
+            $asset = Asset::findOrFail((int)$asset_id);
+            $asset->assetable_id = $id;
+            $asset->save();
+        }
+
+        return redirect('/admin/users');
+    }
+
     /**
      * 删除
      */
@@ -46,6 +128,21 @@ class UserController extends Controller
     {
         $res = User::findOrFail($id)->delete();
         
+        return redirect('/admin/users');
+    }
+
+    /*
+* 状态
+*/
+    public function status(Request $request, $id)
+    {
+        $ok = User::upStatus($id, 2);
+        return redirect('/admin/users');
+    }
+
+    public function unstatus(Request $request, $id)
+    {
+        $ok = User::upStatus($id, 1);
         return redirect('/admin/users');
     }
 }

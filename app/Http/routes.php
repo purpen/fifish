@@ -44,7 +44,7 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
     Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     
         Route::get('/', 'OverviewController@index');
-    
+
         Route::resource('stuffs', 'StuffController');
         Route::resource('columns', 'ColumnController');
         Route::resource('comments', 'TagController');
@@ -67,6 +67,10 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
         //更新columnspaces状态　１显示　０关闭
         Route::resource('columnspaces/{id}/unstatus', 'ColumnSpaceController@unstatus');
         Route::resource('columnspaces/{id}/status', 'ColumnSpaceController@status');
+
+        //更新users状态　2通过审核　１未审核
+        Route::resource('users/{id}/unstatus', 'UserController@unstatus');
+        Route::resource('users/{id}/status', 'UserController@status');
     });
 });
 

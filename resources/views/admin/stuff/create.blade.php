@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="{{ url('/admin/stuffs') }}" method="post" id="imgForm" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">
+                    <form action="{{ url('/admin/stuffs') }}" method="post" id="addStuff" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal" role="form">
                         <input type="hidden" name="asset_id" id="asset_id" >
                         <input type="hidden" name=video_id" id="video_id" >
                         {{ csrf_field() }}
@@ -144,7 +144,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="content" class="col-sm-2 control-label">分享内容</label>
+                            <label for="content" class="col-sm-2 control-label">分享内容*</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" placeholder="分享内容" name="content"></textarea>
                             </div>
@@ -161,4 +161,24 @@
         </div>
     </div>
 </div>
+@endsection
+@section('customize_js')
+    @parent
+    $('#addStuff').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            content: {
+                validators: {
+                    notEmpty: {
+                        message: '分享内容不能为空！'
+                    }
+                }
+            }
+        }
+    });
 @endsection

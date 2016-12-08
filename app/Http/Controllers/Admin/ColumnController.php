@@ -37,7 +37,6 @@ class ColumnController extends Controller
     public function create()
     {
         $spaces = ColumnSpace::opened()->orderBy('created_at', 'desc')->get();
-        
         $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Column', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
             
@@ -93,7 +92,7 @@ class ColumnController extends Controller
     public function edit(Request $request, $id)
     {
         $column = Column::findorfail($id);
-        $spaces = ColumnSpace::opened()->orderBy('created_at', 'desc')->get();
+        $spaces = ColumnSpace::orderBy('created_at', 'desc')->get();
         $token = ImageUtil::qiniuToken(false, 'photo', 0, 'Column', \Auth::user()->id);
         $upload_url = Config::get('filesystems.disks.qiniu.upload_url');
         return view('admin.column.edit', [
@@ -109,6 +108,7 @@ class ColumnController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $somedata = $request->only([
             'column_space_id', 'title', 'sub_title', 'url' , 'summary'
         ]);

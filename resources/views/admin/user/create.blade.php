@@ -11,7 +11,7 @@
 @endsection
 
 @section('jquery')
-    //实例化一个plupload上传对象    
+    // 实例化一个plupload上传对象    
     var uploader = new plupload.Uploader({
         browse_button : 'uploader', //触发文件选择对话框的按钮，为那个元素id
         url : '{{ $upload_url }}', //服务器端的上传页面地址
@@ -45,18 +45,15 @@
         console.info(resultObj.file.small);
         
         $('#uploader-result').html('<div class="asset"><img src="'+resultObj.file.small+'"></div>');
-        $('#cover_id').val(resultObj.id);
+        $('#asset_id').val(resultObj.id);
     });
-
-
-
+    
 @endsection
 
 @section('content')
 <div class="content-header">
     <h1>
-        栏目管理
-        <small>照片、视频</small>
+        用户管理
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -65,7 +62,7 @@
                 控制台
             </a>
         </li>
-        <li class="active">栏目推荐管理</li>
+        <li class="active">用户管理</li>
     </ol>
 </div>
 
@@ -74,66 +71,65 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">新增栏目</h3>
-                    <div class="box-tools">
-                        <a href="{{ url('/admin/columns/create') }}" class="btn btn-link">+新增</a>
-                    </div>
+                    <h3 class="box-title">全部列表</h3>
                 </div>
                 <div class="box-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    
-                    <form action="{{ url('/admin/columns') }}" method="post" id="addColumn" class="form-horizontal" role="form">
-                        {{ csrf_field() }}     
-                        <input type="hidden" name="cover_id" id="cover_id" >              
+                    @include('block/errors')
+                    <form action="{{ url('/admin/users') }}" method="post" id="addUser" class="form-horizontal" role="form">                             {{ csrf_field() }}
+                        <input type="hidden" name="asset_id" id="asset_id" >
                         <div class="form-group">
-                            <label for="column_space_id" class="col-sm-2 control-label">所属位置*</label>
-                            <div class="col-sm-4">
-                                <select name="column_space_id" class="form-control select2">
-                                    @foreach ($spaces as $space)
-                                    <option value="{{ $space->id }}">{{ $space->summary }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">标题*</label>
+                            <label for="account" class="col-sm-2 control-label">账号(E-Mail)*</label>
                             <div class="col-sm-10">
-                                <input type="text" name="title" class="form-control">
+                                <input class="form-control" name="account">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="sub_title" class="col-sm-2 control-label">副标题</label>
+                            <label for="username" class="col-sm-2 control-label">用户昵称*</label>
                             <div class="col-sm-10">
-                                <input type="text" name="sub_title" class="form-control">
+                                <input class="form-control" name="username">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="url" class="col-sm-2 control-label">目标链接*</label>
+                            <label for="email" class="col-sm-2 control-label">邮箱*</label>
                             <div class="col-sm-10">
-                                <input type="text" name="url" class="form-control">
+                                <input class="form-control" name="email">
                             </div>
                         </div>
-                        
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">选择图片*</label>
+                            <label for="phone" class="col-sm-2 control-label">手机号*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择图片</label>
                             <div class="col-sm-10">
                                 <div id="uploader" class="btn btn-success">
-                                    上传图片
+                                    上传头像
                                 </div>
                                 
                                 <div id="uploader-result"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="summary" class="col-sm-2 control-label">栏目说明</label>
+                            <label class="col-sm-2 control-label" for="sex">性别</label>
+                            <div class="col-sm-10">
+                                <div class="radio-inline">
+                                    <label class="col-xs-5">
+                                        <input name="sex" value="0" type="radio" id="sex0"> 保密
+                                    </label>
+                                    <label class="col-xs-4">
+                                        <input name="sex" value="1" type="radio" id="sex1"> 男
+                                    </label>
+                                    <label class="col-xs-3">
+                                        <input name="sex" value="2" type="radio" id="sex2"> 女
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="summary" class="col-sm-2 control-label">个性签名</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" name="summary"></textarea>
                             </div>
@@ -153,7 +149,7 @@
 @endsection
 @section('customize_js')
     @parent
-    $('#addColumn').formValidation({
+    $('#addUser').formValidation({
         framework: 'bootstrap',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -161,27 +157,35 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            column_space_id: {
+            account: {
                 validators: {
                     notEmpty: {
-                        message: '请选择所属位置！'
+                        message: '账号(E-Mail)不能为空！'
                     }
                 }
             },
-            title: {
+            username: {
                 validators: {
                     notEmpty: {
-                        message: '标题不能为空！'
+                        message: '用户昵称不能为空！'
                     }
                 }
             },
-            url: {
+            email: {
                 validators: {
                     notEmpty: {
-                        message: '目标连接不能为空！'
+                        message: '邮箱不能为空！'
+                    }
+                }
+            },
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: '手机号不能为空！'
                     }
                 }
             }
         }
     });
 @endsection
+
