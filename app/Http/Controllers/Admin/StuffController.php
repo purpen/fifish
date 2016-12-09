@@ -52,13 +52,6 @@ class StuffController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'asset_id.required' => '请上传一张图片',
-        ];
-        $this->validate($request, [
-            'asset_id' => 'required',
-
-        ], $messages);
 
         $somedata = $request->only([
             'content'

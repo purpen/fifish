@@ -108,7 +108,6 @@ class ColumnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $somedata = $request->only([
             'column_space_id', 'title', 'sub_title', 'url' , 'summary'
         ]);

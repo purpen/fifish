@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Validator;
 use Illuminate\Http\Request;
 use Config;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\UserRequest;
 use App\Http\Models\Asset;
 use App\Http\Models\User;
 use App\Http\Utils\ImageUtil;
@@ -58,10 +59,10 @@ class UserController extends Controller
     /*
      *保存
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $somedata = $request->only([
-            'account', 'username', 'email', 'phone' , 'summary'
+            'account', 'username', 'email', 'phone' , 'summary' , 'sex'
         ]);
         // 设置默认密码
         $somedata['password'] = bcrypt('123456');
