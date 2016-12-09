@@ -100,7 +100,7 @@ class TestController extends Controller
 
         //$ok = JPushUtil::send($alert, $options);
 
-        $push = (new UserRemindPush())->onQueue('indexes');
+        $push = (new UserRemindPush())->onQueue('user_remind_push');
         $this->dispatch($push);
 
         echo 'success';
