@@ -80,13 +80,13 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标签名称*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="name">
+                                <input class="form-control" name="name" value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="display_name" class="col-sm-2 control-label">显示名称*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="display_name">
+                                <input class="form-control" name="display_name" value="{{old('display_name')}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,14 +102,14 @@
                         <div class="form-group">
                             <label for="same_words" class="col-sm-2 control-label">相关标签</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="same_words">
+                                <input class="form-control" name="same_words" value="{{old('same_words')}}">
                                 <span class="descirption">标签之间使用,隔开</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">标签说明</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control" name="description"  value="{{old('description')}}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">

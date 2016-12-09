@@ -80,16 +80,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    
+                    @include('block.errors')
                     <form action="{{ url('/admin/columns') }}" method="post" id="addColumn" class="form-horizontal" role="form">
                         {{ csrf_field() }}     
                         <input type="hidden" name="cover_id" id="cover_id" >              
@@ -106,19 +97,19 @@
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">标题*</label>
                             <div class="col-sm-10">
-                                <input type="text" name="title" class="form-control">
+                                <input type="text" name="title" class="form-control" value="{{old('title')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="sub_title" class="col-sm-2 control-label">副标题</label>
                             <div class="col-sm-10">
-                                <input type="text" name="sub_title" class="form-control">
+                                <input type="text" name="sub_title" class="form-control" value="{{old('sub_title')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="url" class="col-sm-2 control-label">目标链接*</label>
                             <div class="col-sm-10">
-                                <input type="text" name="url" class="form-control">
+                                <input type="text" name="url" class="form-control" value="{{old('url')}}">
                             </div>
                         </div>
                         
@@ -135,7 +126,7 @@
                         <div class="form-group">
                             <label for="summary" class="col-sm-2 control-label">栏目说明</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="summary"></textarea>
+                                <textarea class="form-control" name="summary" value="{{old('summary')}}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">

@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">标识*</label>
                             <div class="col-sm-4">
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="name" class="form-control" value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,7 +45,7 @@
                             <div class="col-sm-4">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="type" value="1"> 官网
+                                        <input type="radio" name="type" value="1" checked> 官网
                                     </label>
                                     <label>
                                         <input type="radio" name="type" value="2"> APP
@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <label for="summary" class="col-sm-2 control-label">说明</label>
                             <div class="col-sm-10">
-                                <input type="text" name="summary" class="form-control">
+                                <input type="text" name="summary" class="form-control" value="{{old('summary')}}">
                             </div>
                         </div>
                         <div class="form-group">

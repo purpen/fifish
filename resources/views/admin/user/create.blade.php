@@ -74,31 +74,31 @@
                     <h3 class="box-title">全部列表</h3>
                 </div>
                 <div class="box-body">
-                    @include('block/errors')
+                @include('block.errors')
                     <form action="{{ url('/admin/users') }}" method="post" id="addUser" class="form-horizontal" role="form">                             {{ csrf_field() }}
                         <input type="hidden" name="asset_id" id="asset_id" >
                         <div class="form-group">
                             <label for="account" class="col-sm-2 control-label">账号(E-Mail)*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="account">
+                                <input class="form-control" name="account" value="{{old('account')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label">用户昵称*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="username">
+                                <input class="form-control" name="username" value="{{old('username')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">邮箱*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="email">
+                                <input class="form-control" name="email" value="{{old('email')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-sm-2 control-label">手机号*</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="phone">
+                                <input class="form-control" name="phone" value="{{old('phone')}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,7 +116,7 @@
                             <div class="col-sm-10">
                                 <div class="radio-inline">
                                     <label class="col-xs-5">
-                                        <input name="sex" value="0" type="radio" id="sex0"> 保密
+                                        <input name="sex" value="0" type="radio" id="sex0" checked> 保密
                                     </label>
                                     <label class="col-xs-4">
                                         <input name="sex" value="1" type="radio" id="sex1"> 男
@@ -131,7 +131,7 @@
                         <div class="form-group">
                             <label for="summary" class="col-sm-2 control-label">个性签名</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="summary"></textarea>
+                                <textarea class="form-control" name="summary" value="{{old('summary')}}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -161,6 +161,10 @@
                 validators: {
                     notEmpty: {
                         message: '账号(E-Mail)不能为空！'
+                    },
+                    regexp: {
+                        regexp: /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi,
+                        message: '格式不正确！'
                     }
                 }
             },
@@ -175,6 +179,10 @@
                 validators: {
                     notEmpty: {
                         message: '邮箱不能为空！'
+                    },
+                    regexp: {
+                        regexp: /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi,
+                        message: '格式不正确！'
                     }
                 }
             },
@@ -182,6 +190,10 @@
                 validators: {
                     notEmpty: {
                         message: '手机号不能为空！'
+                    },
+                    regexp: {
+                        regexp: /^1[34578][0-9]{9}$/,
+                        message: '格式不正确！'
                     }
                 }
             }
