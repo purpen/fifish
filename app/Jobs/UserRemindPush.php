@@ -66,9 +66,6 @@ class UserRemindPush extends Job implements ShouldQueue
                     $ok = false;
                 }
 
-                // 测试
-                $ok = $this->push(49, 100, 1);
-
                 if($ok) $total++;
             }   // endfor
             if($max < $size){
