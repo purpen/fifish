@@ -16,6 +16,10 @@ use App\Http\Models\User;
 
 use App\Http\Utils\XSUtil;
 
+use App\Http\Utils\JPushUtil;
+
+use App\Jobs\UserRemindPush;
+
 class TestController extends Controller
 {
     /**
@@ -78,6 +82,28 @@ class TestController extends Controller
         }else{
             echo $ok['msg'];
         }
+    }
+
+
+    /**
+     * 测试极光推送
+     */
+    public function jPush(Request $request)
+    {
+        $alert = $request->input('alert', 'Hello Word!!');
+
+        $options = array();
+        $options['platform'] = array('ios','android');
+        $options['alias'] = array('49');
+        $options['extras'] = array('infoType'=>8, 'infoId'=>1);
+        //$options['addAllAudience'] = true;
+
+        //$ok = JPushUtil::send($alert, $options);
+
+        $push = (new UserRemindPush())->onQueue('indexes');
+        $this->dispatch($push);
+
+        echo 'success';
     }
     
     

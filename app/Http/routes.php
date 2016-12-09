@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
     Route::get('/test', 'TestController@index');
     Route::get('/test/search', 'TestController@search');
     Route::get('/test/del_search', 'TestController@delSearch');
+    Route::get('/test/j_push', 'TestController@JPush');
 
     /**
      * 后台管理的路由组
