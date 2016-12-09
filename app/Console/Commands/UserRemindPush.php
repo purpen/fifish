@@ -1,35 +1,44 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
 
 use DB;
 use Log;
-use App\Jobs\Job;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
+use Config;
 use App\Http\Utils\JPushUtil;
 
-class UserRemindPush extends Job implements ShouldQueue
+class UserRemindPush extends Command
 {
-
-    use InteractsWithQueue, SerializesModels;
-    
     /**
-     * Create a new job instance.
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'push:user_remind';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'JPush User Remind';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
     public function __construct()
     {
-
+        parent::__construct();
     }
 
     /**
-     * Execute the job.
+     * Execute the console command.
      *
-     * @return void
+     * @return mixed
      */
     public function handle()
     {
@@ -66,7 +75,8 @@ class UserRemindPush extends Job implements ShouldQueue
                     $ok = false;
                 }
 
-                $ok = $this->push(49, 3, 3);
+                // 测试
+                //$ok = $this->push(49, 3, 3);
 
                 if($ok) $total++;
             }   // endfor
@@ -78,8 +88,8 @@ class UserRemindPush extends Job implements ShouldQueue
         }   // end while
 
         Log::debug(sprintf("user remind push pubish! count: %d.", $total));
-
     }
+
 
     /**
      * 执行推送
@@ -111,5 +121,4 @@ class UserRemindPush extends Job implements ShouldQueue
         return $ok;
     }
 
-    
 }

@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        Commands\Inspire::class,
+        // 用户消息推送
+        Commands\UserRemindPush::class,
         'App\Console\Commands\ClearData',
     ];
 
@@ -25,7 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+
+        // 用户消息推送
+        $schedule->command('push:user_remind')->everyMinute(); // 在每天上午8点到23点期间每5分钟触发 
+
     }
 }
