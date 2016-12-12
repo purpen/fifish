@@ -118,3 +118,8 @@ desc assets;
 path: /opt/software/xunsearch
 start: /opt/software/xunsearch/bin/xs-ctl.sh restart -b inet start
 
+###### 利用系统crontab 实现laravel schedule 定时任务
+在终端输入crontab -e 添加一个cron条目：
+* * * * * /src/sbin/php /opt/project/fifish/artisan schedule:run 1>> /dev/null 2>&1
+
+
