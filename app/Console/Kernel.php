@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
 
         // 用户消息推送
-        $schedule->command('push:user_remind')->cron('0,30 8-23 * * *'); // 在每天上午8点到23点期间每5分钟触发 
+        $schedule->command('push:user_remind')->cron('0 8-23 * * *'); // 在每天上午8点到23点期间每小时触发 
 
     }
 }
