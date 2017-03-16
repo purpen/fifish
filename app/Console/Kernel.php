@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
         Commands\Inspire::class,
         // 用户消息推送
         Commands\UserRemindPush::class,
-        'App\Console\Commands\ClearData',
     ];
 
     /**
