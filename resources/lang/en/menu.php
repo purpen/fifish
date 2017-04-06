@@ -23,5 +23,8 @@ return [
     'more' => 'More',
     
     'event_ces' => 'Won the CES 2017 Innovation Award',
-    'event_fair' => 'Debut at 2016 International Engineering FAIR MSV, Brno, Cezch Republic'
+    'event_fair' => 'Debut at 2016 International Engineering FAIR MSV, Brno, Cezch Republic',
+
+    'copyright' => 'Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1',
+    'language' => 'Language',
 ];

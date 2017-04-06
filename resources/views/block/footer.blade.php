@@ -44,11 +44,11 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1
+                    {{ trans('menu.copyright') }}
                 </p>
             </div>
             <div class="col-md-4 text-right">
-                <label class="lang">语言：</label>
+                <label class="lang">{{ trans('menu.language') }}：</label>
                 <select class="lang-choose">
                     <option value="zh-CN" @if(App::getLocale() == 'zh-CN')selected="selected"@endif >CN中文</option>
                     <option value="en" @if(App::getLocale() == 'en')selected="selected"@endif >English</option>
