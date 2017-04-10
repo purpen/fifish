@@ -18,6 +18,9 @@
         text-decoration:line-through;
         color: #ccc;
     }
+    p {
+        font-family: Courier New
+    }
 
 </style>
 @endsection
