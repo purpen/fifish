@@ -26,7 +26,7 @@ class WebController extends Controller
         }
         
         return view('web.news', [
-            'columns' => $columns
+            'columns' => $columns, 'sub_menu_news' => 'active',
         ]);
     }
     
@@ -46,6 +46,14 @@ class WebController extends Controller
     public function contact()
     {        
         return view('web.contact', ['sub_menu_contact' => 'active']);
+    }
+
+    /**
+     * 招募
+     */
+    public function recruit()
+    {        
+        return view('web.recruit', ['sub_menu_recruit' => 'active']);
     }
     
     

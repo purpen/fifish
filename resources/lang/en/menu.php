@@ -9,10 +9,11 @@ return [
     |
     */
     'home' => 'Home',
-    'product' => 'Products',
+    'product' => 'P4',
     'media' => 'News',
     'productshow' => 'Products',
     'news' => 'News',
+    'recruit' => 'Recruit',
     'aboutus' => 'Who We Are',
     'contactus' => 'Contact Us',
     'email' => 'E-mail',
@@ -27,4 +28,5 @@ return [
 
     'copyright' => 'Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1',
     'language' => 'Language',
+    'company_name' => 'Shenzhen Qi Yuan Science and Technology Co., Ltd',
 ];

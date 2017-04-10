@@ -129,9 +129,9 @@
                 <h2 class="block-title">
                     <span>{{ trans('menu.contactus') }}</span>
                 </h2>
+                <p>{{ trans('menu.tel') }}: +86-0755-022662313</p>
                 <p>{{ trans('menu.email') }}: sales@qysea.com</p>
-                <p>{{ trans('menu.tel') }}：+86-0755-022662313</p>
-                <p>{{ trans('menu.address') }}：{{ trans('menu.addinfo') }}</p>
+                <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
             
                 <div class="social-buttons">
                     <a href="" class="qq">QQ</a>

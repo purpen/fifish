@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
      */
     Route::get('/aboutus', 'WebController@aboutUs');
     Route::get('/contact', 'WebController@contact');
+    Route::get('/recruit', 'WebController@recruit');  // 精英招募
     
     /**
      * 测试

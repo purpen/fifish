@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
+@section('partial_css')
+<style type="text/css">
+    .contact {
+        float: left;
+        width: 500px;
+    }
+
+    .c_name {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .map {
+        float: left;
+        width: 200px;
+    }
+    .map img {
+        margin-top: 25px;
+    }
+
+</style>
+@endsection
+
 @section('content')
+
+<!--
 <div class="container insmenu">
     <div class="row">
         <div class="col-lg-8">
@@ -14,6 +38,7 @@
         </div>
     </div>
 </div> 
+-->
  
 <div class="banner banner-contact">
     <h4 class="text-center block-title white">
@@ -23,11 +48,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 text-center">     
-            <div class="contact">     
+        <div class="col-lg-8 col-lg-offset-2">     
+            <div class="contact">
+                <p class="c_name">{{ trans('menu.company_name') }}</p>
+                <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
+                <p>{{ trans('menu.tel') }}: +86-0755-022662313</p>
                 <p>{{ trans('menu.email') }}: sales@qysea.com</p>
-                <p>{{ trans('menu.tel') }}：+86-0755-022662313</p>
-                <p>{{ trans('menu.address') }}：{{ trans('menu.addinfo') }}</p>
+                <p>{{ trans('menu.recruit') }}: careers@qysea.com</p>
+
+            </div>
+            <div class="map">
+                <img src="/img/contact_map.jpg" width="400" />
             </div>
         </div>
     </div>

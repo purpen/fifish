@@ -67,10 +67,11 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <!--<li><a href="{{ url('/home') }}">{{ trans('menu.home') }}</a></li>-->
-                    <li><a href="{{ url('/home') }}">{{ trans('menu.product') }}</a></li>
-                    <li><a href="{{ url('/news') }}">{{ trans('menu.media') }}</a></li>
-                    <li><a href="{{ url('/aboutus') }}">{{ trans('menu.aboutus') }}</a></li>
-                    <li><a href="{{ url('/contact') }}">{{ trans('menu.contactus') }}</a></li>
+                    <!--<li><a href="{{ url('/product') }}">{{ trans('menu.product') }}</a></li>-->
+                    <li><a href="{{ url('/news') }}" class="{{ $sub_menu_news or '' }}">{{ trans('menu.media') }}</a></li>
+                    <li><a href="{{ url('/recruit') }}" class="{{ $sub_menu_recruit or '' }}">{{ trans('menu.recruit') }}</a></li>
+                    <li><a href="{{ url('/aboutus') }}" class="{{ $sub_menu_aboutus or '' }}">{{ trans('menu.aboutus') }}</a></li>
+                    <li><a href="{{ url('/contact') }}" class="{{ $sub_menu_contact or '' }}">{{ trans('menu.contactus') }}</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
