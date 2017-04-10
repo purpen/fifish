@@ -86,7 +86,7 @@
                         </h3>
                         <p>
                             <span class="text-blue">{{ $column->sub_title }}</span>
-                            <span class="pull-right text-time">{{ $column->summary }}</span>
+                            <span class="pull-right">{{ $column->created_at }}</span>
                         </p>
                     </div>
                 </div>
