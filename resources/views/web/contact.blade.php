@@ -33,7 +33,7 @@
        
     function loadScript() {  
       var script = document.createElement("script");  
-      script.src = "http://api.map.baidu.com/api?v=2.0&ak=N8Y86jHulT4qDOAmLb47vU7y&callback=initialize";//此为v2.0版本的引用方式  
+      script.src = "https://api.map.baidu.com/api?v=2.0&ak=N8Y86jHulT4qDOAmLb47vU7y&callback=initialize";//此为v2.0版本的引用方式  
       // http://api.map.baidu.com/api?v=1.4&ak=N8Y86jHulT4qDOAmLb47vU7y&callback=initialize"; //此为v1.4版本及以前版本的引用方式  
       document.body.appendChild(script);  
     }  
