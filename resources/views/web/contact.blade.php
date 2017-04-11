@@ -53,8 +53,8 @@
                 <p class="c_name">{{ trans('menu.company_name') }}</p>
                 <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
                 <p>{{ trans('menu.tel') }}: +86-0755-022662313</p>
-                <p>{{ trans('menu.email') }}: sales@qysea.com</p>
-                <p>{{ trans('menu.recruit') }}: careers@qysea.com</p>
+                <p>{{ trans('menu.email') }}: partner@QYsea.com</p>
+                <p>{{ trans('menu.recruit') }}: careers@QYsea.com</p>
 
             </div>
             <div class="map">

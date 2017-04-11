@@ -19,7 +19,7 @@
         color: #ccc;
     }
     p {
-        font-family: Courier New
+        font-family: PmingLiu
     }
 
 </style>

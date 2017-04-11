@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('partial_css')
+<style type="text/css">
+    .font_family p {
+        font-family: PmingLiu
+    }
+
+</style>
+@endsection
+
 @section('jquery')
     var video = document.getElementById('fifish-v1');
     var mySwiper = new Swiper('.swiper-container', {
@@ -114,7 +123,7 @@
                     <span>{{ trans('menu.aboutus') }}</span>
                 </h2>
             </div>
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2 font_family">
                 <p>{{ trans('aboutme.info') }}</p>
                 <p>{{ trans('aboutme.info2') }}</p>
             </div>
@@ -129,8 +138,9 @@
                 <h2 class="block-title">
                     <span>{{ trans('menu.contactus') }}</span>
                 </h2>
-                <p>{{ trans('menu.tel') }}: +86-0755-022662313</p>
-                <p>{{ trans('menu.email') }}: sales@qysea.com</p>
+                <p>{{ trans('menu.tel') }}: +86-755-22662313</p>
+                <p>{{ trans('menu.recruit') }}: careers@QYsea.com</p>
+                <p>{{ trans('menu.email') }}: partner@QYsea.com</p>
                 <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
             
                 <div class="social-buttons">

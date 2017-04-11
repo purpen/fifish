@@ -13,13 +13,13 @@ return [
     'media' => 'News',
     'productshow' => 'Products',
     'news' => 'News',
-    'recruit' => 'Recruit',
+    'recruit' => 'Recruitment',
     'aboutus' => 'Who We Are',
     'contactus' => 'Contact Us',
-    'email' => 'E-mail',
-    'tel' => 'Phone',
+    'email' => 'Cooperation',
+    'tel' => 'Telephone',
     'address' => 'Address',
-    'addinfo' => 'Room 627、629， Fu Nian Square, Shi Hua Road, Fu Tian Free Trade Zone, Shen Zhen, Guang Dong, China.',
+    'addinfo' => 'Room 627、629， Fu Nian Plaza, Shi Hua Road, Fu Tian Free Trade Zone, Shen Zhen, Guang Dong Province, China. P.c. 518048',
     'watch' => 'Watch Video',
     'more' => 'More',
     
@@ -28,5 +28,5 @@ return [
 
     'copyright' => 'Copyright © 2016 Shenzhen QiYuan Technology Co. Ltd. 粤ICP备16095284号-1',
     'language' => 'Language',
-    'company_name' => 'Shenzhen Qi Yuan Science and Technology Co., Ltd',
+    'company_name' => 'Shenzhen QYsea Technology Co., Ltd',
 ];
