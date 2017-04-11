@@ -101,7 +101,7 @@
 
             </div>
 
-            <div class="recruit_info c-content text-center">       
+            <div class="recruit_info c-content">       
                 <p>*{{ trans('recruit.recruit_info') }}</p>
             </div>
         </div>
