@@ -28,7 +28,7 @@ return [
     'about_content_03_09' => '2017年1月，Fifish水下无人机在美国CES展会上与小米公司VR团队合作，发起了展会上水下无人机业内第一次VR体验展示！',
     'about_content_03_10' => '2017年1月，Yahoo、CNBC、Market Watch、Seeking Alpha、Arizona Republic，
 Washington Business Journal、Pacific Business News、New York Business Journal等权威海外媒体密集报道Fifish水下无人机。',
-    'about_content_03_11' => '2017年2月，Fifish水下无人机受邀参展中信集团双创会。',
+    'about_content_03_11' => '2017年3月，Fifish水下无人机受邀参展中信集团双创会。',
     'about_content_03_12' => '2017年3月，Fifish水下无人机受邀参展第二届武汉东湖创客会智能机器人专场。',
 
 ];

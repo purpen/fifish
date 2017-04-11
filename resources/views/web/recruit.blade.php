@@ -21,6 +21,12 @@
     p {
         font-family: PmingLiu
     }
+    .recruit_info {
+        margin-top: 30px;
+    }
+    .recruit_info p {
+        font-weight: bold;
+    }
 
 </style>
 @endsection
@@ -95,14 +101,9 @@
 
             </div>
 
-            <!--  
-            <div class="aboutus">       
-                <p>{{ trans('aboutme.info') }}</p>
-                <p>
-                    {{ trans('aboutme.info2') }}
-                </p>
+            <div class="recruit_info c-content text-center">       
+                <p>*{{ trans('recruit.recruit_info') }}</p>
             </div>
-            -->
         </div>
     </div>
 </div>

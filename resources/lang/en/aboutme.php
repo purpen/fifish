@@ -27,7 +27,7 @@ return [
 
     'about_content_03_09' => 'In January 2017, Fifish underwater drone in the CES 2017 show with Xiaomi company VR team, launched the underwater drone first VR experience show!',
     'about_content_03_10' => 'In January 2017, Yahoo, CNBC, Market Watch, Seeking Alpha, Arizona Republic, Washington Business Journal, Pacific Business News, New York Business Journal and other authoritative foreign media intensively reported Fifish underwater drone.',
-    'about_content_03_11' => 'In Feb 2017, Fifish underwater drone was debuted in the start-up exhibition of CITIC Group.',
+    'about_content_03_11' => 'In Mar 2017, Fifish underwater drone was debuted in the start-up exhibition of CITIC Group.',
     'about_content_03_12' => 'In Mar 2017, Fifish underwater drone was debuted in the Wuhan 2nd east lake AI robot exhibition.',
     
 ];

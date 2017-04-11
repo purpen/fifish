@@ -4,7 +4,7 @@
 <style type="text/css">
     .contact {
         float: left;
-        width: 500px;
+        width: 450px;
     }
 
     .c_name {
@@ -13,13 +13,33 @@
     }
     .map {
         float: left;
-        width: 200px;
-    }
-    .map img {
-        margin-top: 25px;
+        width: 490px;
+        height: 280px;
+        margin-top: 20px;
     }
 
 </style>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function initialize() {  
+      var mp = new BMap.Map('map');  
+      var point = new BMap.Point(114.064576,22.512459);
+      mp.centerAndZoom(point, 17);  
+      var marker = new BMap.Marker(point);  // 创建标注
+	    mp.addOverlay(marker);              // 将标注添加到地图中
+    }  
+       
+    function loadScript() {  
+      var script = document.createElement("script");  
+      script.src = "http://api.map.baidu.com/api?v=2.0&ak=N8Y86jHulT4qDOAmLb47vU7y&callback=initialize";//此为v2.0版本的引用方式  
+      // http://api.map.baidu.com/api?v=1.4&ak=N8Y86jHulT4qDOAmLb47vU7y&callback=initialize"; //此为v1.4版本及以前版本的引用方式  
+      document.body.appendChild(script);  
+    }  
+       
+    window.onload = loadScript; 
+</script>
 @endsection
 
 @section('content')
@@ -48,18 +68,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">     
+        <div class="col-lg-10 col-lg-offset-1">     
             <div class="contact">
                 <p class="c_name">{{ trans('menu.company_name') }}</p>
                 <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
                 <p>{{ trans('menu.tel') }}: +86-755-22662313</p>
-                <p>{{ trans('menu.email') }}: partner@QYsea.com</p>
-                <p>{{ trans('menu.recruit') }}: careers@QYsea.com</p>
+                <p>{{ trans('menu.email') }}: partner@qysea.com</p>
+                <p>{{ trans('menu.recruit') }}: careers@qysea.com</p>
 
             </div>
-            <div class="map">
-                <img src="/img/contact_map.jpg" width="400" />
-            </div>
+            <div class="map" id="map"></div>
         </div>
     </div>
 </div>

@@ -139,8 +139,8 @@
                     <span>{{ trans('menu.contactus') }}</span>
                 </h2>
                 <p>{{ trans('menu.tel') }}: +86-755-22662313</p>
-                <p>{{ trans('menu.recruit') }}: careers@QYsea.com</p>
-                <p>{{ trans('menu.email') }}: partner@QYsea.com</p>
+                <p>{{ trans('menu.email') }}: partner@qysea.com</p>
+                <p>{{ trans('menu.recruit') }}: careers@qysea.com</p>
                 <p>{{ trans('menu.address') }}: {{ trans('menu.addinfo') }}</p>
             
                 <div class="social-buttons">

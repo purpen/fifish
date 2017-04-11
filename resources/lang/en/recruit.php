@@ -52,5 +52,8 @@ return [
     'content_07_02' => '2.Daily technical services, provide on-site or long-distance debug to fix customer problems.',
     'content_07_03' => '3.Give training to dealer and distributor’s customer service team.',
     'content_07_04' => '',
+
+
+    'recruit_info' => 'Please send applicant email to careers@qysea.com and remark name / position application in email subjects.',
     
 ];

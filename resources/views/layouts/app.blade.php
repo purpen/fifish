@@ -109,6 +109,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/jquery.plugins.min.js') }}" type="text/javascript"></script>
     <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
+    @yield('script')
     <script type="text/javascript">
         $(function(){
             
