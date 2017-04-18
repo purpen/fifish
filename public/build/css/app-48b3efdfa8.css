@@ -387,16 +387,19 @@ p {
   margin: 30px auto;
   min-height: 550px;
 }
-#video-box {
+#video-box,
+#video-box-02 {
   margin-top: 90px;
 }
-#video-box .close {
+#video-box .close,
+#video-box-02 .close {
   position: absolute;
   right: -20px;
   top: 0px;
   z-index: 99;
 }
-#video-box video {
+#video-box video,
+#video-box-02 video {
   width: 100%;
   display: block;
 }

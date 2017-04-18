@@ -11,6 +11,7 @@
 
 @section('jquery')
     var video = document.getElementById('fifish-v1');
+    var video_02 = document.getElementById('fifish-v2');
     var mySwiper = new Swiper('.swiper-container', {
         loop: true,
         autoplay: 3000,
@@ -21,6 +22,13 @@
     $('#video-box').on('hide.bs.modal', function(e){
         mySwiper.startAutoplay();
         video.pause();
+    }).on('show.bs.modal', function(e){
+        mySwiper.stopAutoplay();
+    });
+
+    $('#video-box-02').on('hide.bs.modal', function(e){
+        mySwiper.startAutoplay();
+        video_02.pause();
     }).on('show.bs.modal', function(e){
         mySwiper.stopAutoplay();
     });
@@ -42,6 +50,9 @@
         <div class="swiper-slide cover" style="background-image: url( {{ url('/img/top02.jpg') }} )">
             <div class="container caption-right">
                 <h3>Fifish P4 <br><span>{{ trans('menu.event_fair') }}</span></h3>
+                <span class="btn btn-white btn-play" data-toggle="modal" data-target="#video-box-02">
+                    {{ trans('menu.watch') }} <small><i class="glyphicon glyphicon-play-circle"></i></small>
+                </span>
             </div>
         </div>
     </div>
@@ -161,7 +172,23 @@
                 <span class="sr-only">Close</span>
             </button>
             <video id="fifish-v1" controls="controls" webkit-playsinline>
-                <source src="https://s3.qysea.com/Fifish_final_2000kbps_720p.mp4" type="video/mp4">
+                <!-- old mp4 url: https://s3.qysea.com/Fifish_final_2000kbps_720p.mp4 -->
+                <source src="https://s3.taihuoniao.com/video/P4_PRODUCT_VIDEO.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="video-box-02">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <video id="fifish-v2" controls="controls" webkit-playsinline>
+                <source src="https://s3.taihuoniao.com/video/P4_GUIDELINE.mp4" type="video/mp4">
                     Your browser does not support the video tag.
             </video>
         </div>
