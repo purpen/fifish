@@ -83,7 +83,7 @@ class Asset extends Model
             } else {
                 // 视频等无缩略图
                 return (object)[
-                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath, '-wm.mp4'),
+                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath, 'wm.mp4'),
                     'small' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrsm'),
                     'large' => ImageUtil::qiniuViewUrl($this->filepath, 'vfr'),
                 ];
