@@ -81,9 +81,9 @@ class Asset extends Model
                     'adpic' => ImageUtil::qiniuViewUrl($this->filepath, 'plg'),
                 ];
             } else {
-                // 视频、文档等无缩略图
+                // 视频等无缩略图
                 return (object)[
-                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath, 'wm'),
+                    'srcfile' => ImageUtil::qiniuViewUrl($this->filepath, '-wm.mp4'),
                     'small' => ImageUtil::qiniuViewUrl($this->filepath, 'vfrsm'),
                     'large' => ImageUtil::qiniuViewUrl($this->filepath, 'vfr'),
                 ];
