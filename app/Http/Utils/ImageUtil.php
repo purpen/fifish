@@ -174,7 +174,14 @@ class ImageUtil
         $domain = $config['domains']['https'];
         
 		$asset_url = $domain.'/'.$key;
-		if (!is_null($style)){
+		if (!is_null($style)) {
+            // 视频文件截取后缀名
+            if ($style == '-wm.mp4') {
+                $split_key = split('.', $key);
+                $asset_url = $domain.'/'.$split_key[0].$style;
+                return $asset_url;
+            }
+            
 			$asset_url .= '!'.$style;
 		}
         
