@@ -176,9 +176,10 @@ class ImageUtil
 		$asset_url = $domain.'/'.$key;
 		if (!is_null($style)) {
             // 视频文件截取后缀名
-            if ($style == '-wm.mp4') {
-                $split_key = split('.', $key);
-                $asset_url = $domain.'/'.$split_key[0].$style;
+            if ($style == 'wm.mp4') {
+                $split_key = explode('.', $key);
+                $new_key = $split_key[0].'-'.$style;
+                $asset_url = implode('/', array($domain, $new_key));
                 return $asset_url;
             }
             
