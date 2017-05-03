@@ -2,7 +2,7 @@
 
 return [
 
-    'info' => 'Shenzhen QYsea Technology Co., Ltd is founded in 2016 and committed to applying innovative technology to open a new era for personal underwater exploration. Through internet operation of virtual reality, live video show and interactive community, we wish to build a marine content social platform, where the power and beauty of ocean can be shared, and people who possess the dream of ocean exploration can be inspired. ',
+    'info' => 'Shenzhen QYsea Technology Co., Ltd is committed to applying innovative technology to open a new era for personal underwater exploration. Through internet operation of virtual reality, live video show and interactive community, we wish to build a marine content social platform, where the power and beauty of ocean can be shared, and people who possess the dream of ocean exploration can be inspired. ',
     
     'info2' => 'QYsea focus on the development and breakthrough of key technology upon underwater robot. We own our core technology and algorithm, from key component design, robot system design, footage data collection, cloud data processing to terminal application.Through innovative technology, we hope to help people learn more about the ocean, and to push forward the exploration and protection of this utmost frontier of our blue planet.',
 
