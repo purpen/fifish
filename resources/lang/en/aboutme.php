@@ -11,8 +11,11 @@ return [
     'about_content_01_02' => 'QYsea focus on the development and breakthrough of key technology upon underwater robot. We own our core technology and algorithm, from key component design, robot system design, footage data collection, cloud data processing to terminal application.Through innovative technology, we hope to help people learn more about the ocean, and to push forward the exploration and protection of this utmost frontier of our blue planet.',
 
     'about_title_02' => 'Brand story',
-    'about_content_02_01' => 'The market for consumer aerial drone boomed by 2015, but consumer underwater drone market is still under development now. The ocean covers 71% of the Earth\'s surface, but less than 5% of it has been explored. With the underwater world remains a mystery, the market potential for underwater business is huge than ever before.',
-    'about_content_02_02' => 'In July 2015, with industrial development expectation and full love for ocean, QYsea founder and CEO Ms Zhang Chong led the team to kick off this consumer underwater drone project. QYsea would like to use advanced underwater technology to reveal the mysterious ocean,to let more people have chance to experience the beautiful underwater world, and to open a new era for personal underwater exploration.',
+    'about_content_02_01' => 'The history of human development is exploration history from ignorance to know.',
+    'about_content_02_02' => 'Human have arrived the end of the world, have overlook the furthest coastline, have gone to the universe. However, for the ocean which covers 71% of the Earth surface, human have only explored less than 5%.',
+    'about_content_02_03' => 'QYSEA team is formed by young people who love to explore and pursuit perfection , have the courage to subvert current status. They plan to use internet thinking, artificial intelligence and aesthetics of design science technology to subvert the existing underwater exploration product and market status . Target to provide new solution for the ocean exploration.',
+    'about_content_02_04' => 'In October 2015, QYSEA Technology Co., Ltd was founded in the young "design capital City " Shen zhen. QYSEA is a subversive innovation platform which focus on the ocean exploration. There is no rigid, no rules. Whimsical thinking can be respected and be practiced.There is nothing to do but to think.',
+    'about_content_02_05' => 'If you have a heart with innovation, if your body\'s hormones are burning, please join the QYSEA and let us work together to make our dream come true.',
 
     'about_title_03' => 'Milestone',
     'about_content_03_01' => 'At the end of 2015, QYsea completed China\'s first consumer underwater drone prototype, named as Fifish. ',

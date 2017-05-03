@@ -67,6 +67,9 @@
                 <div class="c-content">
                     <p>{{ trans('aboutme.about_content_02_01') }}</p>
                     <p>{{ trans('aboutme.about_content_02_02') }}</p>
+                    <p>{{ trans('aboutme.about_content_02_03') }}</p>
+                    <p>{{ trans('aboutme.about_content_02_04') }}</p>
+                    <p>{{ trans('aboutme.about_content_02_05') }}</p>
                 </div>
 
             </div>
