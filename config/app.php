@@ -101,7 +101,7 @@ return [
 	! and at least, add the ISO code in languages array.
 	*/
 
-	'languages' => ['en', 'zh-CN'],	
+	'languages' => ['zh-CN', 'en'],	
     
     /*
     |--------------------------------------------------------------------------
@@ -215,6 +215,11 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         App\Providers\WechatServiceProvider::class,
+
+        /**
+         * 通过IP获取城市
+         */
+        MyLukin\IP2City\ServiceProvider::class,
     ],
 
     /*
@@ -277,6 +282,11 @@ return [
          * Socialite (Facebook/Instagram/WeChat)
          */
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
+        /**
+         * 获取IP所在地
+         */
+        'IP2City' => MyLukin\IP2City\Facade::class,
     ],
 
 ];

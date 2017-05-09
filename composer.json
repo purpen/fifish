@@ -17,7 +17,8 @@
         "almasaeed2010/adminlte": "~2.0",
         "hightman/xunsearch": "*@beta",
         "doctrine/dbal": "v2.5.*",
-        "jpush/jpush": "v3.5.*"
+        "jpush/jpush": "v3.5.*",
+        "mylukin/ip2city": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
