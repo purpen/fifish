@@ -56,6 +56,13 @@ class WebController extends Controller
         return view('web.recruit', ['sub_menu_recruit' => 'active']);
     }
     
+    /**
+     * P4
+     */
+    public function p4()
+    {        
+        return view('web.p4', ['sub_menu_p4' => 'active']);
+    }
     
     
 }

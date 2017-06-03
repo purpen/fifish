@@ -68,6 +68,7 @@
                 <ul class="nav navbar-nav">
                     <!--<li><a href="{{ url('/home') }}">{{ trans('menu.home') }}</a></li>-->
                     <!--<li><a href="{{ url('/product') }}">{{ trans('menu.product') }}</a></li>-->
+                    <li><a href="{{ url('/p4') }}" class="{{ $sub_menu_p4 or '' }}">P4</a></li>
                     <li><a href="{{ url('/news') }}" class="{{ $sub_menu_news or '' }}">{{ trans('menu.media') }}</a></li>
                     <li><a href="{{ url('/recruit') }}" class="{{ $sub_menu_recruit or '' }}">{{ trans('menu.recruit') }}</a></li>
                     <li><a href="{{ url('/aboutus') }}" class="{{ $sub_menu_aboutus or '' }}">{{ trans('menu.aboutus') }}</a></li>

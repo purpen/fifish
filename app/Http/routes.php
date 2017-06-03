@@ -25,6 +25,8 @@ Route::group(['middleware' => ['web'], 'domain' => env('APP_DOMAIN')], function(
     Route::get('/avatar', 'HomeController@avatar');
     
     Route::get('/news', 'WebController@news');
+
+    Route::get('/p4', 'WebController@p4');
     /**
      * 静态文件
      */
