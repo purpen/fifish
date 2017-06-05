@@ -129,8 +129,9 @@ p.sub-title {
 }
 
 .p4-07 .tx .item {
+  width: 120px;
   float: left;
-  margin: 20px 70px 20px 70px;
+  margin: 20px 55px 20px 55px;
 }
 .p4-07 .tx .item p {
   font-size: 2rem;
