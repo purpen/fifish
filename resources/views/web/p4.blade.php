@@ -141,6 +141,7 @@ p.sub-title {
 .p4-08 {
   margin: 0 auto;
   clear: both;
+  margin-bottom: -20px;
 }
 .albums {
   height: 500px;
