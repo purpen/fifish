@@ -36,6 +36,7 @@
 p.title {
   letter-spacing: 3px;
   font-size: 5rem;
+  font-weight: 200;
 }
 p.sub-title {
   letter-spacing: 2px;
