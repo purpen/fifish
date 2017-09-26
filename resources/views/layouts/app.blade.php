@@ -39,6 +39,10 @@
         .dropdown-menu > li > a {
             padding: 0 5px;
         }
+
+        .navbar-brand img{
+            width: 70%;
+        }
         
         @yield('customize_css')
     </style>
@@ -59,7 +63,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/img/fifish_logo.png" />
+                    <img src="/img/qysea_logo.png" />
                 </a>
             </div>
 
